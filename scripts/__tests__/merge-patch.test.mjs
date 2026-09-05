@@ -53,3 +53,146 @@ test('a patch that changes nothing is safe to apply twice', () => {
     hero: { title: 'B' },
   })
 })
+
+// Arrays whose items carry an id are diffed by that id, not by position. This
+// is what keeps a one-word edit small enough to travel in a URL, and what makes
+// the resulting pull request show one line instead of a rewritten page.
+
+function page() {
+  return {
+    schemaVersion: 1,
+    hero: { title: 'ORCID is for…' },
+    audiences: [
+      {
+        id: 'researchers',
+        label: 'Researchers',
+        background: 'images/bg.png',
+        intro: 'Intro one',
+        features: [
+          {
+            id: 'uniquely-yours',
+            icon: 'images/a.png',
+            title: 'Uniquely Yours',
+            body: 'A',
+          },
+          {
+            id: 'portable',
+            icon: 'images/b.png',
+            title: 'Portable',
+            body: 'B',
+          },
+        ],
+      },
+      {
+        id: 'publishers',
+        label: 'Publishers',
+        background: 'images/bg.png',
+        intro: 'Intro two',
+        features: [
+          {
+            id: 'know-authors',
+            icon: 'images/c.png',
+            title: 'Know authors',
+            body: 'C',
+          },
+          {
+            id: 'portable',
+            icon: 'images/b.png',
+            title: 'Portable',
+            body: 'B',
+          },
+        ],
+      },
+    ],
+  }
+}
+
+test('editing one feature title patches only that feature', () => {
+  const before = page()
+  const after = page()
+  after.audiences[0].features[0].title = 'Uniquely yours, always'
+
+  const patch = diff(before, after)
+  assert.deepEqual(patch, {
+    audiences: {
+      researchers: {
+        features: { 'uniquely-yours': { title: 'Uniquely yours, always' } },
+      },
+    },
+  })
+  assert.deepEqual(apply(before, patch), after)
+})
+
+test('a small edit stays small enough to travel in a URL', () => {
+  const before = page()
+  const after = page()
+  after.audiences[1].intro = 'A shorter introduction.'
+
+  const encoded = encodeURIComponent(JSON.stringify(diff(before, after)))
+  assert.ok(encoded.length < 500, `patch was ${encoded.length} characters`)
+})
+
+test('reordering audiences is recorded without resending their content', () => {
+  const before = page()
+  const after = page()
+  after.audiences.reverse()
+
+  const patch = diff(before, after)
+  assert.deepEqual(patch, {
+    audiences: { __order: ['publishers', 'researchers'] },
+  })
+  assert.deepEqual(apply(before, patch), after)
+})
+
+test('adding and removing an audience round trips', () => {
+  const before = page()
+  const after = page()
+  after.audiences.pop()
+  after.audiences.push({
+    id: 'funders',
+    label: 'Funders',
+    background: 'images/bg.png',
+    intro: 'Intro three',
+    features: [
+      {
+        id: 'know-researchers',
+        icon: 'images/d.png',
+        title: 'Know researchers',
+        body: 'D',
+      },
+      { id: 'impact', icon: 'images/e.png', title: 'Impact', body: 'E' },
+    ],
+  })
+
+  const patch = diff(before, after)
+  assert.equal(patch.audiences.publishers, null)
+  assert.equal(patch.audiences.funders.label, 'Funders')
+  assert.deepEqual(apply(before, patch), after)
+})
+
+test('the same feature id under two audiences is patched independently', () => {
+  const before = page()
+  const after = page()
+  after.audiences[1].features[1].body = 'Only the publishers copy changes'
+
+  const patch = diff(before, after)
+  assert.equal(patch.audiences.researchers, undefined)
+  assert.deepEqual(apply(before, patch).audiences[0], before.audiences[0])
+  assert.equal(
+    apply(before, patch).audiences[1].features[1].body,
+    'Only the publishers copy changes'
+  )
+})
+
+test('an order that forgets an id keeps it rather than dropping it', () => {
+  const before = page()
+  const patched = apply(before, { audiences: { __order: ['publishers'] } })
+  assert.deepEqual(
+    patched.audiences.map((a) => a.id),
+    ['publishers', 'researchers']
+  )
+})
+
+test('an unchanged page still produces an empty patch', () => {
+  assert.deepEqual(diff(page(), page()), {})
+})
