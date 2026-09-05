@@ -18,10 +18,9 @@ logo_url: https://orcid.org/assets/vectors/orcid.logo.icon.svg
 media_folder: content/images
 public_folder: images
 
-# The media library is read-only in this demo: images are seeded from the live
-# site and new uploads cannot travel in a proposal.
-media_library:
-  name: default
+# Uploading a new image is deliberately not part of this demo: a proposal
+# travels as JSON in a GitHub issue and cannot carry a binary. Editors pick
+# from the images already in the repository.
 
 collections:
   - name: homepage
