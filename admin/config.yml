@@ -22,14 +22,18 @@ public_folder: images
 # travels as JSON in a GitHub issue and cannot carry a binary. Editors pick
 # from the images already in the repository.
 
+# The collections block below is generated from schema/catalogue.json by
+# `npm run gen`. Editing it by hand is pointless: CI regenerates it and fails on
+# any difference. Change the catalogue instead, which also updates the JSON
+# Schema and the renderer's types in the same commit.
+# BEGIN GENERATED — scripts/gen/cms-config.mjs from schema/catalogue.json.
+# Do not edit inside the markers by hand. Run `npm run gen` after changing
+# the catalogue; CI fails when the committed block and the catalogue differ.
 collections:
   - name: homepage
     label: Homepage
     label_singular: Homepage
-    description: >-
-      The content of orcid.org. Edit the English text here. Translations are
-      handled separately and are matched to each item by its ID, so changing an
-      ID discards that item's translations.
+    description: The content of orcid.org. Edit the English text here. Translations are handled separately and are matched to each item by its ID, so changing an ID discards that item’s translations.
     format: json
     files:
       - name: home
@@ -39,120 +43,1273 @@ collections:
           - name: schemaVersion
             label: Schema version
             widget: hidden
+            default: 2
+          - name: catalogueVersion
+            label: Catalogue version
+            widget: hidden
             default: 1
-
-          - name: hero
-            label: Hero
+          - name: page
+            label: Page
             widget: object
             fields:
               - name: title
-                label: Heading
-                widget: string
-                hint: The first line on the page.
-
-          - name: audiences
-            label: Audience tabs
-            label_singular: Audience
-            widget: list
-            min: 1
-            max: 8
-            collapsed: true
-            summary: '{{fields.label}}'
-            fields:
-              - name: id
-                label: ID
+                label: Page heading
                 widget: string
                 pattern:
-                  ['^[a-z0-9-]+$', 'Lowercase letters, digits and hyphens only']
-                hint: >-
-                  Permanent translation key. Changing it discards every
-                  translation of this tab.
-              - name: label
-                label: Tab label
+                  [
+                    '^[^\n\r]{1,120}$',
+                    'One line, no line breaks, max 120 characters',
+                  ]
+                hint: The one h1 on the page. Every section heading sits under it.
+              - name: description
+                label: Search engine description
                 widget: string
-              - name: background
-                label: Background image
-                widget: image
-                allow_multiple: false
-                choose_url: false
-              - name: intro
-                label: Introduction
-                widget: text
-                hint: >-
-                  One paragraph. **bold** and [text](https://…) links are
-                  supported; nothing else is.
-              - name: features
-                label: Features
-                label_singular: Feature
-                widget: list
-                min: 2
-                max: 2
-                collapsed: true
-                summary: '{{fields.title}}'
+                pattern:
+                  [
+                    '^[^\n\r]{1,200}$',
+                    'One line, no line breaks, max 200 characters',
+                  ]
+                hint: One sentence, shown in search results and when the page is shared.
+          - name: sections
+            label: Sections
+            label_singular: Section
+            widget: list
+            typeKey: type
+            min: 1
+            max: 24
+            allow_reorder: true
+            collapsed: true
+            minimize_collapsed: false
+            summary: '{{fields.id}}'
+            hint: The page from top to bottom. Drag a section to move it.
+            types:
+              - name: audience-selector
+                label: Audience selector
+                widget: object
+                summary: Audience selector — {{title}}
                 fields:
-                  - name: id
-                    label: ID
-                    widget: string
-                    pattern:
-                      [
-                        '^[a-z0-9-]+$',
-                        'Lowercase letters, digits and hyphens only',
-                      ]
-                  - name: icon
-                    label: Icon
-                    widget: image
-                    allow_multiple: false
-                    choose_url: false
                   - name: title
-                    label: Title
+                    label: Heading
                     widget: string
-                  - name: body
-                    label: Text
-                    widget: text
-
-          - name: featuredNews
-            label: Featured news
-            widget: object
-            fields:
-              - name: kicker
-                label: Kicker
-                widget: string
-              - name: title
-                label: Heading
-                widget: string
-              - name: body
-                label: Text
-                widget: text
-              - name: vimeoId
-                label: Vimeo video ID
-                widget: string
-                pattern: ['^[0-9]+$', 'Digits only, for example 1198760040']
-                hint: Only the numeric ID from the Vimeo URL.
-
-          - name: integrate
-            label: Closing section
-            widget: object
-            fields:
-              - name: title
-                label: Heading
-                widget: string
-              - name: paragraphs
-                label: Paragraphs
-                label_singular: Paragraph
-                widget: list
-                min: 1
-                max: 5
-                collapsed: true
-                summary: '{{fields.id}}'
-                fields:
+                    pattern:
+                      [
+                        '^[^\n\r]{1,120}$',
+                        'One line, no line breaks, max 120 characters',
+                      ]
+                    required: false
+                    hint: Leave empty when the page title above already says it.
+                  - name: variant
+                    label: How it displays
+                    widget: select
+                    options:
+                      - label: Tabs with background photo (recommended)
+                        value: tabs-photo
+                      - label: Tabs, flat brand colour
+                        value: tabs-flat
+                      - label: Stacked list — every audience always visible
+                        value: stacked
+                    default: tabs-photo
+                    hint: 'Tabs with background photo (recommended): Matches orcid.org today. Becomes an accordion below 1024px. Stacked list — every audience always visible: Best for search engines and for screen readers. No interaction needed.'
+                  - name: audiences
+                    label: Audiences
+                    label_singular: Audience
+                    widget: list
+                    min: 1
+                    max: 8
+                    collapsed: true
+                    minimize_collapsed: false
+                    summary: '{{label}}'
+                    allow_add: true
+                    allow_remove: true
+                    allow_reorder: true
+                    fields:
+                      - name: label
+                        label: Tab label
+                        widget: string
+                        pattern:
+                          [
+                            '^[^\n\r]{1,60}$',
+                            'One line, no line breaks, max 60 characters',
+                          ]
+                        hint: Short. It has to fit a tab across six of them, in German.
+                      - name: intro
+                        label: Introduction
+                        widget: text
+                        hint: '**bold** and [text](https://…) links are supported; nothing else is. Up to 800 characters.'
+                      - name: background
+                        label: Background photo
+                        widget: object
+                        collapsed: true
+                        required: false
+                        fields:
+                          - name: src
+                            label: File
+                            widget: image
+                            allow_multiple: false
+                            choose_url: false
+                            media_folder: /content/images
+                            public_folder: images
+                          - name: focalPoint
+                            label: Keep this part in view
+                            widget: select
+                            options:
+                              - label: Middle
+                                value: center
+                              - label: Top
+                                value: top
+                              - label: Bottom
+                                value: bottom
+                              - label: Left in most languages, right in Arabic
+                                value: start
+                              - label: Right in most languages, left in Arabic
+                                value: end
+                            default: center
+                            required: false
+                            hint: Which part of the picture stays in view when it is cropped.
+                      - name: features
+                        label: Features
+                        label_singular: Feature
+                        widget: list
+                        min: 1
+                        max: 4
+                        collapsed: true
+                        minimize_collapsed: false
+                        summary: '{{title}}'
+                        allow_reorder: true
+                        fields:
+                          - name: title
+                            label: Title
+                            widget: string
+                            pattern:
+                              [
+                                '^[^\n\r]{1,80}$',
+                                'One line, no line breaks, max 80 characters',
+                              ]
+                            required: false
+                          - name: body
+                            label: Text
+                            widget: text
+                            hint: '**bold** and [text](https://…) links are supported; nothing else is. Up to 500 characters.'
+                          - name: icon
+                            label: Icon
+                            widget: object
+                            collapsed: true
+                            required: false
+                            hint: Small decorative icon. The title carries the meaning, so no description is collected.
+                            fields:
+                              - name: src
+                                label: File
+                                widget: image
+                                allow_multiple: false
+                                choose_url: false
+                                media_folder: /content/images
+                                public_folder: images
+                              - name: focalPoint
+                                label: Keep this part in view
+                                widget: select
+                                options:
+                                  - label: Middle
+                                    value: center
+                                  - label: Top
+                                    value: top
+                                  - label: Bottom
+                                    value: bottom
+                                  - label: Left in most languages, right in Arabic
+                                    value: start
+                                  - label: Right in most languages, left in Arabic
+                                    value: end
+                                default: center
+                                required: false
+                                hint: Which part of the picture stays in view when it is cropped.
+                          - name: link
+                            label: Link
+                            widget: object
+                            required: false
+                            fields:
+                              - name: label
+                                label: Link text
+                                widget: string
+                                pattern:
+                                  [
+                                    '^[^\n\r]{1,80}$',
+                                    'One line, no line breaks, max 80 characters',
+                                  ]
+                              - name: href
+                                label: Address
+                                widget: string
+                                pattern:
+                                  [
+                                    '^(https://[^\s]+|mailto:[^\s@]+@[^\s@]+)$',
+                                    'A full https:// address, or mailto:someone@example.org',
+                                  ]
+                                hint: Must point to orcid.org or one of its subdomains, or to youtube.com or vimeo.com. Anything else is rejected when the change is checked.
+                          - name: id
+                            label: ID
+                            widget: string
+                            pattern:
+                              [
+                                '^[a-z][a-z0-9-]{0,59}$',
+                                'Lowercase letters, digits and hyphens; must start with a letter',
+                              ]
+                            hint: Permanent translation key. Changing it discards every translation of this section.
+                        required: false
+                      - name: id
+                        label: ID
+                        widget: string
+                        pattern:
+                          [
+                            '^[a-z][a-z0-9-]{0,59}$',
+                            'Lowercase letters, digits and hyphens; must start with a letter',
+                          ]
+                        hint: Permanent translation key. Changing it discards every translation of this section.
+                    required: false
+                  - name: layout
+                    label: Layout
+                    widget: object
+                    collapsed: true
+                    fields:
+                      - name: span
+                        label: Width
+                        widget: select
+                        options:
+                          - label: Full width
+                            value: full
+                          - label: Half width (pairs with the next half-width section)
+                            value: half
+                        default: full
+                        required: false
+                        hint: Half-width sections pair with the very next half-width section on wide screens.
+                      - name: spacing
+                        label: Space around it
+                        widget: select
+                        options:
+                          - label: Tight
+                            value: compact
+                          - label: Normal
+                            value: normal
+                          - label: Roomy
+                            value: loose
+                        default: normal
+                        required: false
+                      - name: tone
+                        label: Background
+                        widget: select
+                        options:
+                          - label: White
+                            value: default
+                          - label: Light grey
+                            value: surface
+                          - label: Dark blue (white text)
+                            value: brand-dark
+                          - label: Pale green
+                            value: brand-tint
+                        default: default
+                        required: false
+                        hint: Each choice is a tested background and text colour pair. Colours are not editable individually.
                   - name: id
                     label: ID
                     widget: string
                     pattern:
                       [
-                        '^[a-z0-9-]+$',
-                        'Lowercase letters, digits and hyphens only',
+                        '^[a-z][a-z0-9-]{0,59}$',
+                        'Lowercase letters, digits and hyphens; must start with a letter',
                       ]
+                    hint: Permanent translation key. Changing it discards every translation of this section.
+              - name: media
+                label: Video or picture with text
+                widget: object
+                summary: Media — {{title}}
+                fields:
+                  - name: title
+                    label: Heading
+                    widget: string
+                    pattern:
+                      [
+                        '^[^\n\r]{1,200}$',
+                        'One line, no line breaks, max 200 characters',
+                      ]
+                    required: false
+                  - name: variant
+                    label: How it displays
+                    widget: select
+                    options:
+                      - label: Text first, media beside it
+                        value: media-end
+                      - label: Text above, media full width below
+                        value: media-below
+                      - label: Media on its own
+                        value: media-only
+                    default: media-end
+                    hint: 'Text first, media beside it: On wide screens the media sits to the side. On phones it always follows the text.'
+                  - name: kicker
+                    label: Kicker
+                    widget: string
+                    pattern:
+                      [
+                        '^[^\n\r]{1,40}$',
+                        'One line, no line breaks, max 40 characters',
+                      ]
+                    required: false
+                    hint: A short label above the heading, such as FEATURED NEWS.
                   - name: body
                     label: Text
                     widget: text
+                    required: false
+                    hint: '**bold** and [text](https://…) links are supported; nothing else is. Up to 1200 characters.'
+                  - name: mediaKind
+                    label: What kind of media
+                    widget: select
+                    options:
+                      - label: A video
+                        value: video
+                      - label: A picture
+                        value: image
+                    default: video
+                  - name: video
+                    label: Video
+                    widget: object
+                    required: false
+                    hint: Required when "What kind of media" is "A video".
+                    fields:
+                      - name: provider
+                        label: Where the video lives
+                        widget: select
+                        options:
+                          - label: Vimeo
+                            value: vimeo
+                          - label: YouTube
+                            value: youtube
+                      - name: videoId
+                        label: Video ID
+                        widget: string
+                        pattern:
+                          [
+                            '^([0-9]{1,20}|[A-Za-z0-9_-]{11})$',
+                            'The ID only. Vimeo: 1198760040, YouTube: 1rZvFGLe7bg',
+                          ]
+                        hint: "The provider's ID only, never the whole web address. Vimeo: 1198760040. YouTube: 1rZvFGLe7bg."
+                      - name: title
+                        label: Video title
+                        widget: string
+                        pattern:
+                          [
+                            '^[^\n\r]{1,120}$',
+                            'One line, no line breaks, max 120 characters',
+                          ]
+                        hint: The video's own title. Screen readers announce this instead of 'iframe'.
+                      - name: aspectRatio
+                        label: Shape
+                        widget: select
+                        options:
+                          - label: Widescreen (16:9)
+                            value: '16:9'
+                          - label: Classic (4:3)
+                            value: '4:3'
+                          - label: Square
+                            value: '1:1'
+                          - label: Tall (9:16)
+                            value: '9:16'
+                        default: '16:9'
+                        required: false
+                      - name: durationSeconds
+                        label: Length in seconds
+                        widget: number
+                        value_type: int
+                        min: 1
+                        max: 36000
+                        required: false
+                      - name: startAt
+                        label: Start at (seconds)
+                        widget: number
+                        value_type: int
+                        min: 0
+                        max: 36000
+                        required: false
+                      - name: poster
+                        label: Still image
+                        widget: object
+                        collapsed: false
+                        hint: Shown before anyone presses play, and to visitors who decline cookies.
+                        fields:
+                          - name: src
+                            label: File
+                            widget: image
+                            allow_multiple: false
+                            choose_url: false
+                            media_folder: /content/images
+                            public_folder: images
+                          - name: focalPoint
+                            label: Keep this part in view
+                            widget: select
+                            options:
+                              - label: Middle
+                                value: center
+                              - label: Top
+                                value: top
+                              - label: Bottom
+                                value: bottom
+                              - label: Left in most languages, right in Arabic
+                                value: start
+                              - label: Right in most languages, left in Arabic
+                                value: end
+                            default: center
+                            required: false
+                            hint: Which part of the picture stays in view when it is cropped.
+                          - name: alt
+                            label: Describe this picture
+                            widget: string
+                            pattern:
+                              [
+                                '^[^\n\r]{1,150}$',
+                                'One line, no line breaks, max 150 characters',
+                              ]
+                            hint: What would you say if you were reading the page aloud? Do not start with "image of". Not the file name, and not a repeat of the words next to the picture.
+                          - name: containsText
+                            label: This picture has words in it
+                            widget: boolean
+                            default: false
+                            required: false
+                            hint: Words inside a picture cannot be translated or resized, so the description must repeat them.
+                      - name: captions
+                        label: Captions
+                        widget: object
+                        fields:
+                          - name: available
+                            label: The video has captions
+                            widget: boolean
+                            default: true
+                            required: false
+                            hint: ORCID does not publish videos without captions. This cannot be unticked.
+                          - name: locales
+                            label: Caption languages
+                            label_singular: Language
+                            widget: list
+                            min: 1
+                            max: 30
+                            collapsed: true
+                            minimize_collapsed: false
+                            summary: '{{fields.value}}'
+                            field:
+                              name: value
+                              label: Language
+                              widget: string
+                              pattern:
+                                [
+                                  '^[a-z]{2}(-[A-Za-z0-9]{2,8})?$',
+                                  'Must look like Language tag, e.g. en',
+                                ]
+                            hint: Must include en.
+                          - name: autoGenerated
+                            label: These are auto-generated captions
+                            widget: boolean
+                            default: false
+                            required: false
+                            hint: Auto-generated captions do not meet WCAG 1.2.2. Ticking this blocks publishing.
+                      - name: audioDescription
+                        label: Audio description
+                        widget: object
+                        fields:
+                          - name: status
+                            label: Audio description
+                            widget: select
+                            options:
+                              - label: The video has an audio-description track
+                                value: described-track
+                              - label: No audio description is needed — explain why below
+                                value: not-needed
+                          - name: justification
+                            label: Why no audio description is needed
+                            widget: text
+                            required: false
+                            hint: 'A reviewer reads this. Example: ''the narrator reads every on-screen label aloud''. For reviewers only. Never shown on the page and never translated. Required when "Audio description" is "No audio description is needed — explain why below".'
+                      - name: transcript
+                        label: Transcript
+                        widget: text
+                        required: false
+                        hint: The full spoken content. Shown under the player in both cookie states. A video cannot be released to production without one. **bold** and [text](https://…) links are supported; nothing else is. Up to 20000 characters.
+                  - name: image
+                    label: Picture
+                    widget: object
+                    collapsed: false
+                    required: false
+                    hint: Required when "What kind of media" is "A picture".
+                    fields:
+                      - name: src
+                        label: File
+                        widget: image
+                        allow_multiple: false
+                        choose_url: false
+                        media_folder: /content/images
+                        public_folder: images
+                      - name: focalPoint
+                        label: Keep this part in view
+                        widget: select
+                        options:
+                          - label: Middle
+                            value: center
+                          - label: Top
+                            value: top
+                          - label: Bottom
+                            value: bottom
+                          - label: Left in most languages, right in Arabic
+                            value: start
+                          - label: Right in most languages, left in Arabic
+                            value: end
+                        default: center
+                        required: false
+                        hint: Which part of the picture stays in view when it is cropped.
+                      - name: alt
+                        label: Describe this picture
+                        widget: string
+                        pattern:
+                          [
+                            '^[^\n\r]{1,150}$',
+                            'One line, no line breaks, max 150 characters',
+                          ]
+                        hint: What would you say if you were reading the page aloud? Do not start with "image of". Not the file name, and not a repeat of the words next to the picture.
+                      - name: containsText
+                        label: This picture has words in it
+                        widget: boolean
+                        default: false
+                        required: false
+                        hint: Words inside a picture cannot be translated or resized, so the description must repeat them.
+                  - name: actions
+                    label: Buttons
+                    label_singular: Button
+                    widget: list
+                    min: 1
+                    max: 2
+                    collapsed: true
+                    minimize_collapsed: false
+                    summary: '{{label}}'
+                    fields:
+                      - name: label
+                        label: Button text
+                        widget: string
+                        pattern:
+                          [
+                            '^[^\n\r]{1,60}$',
+                            'One line, no line breaks, max 60 characters',
+                          ]
+                      - name: href
+                        label: Address
+                        widget: string
+                        pattern:
+                          [
+                            '^(https://[^\s]+|mailto:[^\s@]+@[^\s@]+)$',
+                            'A full https:// address, or mailto:someone@example.org',
+                          ]
+                        hint: Must point to orcid.org or one of its subdomains, or to youtube.com or vimeo.com. Anything else is rejected when the change is checked.
+                      - name: style
+                        label: Appearance
+                        widget: select
+                        options:
+                          - label: Solid button
+                            value: primary
+                          - label: Outlined button
+                            value: secondary
+                        default: primary
+                        required: false
+                      - name: id
+                        label: ID
+                        widget: string
+                        pattern:
+                          [
+                            '^[a-z][a-z0-9-]{0,59}$',
+                            'Lowercase letters, digits and hyphens; must start with a letter',
+                          ]
+                        hint: Permanent translation key. Changing it discards every translation of this section.
+                    required: false
+                  - name: layout
+                    label: Layout
+                    widget: object
+                    collapsed: true
+                    fields:
+                      - name: span
+                        label: Width
+                        widget: select
+                        options:
+                          - label: Full width
+                            value: full
+                          - label: Half width (pairs with the next half-width section)
+                            value: half
+                        default: full
+                        required: false
+                        hint: Half-width sections pair with the very next half-width section on wide screens.
+                      - name: spacing
+                        label: Space around it
+                        widget: select
+                        options:
+                          - label: Tight
+                            value: compact
+                          - label: Normal
+                            value: normal
+                          - label: Roomy
+                            value: loose
+                        default: normal
+                        required: false
+                      - name: tone
+                        label: Background
+                        widget: select
+                        options:
+                          - label: White
+                            value: default
+                          - label: Light grey
+                            value: surface
+                          - label: Dark blue (white text)
+                            value: brand-dark
+                          - label: Pale green
+                            value: brand-tint
+                        default: default
+                        required: false
+                        hint: Each choice is a tested background and text colour pair. Colours are not editable individually.
+                  - name: id
+                    label: ID
+                    widget: string
+                    pattern:
+                      [
+                        '^[a-z][a-z0-9-]{0,59}$',
+                        'Lowercase letters, digits and hyphens; must start with a letter',
+                      ]
+                    hint: Permanent translation key. Changing it discards every translation of this section.
+              - name: feature-list
+                label: Feature list
+                widget: object
+                summary: Features — {{title}}
+                fields:
+                  - name: title
+                    label: Heading
+                    widget: string
+                    pattern:
+                      [
+                        '^[^\n\r]{1,200}$',
+                        'One line, no line breaks, max 200 characters',
+                      ]
+                    required: false
+                  - name: variant
+                    label: How it displays
+                    widget: select
+                    options:
+                      - label: Cards
+                        value: cards
+                      - label: Plain columns
+                        value: columns
+                      - label: Tinted panel, one per row
+                        value: panel
+                      - label: Checklist
+                        value: checklist
+                    default: cards
+                    hint: 'Tinted panel, one per row: Every feature needs a title in this layout. Checklist: Every feature needs a title in this layout.'
+                  - name: intro
+                    label: Introduction
+                    widget: text
+                    required: false
+                    hint: '**bold** and [text](https://…) links are supported; nothing else is. Up to 600 characters.'
+                  - name: columns
+                    label: How many across
+                    widget: select
+                    options:
+                      - label: Two across
+                        value: 2
+                      - label: Three across
+                        value: 3
+                    default: 3
+                    required: false
+                    hint: On wide screens only. Phones always show one.
+                  - name: items
+                    label: Features
+                    label_singular: Feature
+                    widget: list
+                    min: 1
+                    max: 9
+                    collapsed: true
+                    minimize_collapsed: false
+                    summary: '{{title}}'
+                    allow_reorder: true
+                    fields:
+                      - name: title
+                        label: Title
+                        widget: string
+                        pattern:
+                          [
+                            '^[^\n\r]{1,80}$',
+                            'One line, no line breaks, max 80 characters',
+                          ]
+                        required: false
+                      - name: body
+                        label: Text
+                        widget: text
+                        hint: '**bold** and [text](https://…) links are supported; nothing else is. Up to 500 characters.'
+                      - name: icon
+                        label: Icon
+                        widget: object
+                        collapsed: true
+                        required: false
+                        hint: Small decorative icon. The title carries the meaning, so no description is collected.
+                        fields:
+                          - name: src
+                            label: File
+                            widget: image
+                            allow_multiple: false
+                            choose_url: false
+                            media_folder: /content/images
+                            public_folder: images
+                          - name: focalPoint
+                            label: Keep this part in view
+                            widget: select
+                            options:
+                              - label: Middle
+                                value: center
+                              - label: Top
+                                value: top
+                              - label: Bottom
+                                value: bottom
+                              - label: Left in most languages, right in Arabic
+                                value: start
+                              - label: Right in most languages, left in Arabic
+                                value: end
+                            default: center
+                            required: false
+                            hint: Which part of the picture stays in view when it is cropped.
+                      - name: link
+                        label: Link
+                        widget: object
+                        required: false
+                        fields:
+                          - name: label
+                            label: Link text
+                            widget: string
+                            pattern:
+                              [
+                                '^[^\n\r]{1,80}$',
+                                'One line, no line breaks, max 80 characters',
+                              ]
+                          - name: href
+                            label: Address
+                            widget: string
+                            pattern:
+                              [
+                                '^(https://[^\s]+|mailto:[^\s@]+@[^\s@]+)$',
+                                'A full https:// address, or mailto:someone@example.org',
+                              ]
+                            hint: Must point to orcid.org or one of its subdomains, or to youtube.com or vimeo.com. Anything else is rejected when the change is checked.
+                      - name: id
+                        label: ID
+                        widget: string
+                        pattern:
+                          [
+                            '^[a-z][a-z0-9-]{0,59}$',
+                            'Lowercase letters, digits and hyphens; must start with a letter',
+                          ]
+                        hint: Permanent translation key. Changing it discards every translation of this section.
+                    required: false
+                  - name: layout
+                    label: Layout
+                    widget: object
+                    collapsed: true
+                    fields:
+                      - name: span
+                        label: Width
+                        widget: select
+                        options:
+                          - label: Full width
+                            value: full
+                          - label: Half width (pairs with the next half-width section)
+                            value: half
+                        default: full
+                        required: false
+                        hint: Half-width sections pair with the very next half-width section on wide screens.
+                      - name: spacing
+                        label: Space around it
+                        widget: select
+                        options:
+                          - label: Tight
+                            value: compact
+                          - label: Normal
+                            value: normal
+                          - label: Roomy
+                            value: loose
+                        default: normal
+                        required: false
+                      - name: tone
+                        label: Background
+                        widget: select
+                        options:
+                          - label: White
+                            value: default
+                          - label: Light grey
+                            value: surface
+                          - label: Dark blue (white text)
+                            value: brand-dark
+                          - label: Pale green
+                            value: brand-tint
+                        default: default
+                        required: false
+                        hint: Each choice is a tested background and text colour pair. Colours are not editable individually.
+                  - name: id
+                    label: ID
+                    widget: string
+                    pattern:
+                      [
+                        '^[a-z][a-z0-9-]{0,59}$',
+                        'Lowercase letters, digits and hyphens; must start with a letter',
+                      ]
+                    hint: Permanent translation key. Changing it discards every translation of this section.
+              - name: quick-links
+                label: Quick links
+                widget: object
+                summary: Quick links — {{title}}
+                fields:
+                  - name: title
+                    label: Heading
+                    widget: string
+                    pattern:
+                      [
+                        '^[^\n\r]{1,120}$',
+                        'One line, no line breaks, max 120 characters',
+                      ]
+                    hint: Names this group of links for screen readers, even when hidden.
+                  - name: variant
+                    label: How it displays
+                    widget: select
+                    options:
+                      - label: One bar across the page
+                        value: bar
+                      - label: Cards
+                        value: grid
+                      - label: Vertical list with descriptions
+                        value: list
+                    default: bar
+                  - name: titleHidden
+                    label: Hide the heading visually
+                    widget: boolean
+                    default: true
+                    required: false
+                  - name: links
+                    label: Links
+                    label_singular: Link
+                    widget: list
+                    min: 2
+                    max: 8
+                    collapsed: true
+                    minimize_collapsed: false
+                    summary: '{{label}}'
+                    allow_reorder: true
+                    fields:
+                      - name: label
+                        label: Link text
+                        widget: string
+                        pattern:
+                          [
+                            '^[^\n\r]{1,60}$',
+                            'One line, no line breaks, max 60 characters',
+                          ]
+                      - name: href
+                        label: Address
+                        widget: string
+                        pattern:
+                          [
+                            '^(https://[^\s]+|mailto:[^\s@]+@[^\s@]+)$',
+                            'A full https:// address, or mailto:someone@example.org',
+                          ]
+                        hint: Must point to orcid.org or one of its subdomains, or to youtube.com or vimeo.com. Anything else is rejected when the change is checked.
+                      - name: description
+                        label: Short description
+                        widget: string
+                        pattern:
+                          [
+                            '^[^\n\r]{1,120}$',
+                            'One line, no line breaks, max 120 characters',
+                          ]
+                        required: false
+                      - name: icon
+                        label: Icon
+                        widget: object
+                        collapsed: true
+                        required: false
+                        fields:
+                          - name: src
+                            label: File
+                            widget: image
+                            allow_multiple: false
+                            choose_url: false
+                            media_folder: /content/images
+                            public_folder: images
+                          - name: focalPoint
+                            label: Keep this part in view
+                            widget: select
+                            options:
+                              - label: Middle
+                                value: center
+                              - label: Top
+                                value: top
+                              - label: Bottom
+                                value: bottom
+                              - label: Left in most languages, right in Arabic
+                                value: start
+                              - label: Right in most languages, left in Arabic
+                                value: end
+                            default: center
+                            required: false
+                            hint: Which part of the picture stays in view when it is cropped.
+                      - name: id
+                        label: ID
+                        widget: string
+                        pattern:
+                          [
+                            '^[a-z][a-z0-9-]{0,59}$',
+                            'Lowercase letters, digits and hyphens; must start with a letter',
+                          ]
+                        hint: Permanent translation key. Changing it discards every translation of this section.
+                    required: false
+                  - name: layout
+                    label: Layout
+                    widget: object
+                    collapsed: true
+                    fields:
+                      - name: span
+                        label: Width
+                        widget: select
+                        options:
+                          - label: Full width
+                            value: full
+                          - label: Half width (pairs with the next half-width section)
+                            value: half
+                        default: full
+                        required: false
+                        hint: Half-width sections pair with the very next half-width section on wide screens.
+                      - name: spacing
+                        label: Space around it
+                        widget: select
+                        options:
+                          - label: Tight
+                            value: compact
+                          - label: Normal
+                            value: normal
+                          - label: Roomy
+                            value: loose
+                        default: normal
+                        required: false
+                      - name: tone
+                        label: Background
+                        widget: select
+                        options:
+                          - label: White
+                            value: default
+                          - label: Light grey
+                            value: surface
+                          - label: Dark blue (white text)
+                            value: brand-dark
+                          - label: Pale green
+                            value: brand-tint
+                        default: default
+                        required: false
+                        hint: Each choice is a tested background and text colour pair. Colours are not editable individually.
+                  - name: id
+                    label: ID
+                    widget: string
+                    pattern:
+                      [
+                        '^[a-z][a-z0-9-]{0,59}$',
+                        'Lowercase letters, digits and hyphens; must start with a letter',
+                      ]
+                    hint: Permanent translation key. Changing it discards every translation of this section.
+              - name: prose
+                label: Text
+                widget: object
+                summary: Text — {{title}}
+                fields:
+                  - name: title
+                    label: Heading
+                    widget: string
+                    pattern:
+                      [
+                        '^[^\n\r]{1,200}$',
+                        'One line, no line breaks, max 200 characters',
+                      ]
+                    required: false
+                  - name: variant
+                    label: How it displays
+                    widget: select
+                    options:
+                      - label: Normal
+                        value: default
+                      - label: Large introduction
+                        value: lead
+                      - label: Centred
+                        value: centered
+                    default: default
+                  - name: body
+                    label: Text
+                    widget: text
+                    hint: '**bold** and [text](https://…) links are supported; nothing else is. Up to 2000 characters.'
+                  - name: layout
+                    label: Layout
+                    widget: object
+                    collapsed: true
+                    fields:
+                      - name: span
+                        label: Width
+                        widget: select
+                        options:
+                          - label: Full width
+                            value: full
+                          - label: Half width (pairs with the next half-width section)
+                            value: half
+                        default: full
+                        required: false
+                        hint: Half-width sections pair with the very next half-width section on wide screens.
+                      - name: spacing
+                        label: Space around it
+                        widget: select
+                        options:
+                          - label: Tight
+                            value: compact
+                          - label: Normal
+                            value: normal
+                          - label: Roomy
+                            value: loose
+                        default: normal
+                        required: false
+                      - name: tone
+                        label: Background
+                        widget: select
+                        options:
+                          - label: White
+                            value: default
+                          - label: Light grey
+                            value: surface
+                          - label: Dark blue (white text)
+                            value: brand-dark
+                          - label: Pale green
+                            value: brand-tint
+                        default: default
+                        required: false
+                        hint: Each choice is a tested background and text colour pair. Colours are not editable individually.
+                  - name: id
+                    label: ID
+                    widget: string
+                    pattern:
+                      [
+                        '^[a-z][a-z0-9-]{0,59}$',
+                        'Lowercase letters, digits and hyphens; must start with a letter',
+                      ]
+                    hint: Permanent translation key. Changing it discards every translation of this section.
+              - name: cta-band
+                label: Call to action
+                widget: object
+                summary: Call to action — {{title}}
+                fields:
+                  - name: title
+                    label: Heading
+                    widget: string
+                    pattern:
+                      [
+                        '^[^\n\r]{1,200}$',
+                        'One line, no line breaks, max 200 characters',
+                      ]
+                  - name: variant
+                    label: How it displays
+                    widget: select
+                    options:
+                      - label: Full-width band
+                        value: band
+                      - label: Contained panel
+                        value: panel
+                      - label: Plain, no background
+                        value: inline
+                    default: band
+                  - name: body
+                    label: Text
+                    widget: text
+                    required: false
+                    hint: '**bold** and [text](https://…) links are supported; nothing else is. Up to 600 characters.'
+                  - name: actions
+                    label: Buttons
+                    label_singular: Button
+                    widget: list
+                    min: 1
+                    max: 2
+                    collapsed: true
+                    minimize_collapsed: false
+                    summary: '{{label}}'
+                    allow_reorder: true
+                    fields:
+                      - name: label
+                        label: Button text
+                        widget: string
+                        pattern:
+                          [
+                            '^[^\n\r]{1,60}$',
+                            'One line, no line breaks, max 60 characters',
+                          ]
+                      - name: href
+                        label: Address
+                        widget: string
+                        pattern:
+                          [
+                            '^(https://[^\s]+|mailto:[^\s@]+@[^\s@]+)$',
+                            'A full https:// address, or mailto:someone@example.org',
+                          ]
+                        hint: Must point to orcid.org or one of its subdomains, or to youtube.com or vimeo.com. Anything else is rejected when the change is checked.
+                      - name: style
+                        label: Appearance
+                        widget: select
+                        options:
+                          - label: Solid button
+                            value: primary
+                          - label: Outlined button
+                            value: secondary
+                        default: primary
+                        required: false
+                      - name: id
+                        label: ID
+                        widget: string
+                        pattern:
+                          [
+                            '^[a-z][a-z0-9-]{0,59}$',
+                            'Lowercase letters, digits and hyphens; must start with a letter',
+                          ]
+                        hint: Permanent translation key. Changing it discards every translation of this section.
+                  - name: layout
+                    label: Layout
+                    widget: object
+                    collapsed: true
+                    fields:
+                      - name: span
+                        label: Width
+                        widget: select
+                        options:
+                          - label: Full width
+                            value: full
+                          - label: Half width (pairs with the next half-width section)
+                            value: half
+                        default: full
+                        required: false
+                        hint: Half-width sections pair with the very next half-width section on wide screens.
+                      - name: spacing
+                        label: Space around it
+                        widget: select
+                        options:
+                          - label: Tight
+                            value: compact
+                          - label: Normal
+                            value: normal
+                          - label: Roomy
+                            value: loose
+                        default: normal
+                        required: false
+                      - name: tone
+                        label: Background
+                        widget: select
+                        options:
+                          - label: White
+                            value: default
+                          - label: Light grey
+                            value: surface
+                          - label: Dark blue (white text)
+                            value: brand-dark
+                          - label: Pale green
+                            value: brand-tint
+                        default: default
+                        required: false
+                        hint: Each choice is a tested background and text colour pair. Colours are not editable individually.
+                  - name: id
+                    label: ID
+                    widget: string
+                    pattern:
+                      [
+                        '^[a-z][a-z0-9-]{0,59}$',
+                        'Lowercase letters, digits and hyphens; must start with a letter',
+                      ]
+                    hint: Permanent translation key. Changing it discards every translation of this section.
+              - name: news-feed
+                label: News feed
+                widget: object
+                summary: News — {{title}}
+                fields:
+                  - name: title
+                    label: Heading
+                    widget: string
+                    pattern:
+                      [
+                        '^[^\n\r]{1,120}$',
+                        'One line, no line breaks, max 120 characters',
+                      ]
+                  - name: variant
+                    label: How it displays
+                    widget: select
+                    options:
+                      - label: Cards
+                        value: grid
+                      - label: Compact list
+                        value: list
+                    default: grid
+                  - name: source
+                    label: Where the news comes from
+                    widget: select
+                    options:
+                      - label: The ORCID blog
+                        value: orcid-blog
+                    default: orcid-blog
+                  - name: maxItems
+                    label: How many items
+                    widget: number
+                    value_type: int
+                    min: 2
+                    max: 6
+                    default: 3
+                    required: false
+                  - name: layout
+                    label: Layout
+                    widget: object
+                    collapsed: true
+                    fields:
+                      - name: span
+                        label: Width
+                        widget: select
+                        options:
+                          - label: Full width
+                            value: full
+                          - label: Half width (pairs with the next half-width section)
+                            value: half
+                        default: full
+                        required: false
+                        hint: Half-width sections pair with the very next half-width section on wide screens.
+                      - name: spacing
+                        label: Space around it
+                        widget: select
+                        options:
+                          - label: Tight
+                            value: compact
+                          - label: Normal
+                            value: normal
+                          - label: Roomy
+                            value: loose
+                        default: normal
+                        required: false
+                      - name: tone
+                        label: Background
+                        widget: select
+                        options:
+                          - label: White
+                            value: default
+                          - label: Light grey
+                            value: surface
+                          - label: Dark blue (white text)
+                            value: brand-dark
+                          - label: Pale green
+                            value: brand-tint
+                        default: default
+                        required: false
+                        hint: Each choice is a tested background and text colour pair. Colours are not editable individually.
+                  - name: id
+                    label: ID
+                    widget: string
+                    pattern:
+                      [
+                        '^[a-z][a-z0-9-]{0,59}$',
+                        'Lowercase letters, digits and hyphens; must start with a letter',
+                      ]
+                    hint: Permanent translation key. Changing it discards every translation of this section.
+# END GENERATED

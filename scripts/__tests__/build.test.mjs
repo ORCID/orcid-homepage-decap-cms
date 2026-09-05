@@ -23,33 +23,32 @@ test('the seeded content satisfies the published schema', async () => {
   assert.deepEqual(schemaProblems(validate, content, 'content'), [])
 })
 
-test('the schema requires exactly two features per audience', async () => {
+test('the schema refuses a variant that belongs to a different section type', async () => {
   const validate = await makeValidator()
   const content = await readJson(path.join(repoRoot, 'content/home.en.json'))
 
-  const tooFew = structuredClone(content)
-  tooFew.audiences[0].features.pop()
-  assert.ok(schemaProblems(validate, tooFew, 'x').length > 0)
-
-  const tooMany = structuredClone(content)
-  tooMany.audiences[0].features.push({
-    ...tooMany.audiences[0].features[0],
-    id: 'extra',
-  })
-  assert.ok(schemaProblems(validate, tooMany, 'x').length > 0)
+  const wrongVariant = structuredClone(content)
+  // `cards` is a feature-list variant; the audience selector has no such thing.
+  wrongVariant.sections[0].variant = 'cards'
+  assert.ok(schemaProblems(validate, wrongVariant, 'x').length > 0)
 })
 
-test('the schema rejects an unknown field and a non-numeric Vimeo id', async () => {
+test('the schema rejects a field nobody declared', async () => {
   const validate = await makeValidator()
   const content = await readJson(path.join(repoRoot, 'content/home.en.json'))
 
   const extra = structuredClone(content)
-  extra.hero.subtitle = 'not in the schema'
+  extra.page.subtitle = 'not in the catalogue'
   assert.ok(schemaProblems(validate, extra, 'x').length > 0)
+})
 
-  const badVideo = structuredClone(content)
-  badVideo.featuredNews.vimeoId = 'javascript:alert(1)'
-  assert.ok(schemaProblems(validate, badVideo, 'x').length > 0)
+test('the schema rejects an unknown section type', async () => {
+  const validate = await makeValidator()
+  const content = await readJson(path.join(repoRoot, 'content/home.en.json'))
+
+  const unknown = structuredClone(content)
+  unknown.sections[0].type = 'carousel'
+  assert.ok(schemaProblems(validate, unknown, 'x').length > 0)
 })
 
 test('image paths are collected from icons and backgrounds only', async () => {
@@ -136,7 +135,7 @@ test('a full build writes one document per locale, fingerprinted and stamped', a
   assert.equal(english.meta.locale, 'en')
   assert.equal(english.meta.translated, english.meta.total)
   assert.match(
-    english.audiences[0].features[0].icon,
+    english.sections[0].audiences[0].features[0].icon.src,
     /^assets\/.+-[0-9a-f]{10}\./
   )
 
@@ -145,7 +144,7 @@ test('a full build writes one document per locale, fingerprinted and stamped', a
   const seed = JSON.parse(
     await readFile(path.join(out, 'admin/seed/home.en.json'), 'utf8')
   )
-  assert.match(seed.audiences[0].features[0].icon, /^images\//)
+  assert.match(seed.sections[0].audiences[0].features[0].icon.src, /^images\//)
   assert.equal(seed.meta, undefined)
 })
 
@@ -160,15 +159,20 @@ test('a translated build keeps structure English-free of drift', async () => {
     await readFile(path.join(out, 'content/home.cs.json'), 'utf8')
   )
 
-  assert.notEqual(czech.hero.title, english.hero.title)
-  assert.equal(czech.audiences.length, english.audiences.length)
+  assert.notEqual(czech.page.title, english.page.title)
+  assert.equal(czech.sections.length, english.sections.length)
   assert.deepEqual(
-    czech.audiences.map((a) => a.id),
-    english.audiences.map((a) => a.id)
+    czech.sections.map((s) => s.id),
+    english.sections.map((s) => s.id)
+  )
+  // Structure is identical in every language: same types, same variants, same
+  // images. Only the words differ.
+  assert.deepEqual(
+    czech.sections.map((s) => `${s.type}/${s.variant}`),
+    english.sections.map((s) => `${s.type}/${s.variant}`)
   )
   assert.equal(
-    czech.audiences[0].features[0].icon,
-    english.audiences[0].features[0].icon
+    czech.sections[0].audiences[0].features[0].icon.src,
+    english.sections[0].audiences[0].features[0].icon.src
   )
-  assert.equal(czech.featuredNews.vimeoId, english.featuredNews.vimeoId)
 })

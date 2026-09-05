@@ -18,12 +18,8 @@ import { fileURLToPath } from 'node:url'
 import Ajv from 'ajv/dist/2020.js'
 import addFormats from 'ajv-formats'
 
-import {
-  TRANSLATABLE_FIELDS,
-  readJson,
-  translatableKeys,
-  walkTranslatable,
-} from './lib/content.mjs'
+import { assertCatalogueValid } from './lib/catalogue.mjs'
+import { readJson, translatableKeys, walkTranslatable } from './lib/content.mjs'
 import { flatten } from './lib/flatten.mjs'
 import { collectImagePaths } from './lib/images.mjs'
 import { lintMarkdownLite } from './lib/markdown-lint.mjs'
@@ -33,9 +29,6 @@ const repoRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   '..'
 )
-
-/** Fields that are a single line of prose; a newline there is a paste accident. */
-const SINGLE_LINE_FIELDS = new Set(['title', 'label', 'kicker'])
 
 async function makeValidator() {
   const schema = await readJson(path.join(repoRoot, 'schema/home.schema.json'))
@@ -58,11 +51,21 @@ function contentProblems(content, imagesOnDisk) {
   // walkTranslatable throws on a missing or duplicate id, which is the one
   // mistake that silently detaches an item from all of its translations.
   try {
-    walkTranslatable(content, (keyPath, value) => {
+    walkTranslatable(content, (keyPath, value, descriptor) => {
       const where = keyPath.join('.')
       problems.push(...lintMarkdownLite(value, where))
-      if (SINGLE_LINE_FIELDS.has(keyPath.at(-1)) && value.includes('\n')) {
+
+      // `plain` and `alt` are one line by definition; `rich` is the only kind
+      // that may hold a paragraph break. Reading that from the catalogue
+      // replaces a hand-maintained list of field names that went stale the
+      // moment a section type added a field nobody remembered to add to it.
+      if (descriptor.kind !== 'rich' && value.includes('\n')) {
         problems.push(`${where}: must be a single line`)
+      }
+      if (descriptor.maxLength && value.length > descriptor.maxLength) {
+        problems.push(
+          `${where}: ${value.length} characters, but the most this field takes is ${descriptor.maxLength}`
+        )
       }
     })
   } catch (idProblem) {
@@ -148,6 +151,12 @@ async function main() {
   const args = process.argv.slice(2)
   const strict = args.includes('--strict')
   const distIndex = args.indexOf('--dist')
+  try {
+    assertCatalogueValid()
+  } catch (problem) {
+    failWith('The catalogue is invalid', [problem.message])
+  }
+
   const validate = await makeValidator()
 
   if (distIndex !== -1) {
@@ -191,9 +200,8 @@ async function main() {
   for (const message of warnings) warn(message)
   if (problems.length > 0) failWith('Content is invalid', problems)
 
-  const fields = [...TRANSLATABLE_FIELDS].join(', ')
   summary(
-    `✅ content/home.en.json is valid (${translatableKeys(content).length} translatable strings across: ${fields})`
+    `✅ content/home.en.json is valid (${translatableKeys(content).length} translatable strings across ${content.sections.length} sections)`
   )
 }
 

@@ -1,0 +1,852 @@
+{
+  "$comment": "The single source of truth for the homepage content model. Hand-edited. schema/home.schema.json, the generated block of admin/config.yml and dist/types/homepage-content.generated.ts are all derived from this file by `npm run gen`, and CI fails if they drift. Adding a section type, a variant or an optional field is additive: bump catalogueVersion, leave schemaVersion alone. See docs/catalogue.md.",
+  "catalogueVersion": 1,
+  "schemaVersion": 2,
+  "enums": {
+    "span": {
+      "values": ["full", "half"],
+      "labels": {
+        "full": "Full width",
+        "half": "Half width (pairs with the next half-width section)"
+      }
+    },
+    "spacing": {
+      "values": ["compact", "normal", "loose"],
+      "labels": {
+        "compact": "Tight",
+        "normal": "Normal",
+        "loose": "Roomy"
+      }
+    },
+    "tone": {
+      "values": ["default", "surface", "brand-dark", "brand-tint"],
+      "labels": {
+        "default": "White",
+        "surface": "Light grey",
+        "brand-dark": "Dark blue (white text)",
+        "brand-tint": "Pale green"
+      }
+    },
+    "focalPoint": {
+      "values": ["center", "top", "bottom", "start", "end"],
+      "labels": {
+        "center": "Middle",
+        "top": "Top",
+        "bottom": "Bottom",
+        "start": "Left in most languages, right in Arabic",
+        "end": "Right in most languages, left in Arabic"
+      }
+    },
+    "aspectRatio": {
+      "values": ["16:9", "4:3", "1:1", "9:16"],
+      "labels": {
+        "16:9": "Widescreen (16:9)",
+        "4:3": "Classic (4:3)",
+        "1:1": "Square",
+        "9:16": "Tall (9:16)"
+      }
+    },
+    "actionStyle": {
+      "values": ["primary", "secondary"],
+      "labels": {
+        "primary": "Solid button",
+        "secondary": "Outlined button"
+      }
+    },
+    "columns": {
+      "values": [2, 3],
+      "labels": {
+        "2": "Two across",
+        "3": "Three across"
+      }
+    },
+    "mediaKind": {
+      "values": ["video", "image"],
+      "labels": {
+        "video": "A video",
+        "image": "A picture"
+      }
+    },
+    "adStatus": {
+      "values": ["described-track", "not-needed"],
+      "labels": {
+        "described-track": "The video has an audio-description track",
+        "not-needed": "No audio description is needed — explain why below"
+      }
+    },
+    "newsSource": {
+      "values": ["orcid-blog"],
+      "labels": {
+        "orcid-blog": "The ORCID blog"
+      }
+    }
+  },
+  "videoProviders": {
+    "vimeo": {
+      "label": "Vimeo",
+      "pattern": "^[0-9]{1,20}$",
+      "example": "1198760040",
+      "host": "player.vimeo.com",
+      "embed": "https://player.vimeo.com/video/{id}?dnt=1&title=0&autoplay={autoplay}{start}",
+      "startParam": "#t={start}s",
+      "watchUrl": "https://vimeo.com/{id}"
+    },
+    "youtube": {
+      "label": "YouTube",
+      "pattern": "^[A-Za-z0-9_-]{11}$",
+      "example": "1rZvFGLe7bg",
+      "host": "www.youtube-nocookie.com",
+      "embed": "https://www.youtube-nocookie.com/embed/{id}?rel=0&modestbranding=1&cc_load_policy=1&autoplay={autoplay}{start}",
+      "startParam": "&start={start}",
+      "watchUrl": "https://www.youtube.com/watch?v={id}"
+    }
+  },
+  "commonFields": {
+    "id": {
+      "kind": "id",
+      "required": true,
+      "label": "ID",
+      "hint": "Permanent translation key. Changing it discards every translation of this section."
+    },
+    "variant": {
+      "kind": "enum",
+      "required": true,
+      "fromVariants": true,
+      "label": "How it displays"
+    },
+    "layout": {
+      "kind": "object",
+      "of": "layout",
+      "required": true,
+      "collapsed": true,
+      "label": "Layout"
+    }
+  },
+  "itemTypes": {
+    "layout": {
+      "label": "Layout",
+      "fields": {
+        "span": {
+          "kind": "enum",
+          "enum": "span",
+          "default": "full",
+          "label": "Width",
+          "hint": "Half-width sections pair with the very next half-width section on wide screens."
+        },
+        "spacing": {
+          "kind": "enum",
+          "enum": "spacing",
+          "default": "normal",
+          "label": "Space around it"
+        },
+        "tone": {
+          "kind": "enum",
+          "enum": "tone",
+          "default": "default",
+          "label": "Background",
+          "hint": "Each choice is a tested background and text colour pair. Colours are not editable individually."
+        }
+      }
+    },
+    "image": {
+      "label": "Image",
+      "variantsByDecorative": true,
+      "fields": {
+        "src": {
+          "kind": "imagePath",
+          "required": true,
+          "label": "File"
+        },
+        "focalPoint": {
+          "kind": "enum",
+          "enum": "focalPoint",
+          "default": "center",
+          "label": "Keep this part in view",
+          "hint": "Which part of the picture stays in view when it is cropped."
+        },
+        "alt": {
+          "kind": "alt",
+          "required": true,
+          "maxLength": 150,
+          "informativeOnly": true,
+          "label": "Describe this picture",
+          "hint": "What would you say if you were reading the page aloud? Do not start with \"image of\"."
+        },
+        "containsText": {
+          "kind": "boolean",
+          "default": false,
+          "informativeOnly": true,
+          "label": "This picture has words in it",
+          "hint": "Words inside a picture cannot be translated or resized, so the description must repeat them."
+        }
+      }
+    },
+    "feature-item": {
+      "label": "Feature",
+      "summary": "{{title}}",
+      "fields": {
+        "id": {
+          "kind": "id",
+          "required": true
+        },
+        "title": {
+          "kind": "plain",
+          "maxLength": 80,
+          "required": false,
+          "label": "Title"
+        },
+        "body": {
+          "kind": "rich",
+          "maxLength": 500,
+          "required": true,
+          "label": "Text"
+        },
+        "icon": {
+          "kind": "image",
+          "decorative": true,
+          "required": false,
+          "label": "Icon",
+          "hint": "Small decorative icon. The title carries the meaning, so no description is collected."
+        },
+        "link": {
+          "kind": "object",
+          "of": "link",
+          "required": false,
+          "label": "Link"
+        }
+      }
+    },
+    "link": {
+      "label": "Link",
+      "inline": true,
+      "fields": {
+        "label": {
+          "kind": "plain",
+          "required": true,
+          "maxLength": 80,
+          "label": "Link text"
+        },
+        "href": {
+          "kind": "href",
+          "required": true,
+          "label": "Address"
+        }
+      }
+    },
+    "action": {
+      "label": "Button",
+      "summary": "{{label}}",
+      "fields": {
+        "id": {
+          "kind": "id",
+          "required": true
+        },
+        "label": {
+          "kind": "plain",
+          "required": true,
+          "maxLength": 60,
+          "label": "Button text"
+        },
+        "href": {
+          "kind": "href",
+          "required": true,
+          "label": "Address"
+        },
+        "style": {
+          "kind": "enum",
+          "enum": "actionStyle",
+          "default": "primary",
+          "label": "Appearance"
+        }
+      }
+    },
+    "captions": {
+      "label": "Captions",
+      "fields": {
+        "available": {
+          "kind": "boolean",
+          "const": true,
+          "required": true,
+          "default": true,
+          "label": "The video has captions",
+          "hint": "ORCID does not publish videos without captions. This cannot be unticked."
+        },
+        "locales": {
+          "kind": "list",
+          "of": "locale-tag",
+          "min": 1,
+          "max": 30,
+          "required": true,
+          "labelSingular": "Language",
+          "label": "Caption languages",
+          "hint": "Must include en."
+        },
+        "autoGenerated": {
+          "kind": "boolean",
+          "default": false,
+          "label": "These are auto-generated captions",
+          "hint": "Auto-generated captions do not meet WCAG 1.2.2. Ticking this blocks publishing."
+        }
+      }
+    },
+    "audio-description": {
+      "label": "Audio description",
+      "fields": {
+        "status": {
+          "kind": "enum",
+          "enum": "adStatus",
+          "required": true,
+          "label": "Audio description"
+        },
+        "justification": {
+          "kind": "note",
+          "maxLength": 400,
+          "requiredWhen": {
+            "status": "not-needed"
+          },
+          "label": "Why no audio description is needed",
+          "hint": "A reviewer reads this. Example: 'the narrator reads every on-screen label aloud'."
+        }
+      }
+    },
+    "video": {
+      "label": "Video",
+      "fields": {
+        "provider": {
+          "kind": "enum",
+          "enum": "videoProviders",
+          "required": true,
+          "label": "Where the video lives"
+        },
+        "videoId": {
+          "kind": "videoId",
+          "providerField": "provider",
+          "required": true,
+          "label": "Video ID",
+          "hint": "The provider's ID only, never the whole web address. Vimeo: 1198760040. YouTube: 1rZvFGLe7bg."
+        },
+        "title": {
+          "kind": "plain",
+          "required": true,
+          "maxLength": 120,
+          "label": "Video title",
+          "hint": "The video's own title. Screen readers announce this instead of 'iframe'."
+        },
+        "aspectRatio": {
+          "kind": "enum",
+          "enum": "aspectRatio",
+          "default": "16:9",
+          "label": "Shape"
+        },
+        "durationSeconds": {
+          "kind": "integer",
+          "min": 1,
+          "max": 36000,
+          "required": false,
+          "label": "Length in seconds"
+        },
+        "startAt": {
+          "kind": "integer",
+          "min": 0,
+          "max": 36000,
+          "required": false,
+          "label": "Start at (seconds)"
+        },
+        "poster": {
+          "kind": "image",
+          "decorative": false,
+          "responsive": true,
+          "required": true,
+          "label": "Still image",
+          "hint": "Shown before anyone presses play, and to visitors who decline cookies."
+        },
+        "captions": {
+          "kind": "object",
+          "of": "captions",
+          "required": true,
+          "label": "Captions"
+        },
+        "audioDescription": {
+          "kind": "object",
+          "of": "audio-description",
+          "required": true,
+          "label": "Audio description"
+        },
+        "transcript": {
+          "kind": "rich",
+          "required": false,
+          "maxLength": 20000,
+          "label": "Transcript",
+          "hint": "The full spoken content. Shown under the player in both cookie states. A video cannot be released to production without one.",
+          "requiredForPublication": true
+        }
+      }
+    },
+    "audience": {
+      "label": "Audience",
+      "summary": "{{label}}",
+      "fields": {
+        "id": {
+          "kind": "id",
+          "required": true
+        },
+        "label": {
+          "kind": "plain",
+          "required": true,
+          "maxLength": 60,
+          "label": "Tab label",
+          "hint": "Short. It has to fit a tab across six of them, in German."
+        },
+        "intro": {
+          "kind": "rich",
+          "required": true,
+          "maxLength": 800,
+          "label": "Introduction"
+        },
+        "background": {
+          "kind": "image",
+          "decorative": true,
+          "responsive": true,
+          "required": false,
+          "label": "Background photo"
+        },
+        "features": {
+          "kind": "list",
+          "of": "feature-item",
+          "min": 1,
+          "max": 4,
+          "labelSingular": "Feature",
+          "label": "Features",
+          "allowReorder": true
+        }
+      }
+    },
+    "link-item": {
+      "label": "Link",
+      "summary": "{{label}}",
+      "fields": {
+        "id": {
+          "kind": "id",
+          "required": true
+        },
+        "label": {
+          "kind": "plain",
+          "required": true,
+          "maxLength": 60,
+          "label": "Link text"
+        },
+        "href": {
+          "kind": "href",
+          "required": true,
+          "label": "Address"
+        },
+        "description": {
+          "kind": "plain",
+          "required": false,
+          "maxLength": 120,
+          "label": "Short description"
+        },
+        "icon": {
+          "kind": "image",
+          "decorative": true,
+          "required": false,
+          "label": "Icon"
+        }
+      }
+    },
+    "news-item": {
+      "label": "News item",
+      "$comment": "Never authored. Declared so the renderer and the types have a shape for feed entries.",
+      "external": true,
+      "fields": {
+        "id": {
+          "kind": "id",
+          "required": true
+        },
+        "title": {
+          "kind": "plain",
+          "required": true,
+          "maxLength": 200,
+          "label": "Title"
+        },
+        "href": {
+          "kind": "href",
+          "required": true,
+          "label": "Address"
+        },
+        "published": {
+          "kind": "plain",
+          "required": false,
+          "maxLength": 40,
+          "label": "Date"
+        }
+      }
+    },
+    "locale-tag": {
+      "label": "Language tag",
+      "scalar": "string",
+      "pattern": "^[a-z]{2}(-[A-Za-z0-9]{2,8})?$"
+    }
+  },
+  "sectionTypes": {
+    "audience-selector": {
+      "label": "Audience selector",
+      "labelSingular": "Audience selector",
+      "summary": "Audience selector — {{title}}",
+      "maxPerPage": 2,
+      "emitsItemHeadings": true,
+      "variants": [
+        {
+          "name": "tabs-photo",
+          "label": "Tabs with background photo (recommended)",
+          "hint": "Matches orcid.org today. Becomes an accordion below 1024px."
+        },
+        {
+          "name": "tabs-flat",
+          "label": "Tabs, flat brand colour"
+        },
+        {
+          "name": "stacked",
+          "label": "Stacked list — every audience always visible",
+          "hint": "Best for search engines and for screen readers. No interaction needed."
+        }
+      ],
+      "fields": {
+        "title": {
+          "kind": "plain",
+          "required": false,
+          "maxLength": 120,
+          "label": "Heading",
+          "hint": "Leave empty when the page title above already says it."
+        },
+        "audiences": {
+          "kind": "list",
+          "of": "audience",
+          "min": 1,
+          "max": 8,
+          "labelSingular": "Audience",
+          "label": "Audiences",
+          "allowReorder": true,
+          "allowAdd": true,
+          "allowRemove": true
+        }
+      }
+    },
+    "media": {
+      "label": "Video or picture with text",
+      "labelSingular": "Video or picture with text",
+      "summary": "Media — {{title}}",
+      "emitsItemHeadings": false,
+      "variants": [
+        {
+          "name": "media-end",
+          "label": "Text first, media beside it",
+          "hint": "On wide screens the media sits to the side. On phones it always follows the text."
+        },
+        {
+          "name": "media-below",
+          "label": "Text above, media full width below"
+        },
+        {
+          "name": "media-only",
+          "label": "Media on its own"
+        }
+      ],
+      "fields": {
+        "kicker": {
+          "kind": "plain",
+          "required": false,
+          "maxLength": 40,
+          "label": "Kicker",
+          "hint": "A short label above the heading, such as FEATURED NEWS."
+        },
+        "title": {
+          "kind": "plain",
+          "required": false,
+          "maxLength": 200,
+          "label": "Heading"
+        },
+        "body": {
+          "kind": "rich",
+          "required": false,
+          "maxLength": 1200,
+          "label": "Text"
+        },
+        "mediaKind": {
+          "kind": "enum",
+          "enum": "mediaKind",
+          "required": true,
+          "default": "video",
+          "label": "What kind of media"
+        },
+        "video": {
+          "kind": "object",
+          "of": "video",
+          "required": false,
+          "label": "Video",
+          "requiredWhen": {
+            "mediaKind": "video"
+          }
+        },
+        "image": {
+          "kind": "image",
+          "decorative": false,
+          "responsive": true,
+          "required": false,
+          "label": "Picture",
+          "requiredWhen": {
+            "mediaKind": "image"
+          }
+        },
+        "actions": {
+          "kind": "list",
+          "of": "action",
+          "min": 1,
+          "max": 2,
+          "required": false,
+          "labelSingular": "Button",
+          "label": "Buttons"
+        }
+      }
+    },
+    "feature-list": {
+      "label": "Feature list",
+      "labelSingular": "Feature list",
+      "summary": "Features — {{title}}",
+      "emitsItemHeadings": true,
+      "variants": [
+        {
+          "name": "cards",
+          "label": "Cards"
+        },
+        {
+          "name": "columns",
+          "label": "Plain columns"
+        },
+        {
+          "name": "panel",
+          "label": "Tinted panel, one per row",
+          "hint": "Every feature needs a title in this layout."
+        },
+        {
+          "name": "checklist",
+          "label": "Checklist",
+          "hint": "Every feature needs a title in this layout."
+        }
+      ],
+      "fields": {
+        "title": {
+          "kind": "plain",
+          "required": false,
+          "maxLength": 200,
+          "label": "Heading"
+        },
+        "intro": {
+          "kind": "rich",
+          "required": false,
+          "maxLength": 600,
+          "label": "Introduction"
+        },
+        "columns": {
+          "kind": "enum",
+          "enum": "columns",
+          "default": 3,
+          "label": "How many across",
+          "hint": "On wide screens only. Phones always show one."
+        },
+        "items": {
+          "kind": "list",
+          "of": "feature-item",
+          "min": 1,
+          "max": 9,
+          "labelSingular": "Feature",
+          "label": "Features",
+          "allowReorder": true
+        }
+      }
+    },
+    "quick-links": {
+      "label": "Quick links",
+      "labelSingular": "Quick links",
+      "summary": "Quick links — {{title}}",
+      "emitsItemHeadings": false,
+      "titleRequired": true,
+      "variants": [
+        {
+          "name": "bar",
+          "label": "One bar across the page"
+        },
+        {
+          "name": "grid",
+          "label": "Cards"
+        },
+        {
+          "name": "list",
+          "label": "Vertical list with descriptions"
+        }
+      ],
+      "fields": {
+        "title": {
+          "kind": "plain",
+          "required": true,
+          "maxLength": 120,
+          "label": "Heading",
+          "hint": "Names this group of links for screen readers, even when hidden."
+        },
+        "titleHidden": {
+          "kind": "boolean",
+          "default": true,
+          "label": "Hide the heading visually"
+        },
+        "links": {
+          "kind": "list",
+          "of": "link-item",
+          "min": 2,
+          "max": 8,
+          "labelSingular": "Link",
+          "label": "Links",
+          "allowReorder": true
+        }
+      }
+    },
+    "prose": {
+      "label": "Text",
+      "labelSingular": "Text",
+      "summary": "Text — {{title}}",
+      "emitsItemHeadings": false,
+      "variants": [
+        {
+          "name": "default",
+          "label": "Normal"
+        },
+        {
+          "name": "lead",
+          "label": "Large introduction"
+        },
+        {
+          "name": "centered",
+          "label": "Centred"
+        }
+      ],
+      "fields": {
+        "title": {
+          "kind": "plain",
+          "required": false,
+          "maxLength": 200,
+          "label": "Heading"
+        },
+        "body": {
+          "kind": "rich",
+          "required": true,
+          "maxLength": 2000,
+          "label": "Text"
+        }
+      }
+    },
+    "cta-band": {
+      "label": "Call to action",
+      "labelSingular": "Call to action",
+      "summary": "Call to action — {{title}}",
+      "emitsItemHeadings": false,
+      "titleRequired": true,
+      "variants": [
+        {
+          "name": "band",
+          "label": "Full-width band"
+        },
+        {
+          "name": "panel",
+          "label": "Contained panel"
+        },
+        {
+          "name": "inline",
+          "label": "Plain, no background"
+        }
+      ],
+      "fields": {
+        "title": {
+          "kind": "plain",
+          "required": true,
+          "maxLength": 200,
+          "label": "Heading"
+        },
+        "body": {
+          "kind": "rich",
+          "required": false,
+          "maxLength": 600,
+          "label": "Text"
+        },
+        "actions": {
+          "kind": "list",
+          "of": "action",
+          "min": 1,
+          "max": 2,
+          "required": true,
+          "labelSingular": "Button",
+          "label": "Buttons",
+          "allowReorder": true
+        }
+      }
+    },
+    "news-feed": {
+      "label": "News feed",
+      "labelSingular": "News feed",
+      "summary": "News — {{title}}",
+      "maxPerPage": 1,
+      "emitsItemHeadings": true,
+      "titleRequired": true,
+      "variants": [
+        {
+          "name": "grid",
+          "label": "Cards"
+        },
+        {
+          "name": "list",
+          "label": "Compact list"
+        }
+      ],
+      "fields": {
+        "title": {
+          "kind": "plain",
+          "required": true,
+          "maxLength": 120,
+          "label": "Heading"
+        },
+        "source": {
+          "kind": "enum",
+          "enum": "newsSource",
+          "required": true,
+          "default": "orcid-blog",
+          "label": "Where the news comes from"
+        },
+        "maxItems": {
+          "kind": "integer",
+          "min": 2,
+          "max": 6,
+          "default": 3,
+          "required": false,
+          "label": "How many items"
+        }
+      }
+    }
+  },
+  "page": {
+    "$comment": "Document-level fields that sit alongside `sections`.",
+    "fields": {
+      "title": {
+        "kind": "plain",
+        "required": true,
+        "maxLength": 120,
+        "label": "Page heading",
+        "hint": "The one h1 on the page. Every section heading sits under it."
+      },
+      "description": {
+        "kind": "plain",
+        "required": true,
+        "maxLength": 200,
+        "label": "Search engine description",
+        "hint": "One sentence, shown in search results and when the page is shared."
+      }
+    }
+  }
+}

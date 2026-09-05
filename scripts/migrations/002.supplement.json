@@ -1,0 +1,68 @@
+{
+  "$comment": "Content that version 2 needs and version 1 has nowhere to take it from. Hand-authored, reviewed by a person, and read by scripts/migrations/002-sections.mjs. Every string here is new source text and will go to Transifex as new keys; see docs/CONTENT-TODO.md for what is still outstanding.",
+
+  "page": {
+    "description": "ORCID provides a free, unique, persistent identifier that distinguishes you from every other researcher and connects you with your contributions."
+  },
+
+  "quickLinks": {
+    "$comment": "Six links that exist on the live homepage today and that version 1 of the content model cannot express at all. Labels and addresses copied verbatim from https://homepage-prod.orcid.org/index.html on 2026-09-05. See docs/CONTENT-TODO.md: two of them share one address on the live page, which looks like a mistake there rather than an intention.",
+    "title": "Get started with ORCID",
+    "titleHidden": true,
+    "links": [
+      {
+        "id": "get-my-orcid-id",
+        "label": "Get my ORCID iD and record",
+        "href": "https://orcid.org/signin"
+      },
+      {
+        "id": "troubleshoot",
+        "label": "Troubleshoot my record",
+        "href": "https://support.orcid.org/hc/en-us/"
+      },
+      {
+        "id": "member-benefits",
+        "label": "Discover our member benefits",
+        "href": "https://info.orcid.org/membership/"
+      },
+      {
+        "id": "adopt-orcid",
+        "label": "Adopt ORCID at my institution",
+        "href": "https://info.orcid.org/documentation/api-tutorials/api-tutorial-read-data-on-a-record/"
+      },
+      {
+        "id": "orcid-apis",
+        "label": "Get data from ORCID’s APIs",
+        "href": "https://info.orcid.org/documentation/api-tutorials/api-tutorial-read-data-on-a-record/"
+      },
+      {
+        "id": "certified-service-providers",
+        "label": "Find out about Certified Service Providers",
+        "href": "https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/"
+      }
+    ]
+  },
+
+  "featuredMedia": {
+    "$comment": "The live homepage embeds Vimeo 1198760040 with no poster, no stated captions and no transcript. Version 2 will not assert accessibility facts nobody has verified, so this migrates as a picture that links to the video, which is what the section's own body text already tells the reader to do. Turning it back into an embedded player is a content decision, not an engineering one: see docs/CONTENT-TODO.md for the three things it needs. The still and the metadata below are real, taken from Vimeo's own oEmbed response on 2026-09-05.",
+    "mediaKind": "image",
+    "image": {
+      "src": "images/video_still.jpg",
+      "alt": "A researcher sits at a desk beside a monitor showing the ORCID iD logo, with papers, books and plants around her.",
+      "focalPoint": "center"
+    },
+    "video": {
+      "$comment": "Not used by the migration. Kept here so that when the transcript and the captions attestation arrive, the section can be switched to a player without anyone hunting for this metadata again.",
+      "provider": "vimeo",
+      "videoId": "1198760040",
+      "title": "What Your ORCID Record Can Do For You",
+      "aspectRatio": "16:9",
+      "durationSeconds": 188,
+      "poster": {
+        "src": "images/video_still.jpg",
+        "alt": "A researcher sits at a desk beside a monitor showing the ORCID iD logo, with papers, books and plants around her.",
+        "focalPoint": "center"
+      }
+    }
+  }
+}

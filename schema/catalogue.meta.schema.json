@@ -1,0 +1,574 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://orcid.org/homepage/catalogue.meta.schema.json",
+  "title": "ORCID homepage section catalogue",
+  "$comment": "Validates schema/catalogue.json, the single hand-edited source of truth (spec v2 D1, §2.3). It runs first in `npm run validate` so a catalogue typo fails on its own line instead of emitting three broken artefacts. Four of the §2.3 rules are cross-references between distant parts of one document — every `of` resolves to a declared itemType, every `enum` resolves to a declared enum or to videoProviders, every `videoId` names an existing sibling providerField, every enum `default` is one of that enum's values. JSON Schema cannot express any of them, so scripts/lib/catalogue.mjs checks them immediately after this schema passes and reports them in the same aggregated error.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "catalogueVersion",
+    "schemaVersion",
+    "enums",
+    "videoProviders",
+    "commonFields",
+    "itemTypes",
+    "sectionTypes",
+    "page"
+  ],
+  "properties": {
+    "$comment": {
+      "type": "string"
+    },
+    "catalogueVersion": {
+      "type": "integer",
+      "minimum": 1,
+      "$comment": "Bumped by any additive change (D4). schemaVersion stays at 2."
+    },
+    "schemaVersion": {
+      "const": 2
+    },
+    "enums": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "$ref": "#/$defs/enumName"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/enumDef"
+      }
+    },
+    "videoProviders": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "$ref": "#/$defs/typeName"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/videoProvider"
+      }
+    },
+    "commonFields": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/fieldMap"
+        },
+        {
+          "type": "object",
+          "required": ["id", "variant", "layout"],
+          "$comment": "The structural fields every section carries (§1.0). The generator emits them into every schema branch; a section type never re-declares them."
+        }
+      ]
+    },
+    "itemTypes": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "$ref": "#/$defs/typeName"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/itemType"
+      }
+    },
+    "sectionTypes": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "$ref": "#/$defs/typeName"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/sectionType"
+      }
+    },
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fields"],
+      "properties": {
+        "$comment": {
+          "type": "string"
+        },
+        "fields": {
+          "$ref": "#/$defs/fieldMap"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "reservedWords": {
+      "$comment": "§2.3 rule 8. `__order` and `__replace` are the merge-patch control keys (§8.6); a field or type with either name would be eaten by the patch instead of stored.",
+      "not": {
+        "enum": ["__order", "__replace"]
+      }
+    },
+    "typeName": {
+      "$comment": "Item type, section type, provider and variant names: lower-kebab, so they are safe as translation-key segments and as Decap widget names.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+      "allOf": [
+        {
+          "$ref": "#/$defs/reservedWords"
+        }
+      ]
+    },
+    "enumName": {
+      "type": "string",
+      "pattern": "^[a-z][A-Za-z0-9]*$",
+      "allOf": [
+        {
+          "$ref": "#/$defs/reservedWords"
+        }
+      ]
+    },
+    "fieldName": {
+      "$comment": "§2.3 rule 7 / D3: accessibility and presentation are computed by the renderer from position and type, never authored. A field with any of these names would let an editor set a heading level, a colour, a link target or a size by hand, which is the drift this model exists to remove. The lower-camel pattern also makes `__order`/`__replace` unrepresentable (rule 8); the explicit list stays so the intent survives a later loosening of the pattern.",
+      "type": "string",
+      "pattern": "^[a-z][A-Za-z0-9]*$",
+      "not": {
+        "enum": [
+          "level",
+          "headingLevel",
+          "tag",
+          "size",
+          "heading",
+          "color",
+          "colour",
+          "target",
+          "rel",
+          "width",
+          "height",
+          "autoplay",
+          "order",
+          "__order",
+          "__replace"
+        ]
+      }
+    },
+    "kind": {
+      "$comment": "The closed set of §1.0. A new kind means new code in the generator, the validator and the renderer, so it is added here deliberately and never by accident.",
+      "enum": [
+        "plain",
+        "rich",
+        "alt",
+        "note",
+        "id",
+        "href",
+        "enum",
+        "integer",
+        "boolean",
+        "videoId",
+        "image",
+        "object",
+        "list",
+        "imagePath"
+      ]
+    },
+    "scalarValue": {
+      "type": ["string", "number", "boolean"]
+    },
+    "fieldMap": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "$ref": "#/$defs/fieldName"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/field"
+      }
+    },
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "$comment": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/kind"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hint": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "requiredForPublication": {
+          "$comment": "Optional in a draft, required before the content is released (the video transcript). The strict check is the deploy gate, not the CMS, so an editor is never blocked mid-edit.",
+          "type": "boolean"
+        },
+        "requiredWhen": {
+          "$comment": "Sibling field name to the value that makes this field required. The sibling is proved to exist by scripts/lib/catalogue.mjs.",
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 1,
+          "propertyNames": {
+            "$ref": "#/$defs/fieldName"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/scalarValue"
+          }
+        },
+        "default": {
+          "$ref": "#/$defs/scalarValue"
+        },
+        "const": {
+          "$ref": "#/$defs/scalarValue"
+        },
+        "maxLength": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "min": {
+          "type": "integer"
+        },
+        "max": {
+          "type": "integer"
+        },
+        "of": {
+          "$ref": "#/$defs/typeName"
+        },
+        "enum": {
+          "$ref": "#/$defs/enumName"
+        },
+        "fromVariants": {
+          "const": true
+        },
+        "decorative": {
+          "type": "boolean"
+        },
+        "responsive": {
+          "type": "boolean"
+        },
+        "informativeOnly": {
+          "type": "boolean"
+        },
+        "providerField": {
+          "$ref": "#/$defs/fieldName"
+        },
+        "labelSingular": {
+          "type": "string",
+          "minLength": 1
+        },
+        "allowReorder": {
+          "type": "boolean"
+        },
+        "allowAdd": {
+          "type": "boolean"
+        },
+        "allowRemove": {
+          "type": "boolean"
+        },
+        "collapsed": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "$comment": "§2.3 rule 3. Which sub-fields an image carries depends on it: decorative images collect no alt text, informative images require it. Leaving it unstated would make the generator guess.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "image"
+              }
+            },
+            "required": ["kind"]
+          },
+          "then": {
+            "type": "object",
+            "required": ["decorative"]
+          }
+        },
+        {
+          "$comment": "§2.3 rule 5. A list with no max is an unbounded page; a list with no labelSingular gives the editor an 'Add item' button that says nothing.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "list"
+              }
+            },
+            "required": ["kind"]
+          },
+          "then": {
+            "type": "object",
+            "required": ["of", "labelSingular", "min", "max"]
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "object"
+              }
+            },
+            "required": ["kind"]
+          },
+          "then": {
+            "type": "object",
+            "required": ["of"]
+          }
+        },
+        {
+          "$comment": "§2.3 rule 4. The id pattern is resolved from the provider chosen in the sibling field, so there has to be one.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "videoId"
+              }
+            },
+            "required": ["kind"]
+          },
+          "then": {
+            "type": "object",
+            "required": ["providerField"]
+          }
+        },
+        {
+          "$comment": "An enum field either names a declared enum or draws its values from the section type's own variants.",
+          "if": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "enum"
+              }
+            },
+            "required": ["kind"]
+          },
+          "then": {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": ["enum"]
+              },
+              {
+                "type": "object",
+                "required": ["fromVariants"]
+              }
+            ]
+          }
+        },
+        {
+          "$comment": "`of` only means something for a container; anywhere else it is a copy-paste leftover that the generator would silently ignore.",
+          "if": {
+            "type": "object",
+            "required": ["of"]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "enum": ["object", "list"]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "enumDef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["values"],
+      "properties": {
+        "$comment": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": ["string", "number"]
+          }
+        },
+        "labels": {
+          "$comment": "Keyed by the value as a string. Every key is proved to be one of `values` by scripts/lib/catalogue.mjs.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "videoProvider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "pattern",
+        "example",
+        "host",
+        "embed",
+        "startParam",
+        "watchUrl"
+      ],
+      "properties": {
+        "$comment": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pattern": {
+          "type": "string",
+          "format": "regex"
+        },
+        "example": {
+          "type": "string",
+          "minLength": 1
+        },
+        "host": {
+          "type": "string",
+          "minLength": 1
+        },
+        "embed": {
+          "type": "string",
+          "pattern": "^https://"
+        },
+        "startParam": {
+          "type": "string",
+          "minLength": 1
+        },
+        "watchUrl": {
+          "type": "string",
+          "pattern": "^https://"
+        }
+      }
+    },
+    "variant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "label"],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/typeName"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hint": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "itemType": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label"],
+      "properties": {
+        "$comment": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inline": {
+          "type": "boolean"
+        },
+        "external": {
+          "$comment": "True for a shape that is never authored, such as a news entry fetched from the blog feed. It still needs a declaration so the types and the renderer agree on it.",
+          "type": "boolean"
+        },
+        "variantsByDecorative": {
+          "type": "boolean"
+        },
+        "fields": {
+          "$ref": "#/$defs/fieldMap"
+        },
+        "scalar": {
+          "enum": ["string"]
+        },
+        "pattern": {
+          "type": "string",
+          "format": "regex"
+        }
+      },
+      "oneOf": [
+        {
+          "type": "object",
+          "$comment": "Either a record of fields, or a constrained scalar such as `locale-tag`. Both at once has no meaning for the generator.",
+          "required": ["fields"],
+          "not": {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": ["scalar"]
+              },
+              {
+                "type": "object",
+                "required": ["pattern"]
+              }
+            ]
+          }
+        },
+        {
+          "type": "object",
+          "required": ["scalar", "pattern"],
+          "not": {
+            "type": "object",
+            "required": ["fields"]
+          }
+        }
+      ]
+    },
+    "sectionType": {
+      "type": "object",
+      "additionalProperties": false,
+      "$comment": "§2.3 rule 5. label names the type in the CMS type picker, labelSingular names one instance, summary is the collapsed row an editor scans a 20-section page by, and a type with no variant would let the renderer pick a default that nobody chose (§1.0, `variant` is always required).",
+      "required": ["label", "labelSingular", "summary", "variants", "fields"],
+      "properties": {
+        "$comment": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "labelSingular": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "maxPerPage": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "emitsItemHeadings": {
+          "type": "boolean"
+        },
+        "titleRequired": {
+          "type": "boolean"
+        },
+        "variants": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/variant"
+          }
+        },
+        "fields": {
+          "$ref": "#/$defs/fieldMap"
+        }
+      }
+    }
+  }
+}

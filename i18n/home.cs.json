@@ -1,109 +1,113 @@
 {
-  "hero": {
+  "page": {
     "title": "ORCID je pro…"
   },
-  "audiences": {
-    "researchers": {
-      "label": "Výzkumníci",
-      "intro": "ORCID je bezplatný, jedinečný, trvalý identifikátor (PID), který mohou jednotlivci používat při výzkumných, stipendijních a inovačních aktivitách. Zjistěte, jak ORCID vám může pomoci strávit více času prováděním výzkumu a méně času jeho správou. [Další informace o ORCID pro výzkumníky.](https://info.orcid.org/researchers)",
-      "features": {
-        "uniquely-yours": {
-          "title": "Jedinečně Váš",
-          "body": "Odlište se a přijměte uznání za svou práci bez ohledu na to, kolik lidí má vaše stejné (nebo podobné) jméno. [Zaregistrujte se zde.](https://orcid.org/register)"
+  "sections": {
+    "who-we-serve": {
+      "audiences": {
+        "researchers": {
+          "label": "Výzkumníci",
+          "intro": "ORCID je bezplatný, jedinečný, trvalý identifikátor (PID), který mohou jednotlivci používat při výzkumných, stipendijních a inovačních aktivitách. Zjistěte, jak ORCID vám může pomoci strávit více času prováděním výzkumu a méně času jeho správou. [Další informace o ORCID pro výzkumníky.](https://info.orcid.org/researchers)",
+          "features": {
+            "uniquely-yours": {
+              "title": "Jedinečně Váš",
+              "body": "Odlište se a přijměte uznání za svou práci bez ohledu na to, kolik lidí má vaše stejné (nebo podobné) jméno. [Zaregistrujte se zde.](https://orcid.org/register)"
+            },
+            "portable-profile-data": {
+              "title": "Přenosná data profilu",
+              "body": "Snadno sdílejte data mezi svými záznamy a financováním, publikacemi, datovými úložišti a dalšími výzkumnými pracovními postupy."
+            }
+          }
         },
-        "portable-profile-data": {
-          "title": "Přenosná data profilu",
-          "body": "Snadno sdílejte data mezi svými záznamy a financováním, publikacemi, datovými úložišti a dalšími výzkumnými pracovními postupy."
+        "universities-research-institutes": {
+          "label": "Univerzity a výzkumné ústavy",
+          "intro": "ORCID umožňuje univerzitám a výzkumným institucím sledovat výsledky svých výzkumníků, snižovat administrativní zátěž a chyby ve vstupech a pomáhá jejich výzkumníkům, postdoktorandům, zaměstnancům a studentům zlepšit viditelnost jejich práce. [Další informace o ORCID pro univerzity a výzkumné instituce.](https://info.orcid.org/orcid-for-universities-and-research-institutions/)",
+          "features": {
+            "support-research-productivity": {
+              "title": "Podporujte produktivitu výzkumu",
+              "body": "Umožněte svým výzkumníkům trávit více času svým výzkumem snížením administrativní zátěže"
+            },
+            "track-careers": {
+              "title": "Sledujte kariéru",
+              "body": "Sledujte kariéru výzkumných pracovníků a absolventů poté, co opustí vaši instituci, stejně jako spolupracovníky a kolegy v jiných institucích."
+            }
+          }
+        },
+        "publishers": {
+          "label": "Vydavatelé",
+          "intro": "Vydavatelé, kteří se integrují s ORCID může zefektivnit pracovní postupy pro autory, editory i recenzenty. ORCID zvyšuje celkovou hodnotu knih a časopisů pro komunitu a pomáhá zajistit, aby si vydavatelé více udrželi autory a čtenáře. [Další informace o ORCID pro vydavatele.](https://info.orcid.org/orcid-for-publishers/)",
+          "features": {
+            "know-your-authors": {
+              "title": "Poznejte své autory",
+              "body": "Zjistěte lépe, kdo jsou vaši autoři, spoluautoři a recenzenti, a vylepšete integritu procesů odesílání, kontroly a podávání zpráv."
+            },
+            "portable-profile-data": {
+              "title": "Přenosná data profilu",
+              "body": "Snadno sdílejte data mezi svými záznamy a financováním, publikacemi, datovými úložišti a dalšími výzkumnými pracovními postupy."
+            }
+          }
+        },
+        "vendors-service-providers": {
+          "label": "Prodejci a poskytovatelé služeb",
+          "intro": "Dodavatelé a poskytovatelé služeb, kteří propojují své služby s ORCID Registr se připojuje k našemu ekosystému s více než 5 000 ORCID-integrované systémy. Poskytování této služby zvyšuje hodnotu, kterou poskytují vědecké komunitě prostřednictvím autoritativních a vysoce kvalitních profilových dat. [Další informace o ORCID pro dodavatele a poskytovatele služeb.](https://info.orcid.org/vendors-and-service-providers/)",
+          "features": {
+            "increase-roi": {
+              "title": "Zvyšte návratnost investic",
+              "body": "Zvyšte návratnost investic své platformy a vytvořte lepší přehled pro organizace, se kterými spolupracujete."
+            },
+            "improve-discoverability": {
+              "title": "Zlepšete zjistitelnost",
+              "body": "Zvyšte hodnotu, kterou poskytujete vědecké komunitě, pomocí autoritativních a vysoce kvalitních profilových dat."
+            }
+          }
+        },
+        "government-policy-makers": {
+          "label": "Vláda a politici",
+          "intro": "ORCID Integrované systémy snižují administrativní zátěž agentur financujících výzkum a velkých zařízení, která udělují přístup ke zdrojům. Díky menšímu času a úsilí vynaloženému na správu grantů mohou lépe měřit dopad svých grantů. [Další informace o ORCID pro vládu a tvůrce politik](https://info.orcid.org/orcid-for-funders-and-facilities/) .",
+          "features": {
+            "know-your-researchers": {
+              "title": "Poznejte své výzkumníky",
+              "body": "Zjistěte lépe, kdo jsou vaši výzkumní pracovníci, a zlepšujte integritu svých procesů hodnocení a podávání zpráv."
+            },
+            "align-research-strategy": {
+              "title": "Sladit výzkumnou strategii",
+              "body": "Lepší sladění vaší strategie výzkumu, PID nebo infrastruktury s globálními komunitními standardy"
+            }
+          }
+        },
+        "funders-facilities": {
+          "label": "Fondy a zařízení",
+          "intro": "ORCID Integrované systémy snižují administrativní zátěž agentur financujících výzkum a velkých zařízení, která udělují přístup ke zdrojům. Díky menšímu času a úsilí vynaloženému na správu grantů mohou lépe měřit dopad svých grantů. [Další informace o ORCID pro sponzory](https://info.orcid.org/orcid-for-funders-and-facilities/).",
+          "features": {
+            "know-your-researchers": {
+              "title": "Poznejte své výzkumníky",
+              "body": "Zjistěte lépe, kdo jsou vaši žadatelé a recenzenti, a vylepšete integritu procesů odesílání, kontroly a hlášení"
+            },
+            "track-your-impact": {
+              "title": "Sledujte svůj dopad",
+              "body": "Zlepšete svou schopnost sledovat dopad svých ocenění a oceněných i po období výkonu."
+            }
+          }
         }
       }
     },
-    "universities-research-institutes": {
-      "label": "Univerzity a výzkumné ústavy",
-      "intro": "ORCID umožňuje univerzitám a výzkumným institucím sledovat výsledky svých výzkumníků, snižovat administrativní zátěž a chyby ve vstupech a pomáhá jejich výzkumníkům, postdoktorandům, zaměstnancům a studentům zlepšit viditelnost jejich práce. [Další informace o ORCID pro univerzity a výzkumné instituce.](https://info.orcid.org/orcid-for-universities-and-research-institutions/)",
-      "features": {
-        "support-research-productivity": {
-          "title": "Podporujte produktivitu výzkumu",
-          "body": "Umožněte svým výzkumníkům trávit více času svým výzkumem snížením administrativní zátěže"
-        },
-        "track-careers": {
-          "title": "Sledujte kariéru",
-          "body": "Sledujte kariéru výzkumných pracovníků a absolventů poté, co opustí vaši instituci, stejně jako spolupracovníky a kolegy v jiných institucích."
-        }
-      }
+    "featured-news": {
+      "kicker": "VLASTNOSTI NOVINKY",
+      "title": "Výzkumníci: Zjistěte, co vaše ORCID Záznam může udělat pro vás",
+      "body": "Řízení výzkumu napříč různými systémy, institucemi a fázemi vaší kariéry může být vyčerpávající. ORCID je tu pro vás – napříč vaší kariérou, obory a hranicemi – pomáhá výzkumníkům udržovat důvěryhodnou a propojenou výzkumnou identitu a ponechává jim více času na výzkum. Jakmile navážete ověřené kontakty s institucemi, kterým důvěřujete a se kterými spolupracujete, můžete jim povolit přidávat data o vás. Svůj identifikační údaj můžete také použít k přihlášení do jiných systémů, automatickému vyplňování formulářů a synchronizaci dat napříč platformami. [Podívejte se na toto krátké video a dozvíte se více o tom, co vaše ORCID záznam může udělat pro vás](https://www.youtube.com/watch?v=1rZvFGLe7bg)."
     },
-    "publishers": {
-      "label": "Vydavatelé",
-      "intro": "Vydavatelé, kteří se integrují s ORCID může zefektivnit pracovní postupy pro autory, editory i recenzenty. ORCID zvyšuje celkovou hodnotu knih a časopisů pro komunitu a pomáhá zajistit, aby si vydavatelé více udrželi autory a čtenáře. [Další informace o ORCID pro vydavatele.](https://info.orcid.org/orcid-for-publishers/)",
-      "features": {
-        "know-your-authors": {
-          "title": "Poznejte své autory",
-          "body": "Zjistěte lépe, kdo jsou vaši autoři, spoluautoři a recenzenti, a vylepšete integritu procesů odesílání, kontroly a podávání zpráv."
+    "integrate": {
+      "title": "Integrace s ORCID pro silnější a robustnější výzkumný ekosystém",
+      "items": {
+        "hub": {
+          "body": "Od pracovních vztahů, výzkumných výstupů, financování, hodnoticí činnosti, výzkumných zdrojů a dalších informací, ORCID propojuje lidi s jejich výzkumnými aktivitami. [Objevit ORCIDpracovní postupy a integrace](https://info.orcid.org/documentation/)."
         },
-        "portable-profile-data": {
-          "title": "Přenosná data profilu",
-          "body": "Snadno sdílejte data mezi svými záznamy a financováním, publikacemi, datovými úložišti a dalšími výzkumnými pracovními postupy."
-        }
-      }
-    },
-    "vendors-service-providers": {
-      "label": "Prodejci a poskytovatelé služeb",
-      "intro": "Dodavatelé a poskytovatelé služeb, kteří propojují své služby s ORCID Registr se připojuje k našemu ekosystému s více než 5 000 ORCID-integrované systémy. Poskytování této služby zvyšuje hodnotu, kterou poskytují vědecké komunitě prostřednictvím autoritativních a vysoce kvalitních profilových dat. [Další informace o ORCID pro dodavatele a poskytovatele služeb.](https://info.orcid.org/vendors-and-service-providers/)",
-      "features": {
-        "increase-roi": {
-          "title": "Zvyšte návratnost investic",
-          "body": "Zvyšte návratnost investic své platformy a vytvořte lepší přehled pro organizace, se kterými spolupracujete."
+        "certified-service-providers": {
+          "body": "Najít ORCIDposkytovatelé vědeckých služeb s podporou platformy, včetně systémů pro správu žádostí o granty/zařízení, systémů pro podávání rukopisů, repozitářových systémů, informačních systémů pro výzkum a systémů pro vyhledávání informací. [Prohlédněte si náš kompletní seznam certifikovaných poskytovatelů komunikačních služeb (CSP)](https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/)."
         },
-        "improve-discoverability": {
-          "title": "Zlepšete zjistitelnost",
-          "body": "Zvyšte hodnotu, kterou poskytujete vědecké komunitě, pomocí autoritativních a vysoce kvalitních profilových dat."
+        "getting-started": {
+          "body": "Začínáme s ORCID je to snazší, než by se mohlo zdát. [Přečtěte si naše ORCID stránka pro výzkumníky](https://info.orcid.org/researchers/) naučit se odpovědi na běžné otázky a [zaregistrovat se pro ORCID záznam dnes](https://orcid.org/signin)."
         }
-      }
-    },
-    "government-policy-makers": {
-      "label": "Vláda a politici",
-      "intro": "ORCID Integrované systémy snižují administrativní zátěž agentur financujících výzkum a velkých zařízení, která udělují přístup ke zdrojům. Díky menšímu času a úsilí vynaloženému na správu grantů mohou lépe měřit dopad svých grantů. [Další informace o ORCID pro vládu a tvůrce politik](https://info.orcid.org/orcid-for-funders-and-facilities/) .",
-      "features": {
-        "know-your-researchers": {
-          "title": "Poznejte své výzkumníky",
-          "body": "Zjistěte lépe, kdo jsou vaši výzkumní pracovníci, a zlepšujte integritu svých procesů hodnocení a podávání zpráv."
-        },
-        "align-research-strategy": {
-          "title": "Sladit výzkumnou strategii",
-          "body": "Lepší sladění vaší strategie výzkumu, PID nebo infrastruktury s globálními komunitními standardy"
-        }
-      }
-    },
-    "funders-facilities": {
-      "label": "Fondy a zařízení",
-      "intro": "ORCID Integrované systémy snižují administrativní zátěž agentur financujících výzkum a velkých zařízení, která udělují přístup ke zdrojům. Díky menšímu času a úsilí vynaloženému na správu grantů mohou lépe měřit dopad svých grantů. [Další informace o ORCID pro sponzory](https://info.orcid.org/orcid-for-funders-and-facilities/).",
-      "features": {
-        "know-your-researchers": {
-          "title": "Poznejte své výzkumníky",
-          "body": "Zjistěte lépe, kdo jsou vaši žadatelé a recenzenti, a vylepšete integritu procesů odesílání, kontroly a hlášení"
-        },
-        "track-your-impact": {
-          "title": "Sledujte svůj dopad",
-          "body": "Zlepšete svou schopnost sledovat dopad svých ocenění a oceněných i po období výkonu."
-        }
-      }
-    }
-  },
-  "featuredNews": {
-    "kicker": "VLASTNOSTI NOVINKY",
-    "title": "Výzkumníci: Zjistěte, co vaše ORCID Záznam může udělat pro vás",
-    "body": "Řízení výzkumu napříč různými systémy, institucemi a fázemi vaší kariéry může být vyčerpávající. ORCID je tu pro vás – napříč vaší kariérou, obory a hranicemi – pomáhá výzkumníkům udržovat důvěryhodnou a propojenou výzkumnou identitu a ponechává jim více času na výzkum. Jakmile navážete ověřené kontakty s institucemi, kterým důvěřujete a se kterými spolupracujete, můžete jim povolit přidávat data o vás. Svůj identifikační údaj můžete také použít k přihlášení do jiných systémů, automatickému vyplňování formulářů a synchronizaci dat napříč platformami. [Podívejte se na toto krátké video a dozvíte se více o tom, co vaše ORCID záznam může udělat pro vás](https://www.youtube.com/watch?v=1rZvFGLe7bg)."
-  },
-  "integrate": {
-    "title": "Integrace s ORCID pro silnější a robustnější výzkumný ekosystém",
-    "paragraphs": {
-      "hub": {
-        "body": "Od pracovních vztahů, výzkumných výstupů, financování, hodnoticí činnosti, výzkumných zdrojů a dalších informací, ORCID propojuje lidi s jejich výzkumnými aktivitami. [Objevit ORCIDpracovní postupy a integrace](https://info.orcid.org/documentation/)."
-      },
-      "certified-service-providers": {
-        "body": "Najít ORCIDposkytovatelé vědeckých služeb s podporou platformy, včetně systémů pro správu žádostí o granty/zařízení, systémů pro podávání rukopisů, repozitářových systémů, informačních systémů pro výzkum a systémů pro vyhledávání informací. [Prohlédněte si náš kompletní seznam certifikovaných poskytovatelů komunikačních služeb (CSP)](https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/)."
-      },
-      "getting-started": {
-        "body": "Začínáme s ORCID je to snazší, než by se mohlo zdát. [Přečtěte si naše ORCID stránka pro výzkumníky](https://info.orcid.org/researchers/) naučit se odpovědi na běžné otázky a [zaregistrovat se pro ORCID záznam dnes](https://orcid.org/signin)."
       }
     }
   }

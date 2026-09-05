@@ -9,20 +9,35 @@ import path from 'node:path'
  * so nothing has to be purged.
  */
 
-const IMAGE_FIELDS = new Set(['icon', 'background'])
+/**
+ * Any string that looks like a path into the image folder.
+ *
+ * This used to be a list of field names — `icon` and `background` — which was
+ * fine while the page had exactly one shape. With sections an editor composes,
+ * an image can sit under any field of any type, and a name-based rule silently
+ * misses the ones nobody thought to add: a page of broken pictures with a green
+ * build. Matching on the value instead cannot miss one, and it finds images in
+ * the old bare-string shape as well as the object shape that replaced it.
+ */
+const IMAGE_PATH = /^(images|assets)\/[A-Za-z0-9._-]+\.(png|jpe?g|svg|webp)$/
 
-/** Every distinct `images/…` path referenced by the document. */
+export function isImagePath(value) {
+  return typeof value === 'string' && IMAGE_PATH.test(value)
+}
+
+/** Every distinct image path in the document, wherever it sits. */
 export function collectImagePaths(node, found = new Set()) {
-  if (!node || typeof node !== 'object') return found
-
-  for (const [key, value] of Object.entries(node)) {
-    if (typeof value === 'string') {
-      if (IMAGE_FIELDS.has(key)) found.add(value)
-    } else if (typeof value === 'object') {
-      collectImagePaths(value, found)
-    }
+  if (isImagePath(node)) {
+    found.add(node)
+    return found
   }
-
+  if (Array.isArray(node)) {
+    for (const item of node) collectImagePaths(item, found)
+    return found
+  }
+  if (node && typeof node === 'object') {
+    for (const value of Object.values(node)) collectImagePaths(value, found)
+  }
   return found
 }
 
@@ -66,6 +81,7 @@ export async function buildAssets(content, sourceDir, outDir) {
 
 /** Copy of the document with every image path replaced using `rewrites`. */
 export function rewriteImagePaths(node, rewrites) {
+  if (isImagePath(node)) return rewrites.get(node) ?? node
   if (Array.isArray(node)) {
     return node.map((item) => rewriteImagePaths(item, rewrites))
   }
@@ -73,13 +89,7 @@ export function rewriteImagePaths(node, rewrites) {
 
   const out = {}
   for (const [key, value] of Object.entries(node)) {
-    if (typeof value === 'string' && IMAGE_FIELDS.has(key)) {
-      out[key] = rewrites.get(value) ?? value
-    } else if (value && typeof value === 'object') {
-      out[key] = rewriteImagePaths(value, rewrites)
-    } else {
-      out[key] = value
-    }
+    out[key] = rewriteImagePaths(value, rewrites)
   }
   return out
 }
