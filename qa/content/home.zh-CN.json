@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "hero": {
+    "title": "ORCID 是为了……"
+  },
+  "audiences": [
+    {
+      "id": "researchers",
+      "label": "研究人员",
+      "background": "assets/kaya_background-8976686500.png",
+      "intro": "ORCID 是一个免费、唯一且永久的标识符 (PID)，供个人在参与研究、学术和创新活动时使用。了解如何 ORCID 可以帮助您花更多时间进行研究，减少管理时间。 [进一步了解 ORCID 面向研究人员。](https://info.orcid.org/researchers)",
+      "features": [
+        {
+          "id": "uniquely-yours",
+          "icon": "assets/account_circle-de74c17d9a.png",
+          "title": "独一无二的你",
+          "body": "无论有多少人与您同名（或相似），您都要展现自己的特色，并为您的工作赢得赞誉。 [在此注册。](https://orcid.org/register)"
+        },
+        {
+          "id": "portable-profile-data",
+          "icon": "assets/laptop_windows-a774fe5378.png",
+          "title": "便携式配置文件数据",
+          "body": "轻松在您的记录和资金、出版物、数据存储库和其他研究工作流程之间共享数据。"
+        }
+      ]
+    },
+    {
+      "id": "universities-research-institutes",
+      "label": "大学及科研机构",
+      "background": "assets/kaya_background-8976686500.png",
+      "intro": "ORCID 使大学和研究机构能够及时了解其研究人员的成果，减少管理负担和输入错误，并帮助他们的研究人员、博士后、员工和学生提高其工作成果的可发现性。 [进一步了解 ORCID 适用于大学和研究机构。](https://info.orcid.org/orcid-for-universities-and-research-institutions/)",
+      "features": [
+        {
+          "id": "support-research-productivity",
+          "icon": "assets/biotech-d88f0eca52.png",
+          "title": "支持研究生产力",
+          "body": "减轻行政负担，让您的研究人员花更多时间进行研究"
+        },
+        {
+          "id": "track-careers",
+          "icon": "assets/school-c6c8b41dec.png",
+          "title": "追踪职业",
+          "body": "追踪研究人员和毕业生离开您的机构以及其他机构的合作者和同行后的职业生涯。"
+        }
+      ]
+    },
+    {
+      "id": "publishers",
+      "label": "发布商",
+      "background": "assets/kaya_background-8976686500.png",
+      "intro": "与以下平台集成的发布商 ORCID 可以简化作者、编辑和审阅者的工作流程。 ORCID 提高书籍和期刊对社区的整体价值，帮助确保出版商更好地留住作者和读者。 [进一步了解 ORCID 面向出版商。](https://info.orcid.org/orcid-for-publishers/)",
+      "features": [
+        {
+          "id": "know-your-authors",
+          "icon": "assets/data_loss_prevention-38e990a14b.png",
+          "title": "了解你的作者",
+          "body": "更好地了解您的作者、合著者和审阅者是谁，并提高您的提交、审阅和报告流程的完整性。"
+        },
+        {
+          "id": "portable-profile-data",
+          "icon": "assets/laptop_windows-a774fe5378.png",
+          "title": "便携式配置文件数据",
+          "body": "轻松在您的记录和资金、出版物、数据存储库和其他研究工作流程之间共享数据。"
+        }
+      ]
+    },
+    {
+      "id": "vendors-service-providers",
+      "label": "供应商和服务提供商",
+      "background": "assets/kaya_background-8976686500.png",
+      "intro": "供应商和服务提供商将其服务连接到 ORCID 注册中心加入我们的生态系统，拥有超过 5,000 个 ORCID集成系统。提供这项服务可以增加他们通过权威、高质量的个人资料数据为学术界提供的价值。 [进一步了解 ORCID 适用于供应商和服务提供商。](https://info.orcid.org/vendors-and-service-providers/)",
+      "features": [
+        {
+          "id": "increase-roi",
+          "icon": "assets/query_stats-6378deb876.png",
+          "title": "增加投资回报率",
+          "body": "提高平台的投资回报率，为与您合作的组织创造更好的洞察力。"
+        },
+        {
+          "id": "improve-discoverability",
+          "icon": "assets/visibility-17e367a28a.png",
+          "title": "提高可发现性",
+          "body": "利用权威、高质量的个人资料数据增加您为学术界提供的价值。"
+        }
+      ]
+    },
+    {
+      "id": "government-policy-makers",
+      "label": "政府和政策制定者",
+      "background": "assets/kaya_background-8976686500.png",
+      "intro": "ORCID 集成系统减轻了研究资助机构和授予资源使用权的主要机构的行政负担。通过减少管理奖项所需的时间和精力，他们可以更好地衡量奖项的影响。 [进一步了解 ORCID 对于政府和政策制定者](https://info.orcid.org/orcid-for-funders-and-facilities/) .",
+      "features": [
+        {
+          "id": "know-your-researchers",
+          "icon": "assets/person_check-7860cac6f4.png",
+          "title": "了解你的研究人员",
+          "body": "更好地了解您的研究人员是谁，并提高您的评估和报告流程的完整性。"
+        },
+        {
+          "id": "align-research-strategy",
+          "icon": "assets/language-c7d2849081.png",
+          "title": "调整研究策略",
+          "body": "更好地将您的研究、PID 或基础设施战略与全球社区标准相结合"
+        }
+      ]
+    },
+    {
+      "id": "funders-facilities",
+      "label": "资助者和设施",
+      "background": "assets/kaya_background-8976686500.png",
+      "intro": "ORCID 集成系统减轻了研究资助机构和授予资源使用权的主要机构的行政负担。通过减少管理奖项所需的时间和精力，他们可以更好地衡量奖项的影响。 [进一步了解 ORCID 对于资助者](https://info.orcid.org/orcid-for-funders-and-facilities/).",
+      "features": [
+        {
+          "id": "know-your-researchers",
+          "icon": "assets/person_check-7860cac6f4.png",
+          "title": "了解你的研究人员",
+          "body": "更好地了解您的申请人和审阅者是谁，并提高提交、审阅和报告流程的完整性"
+        },
+        {
+          "id": "track-your-impact",
+          "icon": "assets/query_stats-6378deb876.png",
+          "title": "追踪您的影响",
+          "body": "提高追踪奖项和获奖者影响的能力，甚至超越绩效期。"
+        }
+      ]
+    }
+  ],
+  "featuredNews": {
+    "kicker": "精选新闻",
+    "title": "研究人员：了解你的 ORCID 唱片能为你做什么",
+    "body": "管理跨不同系统、机构和职业生涯阶段的研究工作可能会让人筋疲力尽。 ORCID 无论您的职业生涯、学科领域或地域如何，我们都将竭诚为您服务，帮助研究人员维护值得信赖且紧密联系的研究身份，从而让他们有更多时间专注于研究。一旦您与您信任并合作的机构建立已验证的联系，即可允许他们添加您的数据。您还可以使用您的 ID 登录其他系统、自动填写表单以及跨平台同步您的数据。 [观看这段短视频，了解更多关于您的信息 ORCID 记录能为你做什么](https://www.youtube.com/watch?v=1rZvFGLe7bg).",
+    "vimeoId": "1198760040"
+  },
+  "integrate": {
+    "title": "与整合 ORCID 为了更强大、更稳健的研究生态系统",
+    "paragraphs": [
+      {
+        "id": "hub",
+        "body": "从雇佣关系、研究成果、资金来源、同行评审活动、研究资源等等方面， ORCID 将人们与他们的研究活动联系起来。 [探索 ORCID工作流程和集成](https://info.orcid.org/documentation/)."
+      },
+      {
+        "id": "certified-service-providers",
+        "body": "找到最适合您的地方 ORCID为学术服务提供商提供支持，包括拨款/设施申请管理系统、稿件提交系统、存储库系统、研究信息系统和发现系统。 [查看我们完整的认证云服务提供商列表](https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/)."
+      },
+      {
+        "id": "getting-started",
+        "body": "入门 ORCID 比看起来要容易。 [阅读我们的 ORCID 研究人员页面](https://info.orcid.org/researchers/) 了解常见问题的答案 [注册一个 ORCID 今日记录](https://orcid.org/signin)."
+      }
+    ]
+  },
+  "meta": {
+    "locale": "zh-CN",
+    "version": "qa-986e069",
+    "commit": "986e069",
+    "generatedAt": "2026-09-05T16:16:51.730Z",
+    "translated": 44,
+    "total": 44
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "hero": {
+    "title": "ORCID jest dla…"
+  },
+  "audiences": [
+    {
+      "id": "researchers",
+      "label": "Badacze",
+      "background": "assets/kaya_background-8976686500.png",
+      "intro": "ORCID to bezpłatny, unikalny i trwały identyfikator (PID), z którego mogą korzystać osoby fizyczne, angażując się w badania naukowe, stypendia i innowacje. Dowiedz się, jak ORCID może pomóc Ci poświęcić więcej czasu na prowadzenie badań, a mniej na zarządzanie nimi. [Dowiedz się więcej o: ORCID dla badaczy.](https://info.orcid.org/researchers)",
+      "features": [
+        {
+          "id": "uniquely-yours",
+          "icon": "assets/account_circle-de74c17d9a.png",
+          "title": "Wyjątkowo Twój",
+          "body": "Wyróżnij się i ubiegaj o uznanie za swoją pracę bez względu na to, ile osób nosi Twoje to samo (lub podobne) imię i nazwisko. [Podpisz tutaj.](https://orcid.org/register)"
+        },
+        {
+          "id": "portable-profile-data",
+          "icon": "assets/laptop_windows-a774fe5378.png",
+          "title": "Przenośne dane profilu",
+          "body": "Z łatwością udostępniaj dane między swoimi danymi a funduszami, publikacjami, repozytoriami danych i innymi procesami badawczymi."
+        }
+      ]
+    },
+    {
+      "id": "universities-research-institutes",
+      "label": "Uniwersytety i instytuty badawcze",
+      "background": "assets/kaya_background-8976686500.png",
+      "intro": "ORCID umożliwia uniwersytetom i placówkom badawczym śledzenie na bieżąco wyników prac naukowców, zmniejsza obciążenie administracyjne i liczbę błędów przy wprowadzaniu danych, a także pomaga badaczom, doktorantom, pracownikom i studentom zwiększyć dostępność ich prac. [Dowiedz się więcej o: ORCID dla uniwersytetów i placówek badawczych.](https://info.orcid.org/orcid-for-universities-and-research-institutions/)",
+      "features": [
+        {
+          "id": "support-research-productivity",
+          "icon": "assets/biotech-d88f0eca52.png",
+          "title": "Wspieraj produktywność badań",
+          "body": "Pozwól badaczom spędzić więcej czasu na badaniach, zmniejszając obciążenia administracyjne"
+        },
+        {
+          "id": "track-careers",
+          "icon": "assets/school-c6c8b41dec.png",
+          "title": "Śledź kariery",
+          "body": "Śledź kariery naukowców i absolwentów po opuszczeniu przez nich Twojej instytucji, a także współpracowników i współpracowników w innych instytucjach."
+        }
+      ]
+    },
+    {
+      "id": "publishers",
+      "label": "Wydawcy",
+      "background": "assets/kaya_background-8976686500.png",
+      "intro": "Wydawcy integrujący się z ORCID może usprawnić przepływ pracy autorów, redaktorów i recenzentów. ORCID zwiększa ogólną wartość książek i czasopism dla społeczności, pomagając wydawcom zapewnić lepszą retencję autorów i czytelników. [Dowiedz się więcej o: ORCID dla wydawców.](https://info.orcid.org/orcid-for-publishers/)",
+      "features": [
+        {
+          "id": "know-your-authors",
+          "icon": "assets/data_loss_prevention-38e990a14b.png",
+          "title": "Poznaj swoich autorów",
+          "body": "Lepiej dowiedz się, kim są Twoi autorzy, współautorzy i recenzenci, i popraw integralność procesów przesyłania, recenzowania i raportowania."
+        },
+        {
+          "id": "portable-profile-data",
+          "icon": "assets/laptop_windows-a774fe5378.png",
+          "title": "Przenośne dane profilu",
+          "body": "Z łatwością udostępniaj dane między swoimi danymi a funduszami, publikacjami, repozytoriami danych i innymi procesami badawczymi."
+        }
+      ]
+    },
+    {
+      "id": "vendors-service-providers",
+      "label": "Sprzedawcy i dostawcy usług",
+      "background": "assets/kaya_background-8976686500.png",
+      "intro": "Dostawcy i usługodawcy łączący swoje usługi z ORCID Zarejestruj się i dołącz do naszego ekosystemu liczącego ponad 5,000 ORCID-zintegrowane systemy. Świadczenie tej usługi zwiększa wartość, jaką dostarczają społeczności naukowej, dzięki wiarygodnym, wysokiej jakości danym profilowym. [Dowiedz się więcej o: ORCID dla dostawców i usługodawców.](https://info.orcid.org/vendors-and-service-providers/)",
+      "features": [
+        {
+          "id": "increase-roi",
+          "icon": "assets/query_stats-6378deb876.png",
+          "title": "Zwiększ ROI",
+          "body": "Zwiększ ROI swojej platformy i uzyskaj lepszy wgląd w organizacje, z którymi współpracujesz."
+        },
+        {
+          "id": "improve-discoverability",
+          "icon": "assets/visibility-17e367a28a.png",
+          "title": "Popraw wykrywalność",
+          "body": "Zwiększ wartość, jaką zapewniasz społeczności naukowej, dzięki wiarygodnym, wysokiej jakości danym profilowym."
+        }
+      ]
+    },
+    {
+      "id": "government-policy-makers",
+      "label": "Rząd i decydenci",
+      "background": "assets/kaya_background-8976686500.png",
+      "intro": "ORCID Zintegrowane systemy zmniejszają obciążenie administracyjne agencji finansujących badania i dużych placówek przyznających dostęp do zasobów. Mniejszy nakład czasu i wysiłku włożony w administrowanie przyznawaniem nagród pozwala im lepiej mierzyć ich wpływ. [Dowiedz się więcej o: ORCID dla rządów i decydentów](https://info.orcid.org/orcid-for-funders-and-facilities/) .",
+      "features": [
+        {
+          "id": "know-your-researchers",
+          "icon": "assets/person_check-7860cac6f4.png",
+          "title": "Poznaj swoich badaczy",
+          "body": "Lepiej dowiedz się, kim są Twoi badacze, i popraw integralność procesów oceny i raportowania."
+        },
+        {
+          "id": "align-research-strategy",
+          "icon": "assets/language-c7d2849081.png",
+          "title": "Dopasuj strategię badawczą",
+          "body": "Lepiej dostosuj swoją strategię badawczą, PID lub infrastrukturę do światowych standardów społeczności"
+        }
+      ]
+    },
+    {
+      "id": "funders-facilities",
+      "label": "Fundatorzy i udogodnienia",
+      "background": "assets/kaya_background-8976686500.png",
+      "intro": "ORCID Zintegrowane systemy zmniejszają obciążenie administracyjne agencji finansujących badania i dużych placówek przyznających dostęp do zasobów. Mniejszy nakład czasu i wysiłku włożony w administrowanie przyznawaniem nagród pozwala im lepiej mierzyć ich wpływ. [Dowiedz się więcej o: ORCID dla Fundatorów](https://info.orcid.org/orcid-for-funders-and-facilities/).",
+      "features": [
+        {
+          "id": "know-your-researchers",
+          "icon": "assets/person_check-7860cac6f4.png",
+          "title": "Poznaj swoich badaczy",
+          "body": "Lepiej dowiedz się, kim są Twoi kandydaci i recenzenci, i popraw integralność procesów składania, recenzowania i raportowania"
+        },
+        {
+          "id": "track-your-impact",
+          "icon": "assets/query_stats-6378deb876.png",
+          "title": "Śledź swój wpływ",
+          "body": "Popraw swoją zdolność śledzenia wpływu swoich nagród i nagrodzonych, nawet po okresie ich wykonania."
+        }
+      ]
+    }
+  ],
+  "featuredNews": {
+    "kicker": "Polecane artykuły",
+    "title": "Naukowcy: Dowiedz się, co oznaczają Twoje ORCID Rekord może zrobić dla Ciebie",
+    "body": "Zarządzanie badaniami w różnych systemach, instytucjach i na różnych etapach kariery może być wyczerpujące. ORCID jest tu dla Ciebie – niezależnie od Twojej kariery, dyscyplin i granic – pomagając badaczom zachować zaufaną, zintegrowaną tożsamość naukową i dając im więcej czasu na badania. Po zweryfikowaniu kontaktów z instytucjami, którym ufasz i z którymi współpracujesz, możesz pozwolić im na dodawanie danych o Tobie. Możesz również używać swojego identyfikatora do logowania się do innych systemów, automatycznego wypełniania formularzy i synchronizowania danych między platformami. [Obejrzyj ten krótki film, aby dowiedzieć się więcej o tym, co ORCID rekord może zrobić dla ciebie](https://www.youtube.com/watch?v=1rZvFGLe7bg).",
+    "vimeoId": "1198760040"
+  },
+  "integrate": {
+    "title": "Integrować z ORCID dla silniejszego i bardziej stabilnego ekosystemu badawczego",
+    "paragraphs": [
+      {
+        "id": "hub",
+        "body": "Od powiązań z pracodawcami, wyników badań, finansowania, działalności w zakresie recenzji eksperckich, zasobów badawczych i nie tylko, ORCID łączy ludzi z ich działalnością badawczą. [Odkryj ORCIDPrzepływy pracy i integracje](https://info.orcid.org/documentation/)."
+      },
+      {
+        "id": "certified-service-providers",
+        "body": "Znajdź ORCID-dostawców usług naukowych, w tym systemów zarządzania wnioskami o dotacje/udogodnienia, systemów składania rękopisów, systemów repozytoriów, systemów informacji badawczej i systemów odkryć. [Zobacz naszą pełną listę certyfikowanych dostawców usług komunikacyjnych](https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/)."
+      },
+      {
+        "id": "getting-started",
+        "body": "Pierwsze kroki z ORCID jest łatwiejsze niż mogłoby się wydawać. [Przeczytaj nasz ORCID dla strony Badaczy](https://info.orcid.org/researchers/) aby poznać odpowiedzi na często zadawane pytania i [zarejestrować się na ORCID rekord dzisiaj](https://orcid.org/signin)."
+      }
+    ]
+  },
+  "meta": {
+    "locale": "pl",
+    "version": "qa-986e069",
+    "commit": "986e069",
+    "generatedAt": "2026-09-05T16:16:51.730Z",
+    "translated": 44,
+    "total": 44
+  }
+}

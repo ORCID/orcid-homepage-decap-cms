@@ -1,0 +1,23 @@
+{
+  "version": "qa-986e069",
+  "commit": "986e069",
+  "generatedAt": "2026-09-05T16:16:51.730Z",
+  "schemaVersion": 1,
+  "locales": [
+    "en",
+    "ar",
+    "cs",
+    "de",
+    "es",
+    "fr",
+    "it",
+    "ja",
+    "ko",
+    "pl",
+    "pt",
+    "ru",
+    "tr",
+    "zh-CN",
+    "zh-TW"
+  ]
+}
