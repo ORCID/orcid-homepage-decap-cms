@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden the runner (audit all outbound calls)
+        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+        with:
+          egress-policy: audit
+
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate content and translations
+        run: npm run validate -- --strict
+
+      - name: Check that the Transifex source can be generated
+        run: npm run extract -- --stdout > /dev/null
+
+      - name: Report translation keys added or removed
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          set -euo pipefail
+          if git show "origin/${BASE_REF}:content/home.en.json" > /tmp/before.json 2>/dev/null; then
+            node scripts/key-diff.mjs --before /tmp/before.json
+          else
+            echo "No content file on the base branch; nothing to compare." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Build the bundle
+        run: npm run build -- --version "pr-${{ github.event.number || github.run_id }}"
+
+      - name: Validate the built bundle
+        run: npm run validate -- --dist dist/content
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Formatting
+        run: npm run format:check

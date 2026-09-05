@@ -1,0 +1,5 @@
+dist/
+node_modules/
+content/images/
+i18n/
+package-lock.json

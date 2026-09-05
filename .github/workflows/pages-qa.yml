@@ -1,0 +1,76 @@
+name: Deploy to QA
+
+# Every merge to main republishes the QA bundle. Nothing here touches the
+# production bundle: that is a separate, tagged, approved release.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**'
+      - 'i18n/**'
+      - 'admin/**'
+      - 'schema/**'
+      - 'scripts/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/pages-qa.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: qa.orcid.org
+    steps:
+      - name: Harden the runner (audit all outbound calls)
+        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+        with:
+          egress-policy: audit
+
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Name this build
+        id: version
+        run: echo "value=qa-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+
+      - name: Validate content
+        run: npm run validate -- --strict
+
+      - name: Build the bundle
+        run: npm run build -- --version "${{ steps.version.outputs.value }}"
+
+      - name: Validate the built bundle
+        run: npm run validate -- --dist dist/content
+
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847 # v3.9.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
+          destination_dir: qa
+          keep_files: true
+          cname: false
+          commit_message: 'QA ${{ steps.version.outputs.value }}'
+
+      - name: Check what the site is actually serving
+        run: |
+          npm run validate:deploy -- \
+            --base https://orcid.github.io/orcid-homepage-decap-cms/qa \
+            --version "${{ steps.version.outputs.value }}"

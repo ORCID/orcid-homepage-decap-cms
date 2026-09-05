@@ -1,0 +1,110 @@
+{
+  "hero": {
+    "title": "ORCID は…のためです"
+  },
+  "audiences": {
+    "researchers": {
+      "label": "研究者",
+      "intro": "ORCID 研究、学術、イノベーション活動に従事する個人が利用できる、無料で使用できる固有の永続識別子（PID）です。詳しくはこちら ORCID 調査の実施により多くの時間を費やし、調査の管理にかかる時間を短縮するのに役立ちます。 [詳細については、こちらから ORCID 研究者向け。](https://info.orcid.org/researchers)",
+      "features": {
+        "uniquely-yours": {
+          "title": "ユニークにあなたのもの",
+          "body": "同じ（または似た）名前を持つ人が何人いても、自分を区別し、自分の仕事の功績を主張してください。 [ここにサインアップしてください。](https://orcid.org/register)"
+        },
+        "portable-profile-data": {
+          "title": "ポータブルプロファイルデータ",
+          "body": "記録と資金、出版物、データ リポジトリ、その他の研究ワークフロー間でデータを簡単に共有できます。"
+        }
+      }
+    },
+    "universities-research-institutes": {
+      "label": "大学・研究機関",
+      "intro": "ORCID 大学や研究機関は、研究者の成果を常に最新の状態に保ち、管理上の負担や入力エラーを削減し、研究者、ポスドク、従業員、学生が研究成果の発見可能性を向上させることができます。 [詳細については、こちらから ORCID 大学および研究機関向け。](https://info.orcid.org/orcid-for-universities-and-research-institutions/)",
+      "features": {
+        "support-research-productivity": {
+          "title": "研究の生産性をサポート",
+          "body": "管理上の負担を軽減することで研究者が研究に費やす時間を増やす"
+        },
+        "track-careers": {
+          "title": "キャリアを追跡する",
+          "body": "研究者や卒業生が所属機関を離れた後のキャリア、および他の機関の協力者や同僚のキャリアを追跡します。"
+        }
+      }
+    },
+    "publishers": {
+      "label": "メディア",
+      "intro": "統合するパブリッシャー ORCID 著者、編集者、査読者のワークフローを効率化できます。 ORCID 書籍や雑誌のコミュニティに対する全体的な価値を向上させ、出版社が著者や読者をより多く維持できるようにします。 [詳細については、こちらから ORCID 出版社向け。](https://info.orcid.org/orcid-for-publishers/)",
+      "features": {
+        "know-your-authors": {
+          "title": "著者を知る",
+          "body": "著者、共著者、査読者が誰であるかをよりよく把握し、提出、査読、報告のプロセスの整合性を向上させます。"
+        },
+        "portable-profile-data": {
+          "title": "ポータブルプロファイルデータ",
+          "body": "記録と資金、出版物、データ リポジトリ、その他の研究ワークフロー間でデータを簡単に共有できます。"
+        }
+      }
+    },
+    "vendors-service-providers": {
+      "label": "ベンダーとサービスプロバイダー",
+      "intro": "自社のサービスをインターネットに接続するベンダーやサービスプロバイダーは、 ORCID レジストリは5,000以上のエコシステムに参加します ORCID統合システム。このサービスを提供することで、信頼性の高い高品質のプロファイルデータを提供し、学術コミュニティに提供する価値を高めることができます。 [詳細については、こちらから ORCID ベンダーおよびサービスプロバイダー向け。](https://info.orcid.org/vendors-and-service-providers/)",
+      "features": {
+        "increase-roi": {
+          "title": "ROIを向上させる",
+          "body": "プラットフォームの ROI を向上させ、連携する組織に対してより優れた洞察を生み出します。"
+        },
+        "improve-discoverability": {
+          "title": "発見可能性の向上",
+          "body": "信頼性が高く、高品質なプロファイル データを使用して、学術コミュニティに提供する価値を高めます。"
+        }
+      }
+    },
+    "government-policy-makers": {
+      "label": "政府と政策立案者",
+      "intro": "ORCID 統合システムは、研究資金提供機関やリソースへのアクセスを提供する主要施設の事務負担を軽減します。助成金の管理にかかる時間と労力が削減されることで、助成金の効果をより正確に測定できるようになります。 [詳細については、こちらから ORCID 政府および政策立案者向け](https://info.orcid.org/orcid-for-funders-and-facilities/) .",
+      "features": {
+        "know-your-researchers": {
+          "title": "研究者を知る",
+          "body": "研究者が誰であるかをよりよく把握し、評価と報告のプロセスの整合性を向上させます。"
+        },
+        "align-research-strategy": {
+          "title": "研究戦略を調整する",
+          "body": "研究、PID、またはインフラストラクチャ戦略をグローバルコミュニティ標準に合わせて調整します"
+        }
+      }
+    },
+    "funders-facilities": {
+      "label": "資金提供者と施設",
+      "intro": "ORCID 統合システムは、研究資金提供機関やリソースへのアクセスを提供する主要施設の事務負担を軽減します。助成金の管理にかかる時間と労力が削減されることで、助成金の効果をより正確に測定できるようになります。 [詳細については、こちらから ORCID 資金提供者向け](https://info.orcid.org/orcid-for-funders-and-facilities/).",
+      "features": {
+        "know-your-researchers": {
+          "title": "研究者を知る",
+          "body": "申請者と審査担当者をよりよく把握し、提出、審査、報告プロセスの整合性を向上させます。"
+        },
+        "track-your-impact": {
+          "title": "影響を追跡する",
+          "body": "パフォーマンス期間を超えても、賞と受賞者の影響を追跡する能力が向上します。"
+        }
+      }
+    }
+  },
+  "featuredNews": {
+    "kicker": "注目のニュース",
+    "title": "研究者：あなたの ORCID レコードはあなたのために何ができるでしょうか",
+    "body": "異なるシステム、機関、キャリア段階にまたがる研究を管理するのは、非常に骨の折れる作業になりかねない。 ORCID は、キャリア、専門分野、国境を越えて、研究者が信頼できるつながりのある研究者としてのアイデンティティを維持し、研究に専念できる時間を増やすお手伝いをします。信頼できる機関や協力機関と認証済みのつながりを確立すれば、それらの機関があなたのデータを追加することを許可できます。また、IDを使用して他のシステムにログインしたり、フォームを自動入力したり、プラットフォーム間でデータを同期したりすることもできます。 [この短いビデオを見て、あなたの ORCID レコードはあなたのためにできる](https://www.youtube.com/watch?v=1rZvFGLe7bg)."
+  },
+  "integrate": {
+    "title": "すぐに ORCID より強力で堅牢な研究エコシステムのために",
+    "paragraphs": {
+      "hub": {
+        "body": "雇用関係、研究成果、資金提供、査読活動、研究リソースなど、 ORCID 人々と研究活動を結びつける。 [探索する ORCIDのワークフローと統合](https://info.orcid.org/documentation/)."
+      },
+      "certified-service-providers": {
+        "body": "もう完成させ、ワークスペースに掲示しましたか? ORCID助成金／施設申請管理システム、論文投稿システム、リポジトリシステム、研究情報システム、および発見システムなど、学術サービスプロバイダーに対応しています。 [認定クラウドサービスプロバイダーの全リストをご覧ください](https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/)."
+      },
+      "getting-started": {
+        "body": "はじめに ORCID 見た目よりも簡単だ。 [FAIC/Tru Vue 保存展示助成金を受けて実施された地図の修復処理および展示準備の詳細については、 ORCID 研究者向けページ](https://info.orcid.org/researchers/) よくある質問への回答を学び、 [登録する ORCID 本日の記録](https://orcid.org/signin)."
+      }
+    }
+  }
+}

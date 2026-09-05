@@ -1,0 +1,12 @@
+[main]
+host = https://www.transifex.com
+lang_map = zh_CN: zh-CN, zh_TW: zh-TW, pl_PL: pl, tr_TR: tr
+
+[o:orcid-inc-1:p:orcid-homepage:r:home]
+file_filter            = i18n/home.<lang>.json
+source_file            = i18n/home.en.json
+source_lang            = en
+type                   = KEYVALUEJSON
+minimum_perc           = 0
+replace_edited_strings = false
+keep_translations      = false

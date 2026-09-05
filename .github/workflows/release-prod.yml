@@ -1,0 +1,169 @@
+name: Release to production
+
+# Production is only ever a tag that has already been seen on QA. Leave the
+# version empty to cut the next patch release; give an existing tag to redeploy
+# it, which is how a rollback is done.
+#
+# The pause before the production job is a GitHub environment protection rule on
+# `orcid.org`, not a step in this file. A reviewer has to approve it.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Existing tag to redeploy, or empty to cut the next patch release'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    environment: qa.orcid.org
+    outputs:
+      version: ${{ steps.version.outputs.value }}
+    steps:
+      - name: Harden the runner (audit all outbound calls)
+        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+        with:
+          egress-policy: audit
+
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Decide the version
+        id: version
+        env:
+          REQUESTED: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          git fetch --tags --quiet
+          if [ -n "$REQUESTED" ]; then
+            if ! git rev-parse "$REQUESTED" >/dev/null 2>&1; then
+              echo "::error::Tag $REQUESTED does not exist"
+              exit 1
+            fi
+            echo "value=$REQUESTED" >> "$GITHUB_OUTPUT"
+            echo "existing=true" >> "$GITHUB_OUTPUT"
+          else
+            LATEST=$(git tag --list 'v*' --sort=-version:refname | head -n 1)
+            LATEST=${LATEST:-v0.0.0}
+            MAJOR=$(echo "${LATEST#v}" | cut -d. -f1)
+            MINOR=$(echo "${LATEST#v}" | cut -d. -f2)
+            PATCH=$(echo "${LATEST#v}" | cut -d. -f3)
+            echo "value=v${MAJOR}.${MINOR}.$((PATCH + 1))" >> "$GITHUB_OUTPUT"
+            echo "existing=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check out the tag being redeployed
+        if: steps.version.outputs.existing == 'true'
+        run: git checkout --detach "${{ steps.version.outputs.value }}"
+
+      - name: Validate content
+        run: npm run validate -- --strict
+
+      - name: Build the bundle
+        run: npm run build -- --version "${{ steps.version.outputs.value }}"
+
+      - name: Validate the built bundle
+        run: npm run validate -- --dist dist/content
+
+      - name: Tag and release
+        if: steps.version.outputs.existing == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.version.outputs.value }}
+        run: |
+          set -euo pipefail
+          git tag "$TAG"
+          git push origin "$TAG"
+          gh release create "$TAG" --title "$TAG" --generate-notes
+
+      - name: Publish to QA for a last look
+        uses: peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847 # v3.9.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
+          destination_dir: qa
+          keep_files: true
+          cname: false
+          commit_message: 'QA ${{ steps.version.outputs.value }}'
+
+      - name: Check what QA is actually serving
+        run: |
+          npm run validate:deploy -- \
+            --base https://orcid.github.io/orcid-homepage-decap-cms/qa \
+            --version "${{ steps.version.outputs.value }}"
+
+      - name: Ask for approval
+        run: |
+          {
+            echo "### ${{ steps.version.outputs.value }} is on QA"
+            echo
+            echo "Review <https://orcid.github.io/orcid-homepage-decap-cms/qa/>."
+            echo "Approve the **orcid.org** environment on this run to publish it."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  production:
+    runs-on: ubuntu-latest
+    needs: stage
+    environment: orcid.org
+    steps:
+      - name: Harden the runner (audit all outbound calls)
+        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+        with:
+          egress-policy: audit
+
+      - name: Checkout the released tag
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          ref: ${{ needs.stage.outputs.version }}
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the bundle
+        run: npm run build -- --version "${{ needs.stage.outputs.version }}"
+
+      - name: Validate the built bundle
+        run: npm run validate -- --dist dist/content
+
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847 # v3.9.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
+          destination_dir: prod
+          keep_files: true
+          cname: false
+          commit_message: 'Production ${{ needs.stage.outputs.version }}'
+
+      - name: Check what production is actually serving
+        run: |
+          npm run validate:deploy -- \
+            --base https://orcid.github.io/orcid-homepage-decap-cms/prod \
+            --version "${{ needs.stage.outputs.version }}"

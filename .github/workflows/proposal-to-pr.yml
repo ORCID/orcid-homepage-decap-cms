@@ -1,0 +1,139 @@
+name: Content proposal to pull request
+
+# Turns a content proposal, opened as an issue by the editor, into a pull
+# request. GitHub has already authenticated whoever opened the issue; this adds
+# validation, and a maintainer still has to merge.
+#
+# The issue body is written by a member of the public. It is only ever read as
+# data: written to a file, parsed as JSON, and applied as a merge patch. It is
+# never interpolated into a shell command.
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: proposal-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  open-pull-request:
+    if: contains(github.event.issue.labels.*.name, 'content-proposal')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden the runner (audit all outbound calls)
+        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+        with:
+          egress-policy: audit
+
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Write the issue body to a file
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: printf '%s' "$ISSUE_BODY" > /tmp/issue-body.md
+
+      - name: Apply the proposed change
+        id: apply
+        run: node scripts/apply-proposal.mjs --issue-body /tmp/issue-body.md
+
+      - name: Validate the result
+        id: validate
+        run: npm run validate -- --strict
+
+      - name: Push a branch and open a pull request
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          CHANGED: ${{ steps.apply.outputs.changed-fields }}
+        run: |
+          set -euo pipefail
+          BRANCH="proposal/issue-${ISSUE_NUMBER}"
+
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git checkout -B "$BRANCH"
+          git add content/home.en.json
+
+          if git diff --staged --quiet; then
+            echo "::error::The proposal did not change the content file"
+            exit 1
+          fi
+
+          git commit -m "Homepage content from #${ISSUE_NUMBER}"
+          git push --force origin "$BRANCH"
+
+          EXISTING=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            echo "Updated existing pull request #${EXISTING}" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          # The body is passed through a file so the issue title, which is
+          # attacker-controlled text, is never expanded by the shell.
+          {
+            printf 'Proposed by @%s in #%s.\n\n' "$ISSUE_AUTHOR" "$ISSUE_NUMBER"
+            printf 'Fields changed: `%s`\n\n' "$CHANGED"
+            printf 'Review the content diff below. Merging publishes this to QA.\n\n'
+            printf 'Closes #%s\n' "$ISSUE_NUMBER"
+          } > /tmp/pr-body.md
+
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "Homepage content from #${ISSUE_NUMBER}" \
+            --body-file /tmp/pr-body.md
+
+      - name: Tell the author it worked
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+          URL=$(gh pr list --head "proposal/issue-${ISSUE_NUMBER}" --state open --json url --jq '.[0].url // empty')
+          printf 'Thanks. This is now a pull request for review: %s\n\nOnce it is merged the change appears on QA within a few minutes.\n' "$URL" > /tmp/comment.md
+          gh issue comment "$ISSUE_NUMBER" --body-file /tmp/comment.md
+
+      - name: Tell the author what went wrong
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          {
+            printf 'This change could not be applied.\n\n'
+            if [ -f proposal-error.txt ]; then
+              printf '```\n'
+              cat proposal-error.txt
+              printf '```\n\n'
+            else
+              printf 'It did not pass content validation. The full report is in the [workflow run](%s).\n\n' "$RUN_URL"
+            fi
+            printf 'Edit this issue to correct it and the check runs again.\n'
+          } > /tmp/comment.md
+          gh issue comment "$ISSUE_NUMBER" --body-file /tmp/comment.md
+          gh issue edit "$ISSUE_NUMBER" --add-label invalid

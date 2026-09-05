@@ -1,0 +1,38 @@
+name: Homepage content change
+description: Propose a change to the orcid.org homepage, normally from the content editor.
+title: 'Homepage content: '
+labels: ['content-proposal']
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        This form is usually filled in for you. Open the
+        [content editor](https://orcid.github.io/orcid-homepage-decap-cms/qa/admin/),
+        make your change, choose **Publish**, then **Propose on GitHub**.
+
+
+        Submitting opens a pull request with your change. Someone on the team
+        reviews and merges it, and the homepage picks it up from there.
+  - type: textarea
+    id: patch
+    attributes:
+      label: Change
+      description: >-
+        The change, as JSON. Leave exactly what the editor put here. If you are
+        writing it by hand, include only the fields you want to change.
+      render: json
+      placeholder: |
+        {
+          "hero": {
+            "title": "ORCID is for…"
+          }
+        }
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why (optional)
+      description: Anything the reviewer should know, such as who asked for this.
+    validations:
+      required: false

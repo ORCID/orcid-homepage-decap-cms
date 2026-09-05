@@ -1,0 +1,84 @@
+name: Push translation source to Transifex
+
+# Dormant until the Transifex resource exists and TRANSIFEX_TOKEN is set on this
+# repository. It exits cleanly rather than failing so it does not sit red.
+#
+# The source file is generated, never committed: Decap-authored changes land on
+# main through a pull request, and a committed copy would be stale one edit
+# later. CI regenerates it here and pushes it.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/home.en.json'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: transifex-push
+  cancel-in-progress: false
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    env:
+      TX_TOKEN: ${{ secrets.TRANSIFEX_TOKEN }}
+    steps:
+      - name: Harden the runner (audit all outbound calls)
+        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+        with:
+          egress-policy: audit
+
+      - name: Skip when Transifex is not configured yet
+        id: gate
+        run: |
+          if [ -z "${TX_TOKEN:-}" ]; then
+            echo "TRANSIFEX_TOKEN is not set; the homepage resource is not wired up yet." >> "$GITHUB_STEP_SUMMARY"
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout repository
+        if: steps.gate.outputs.ready == 'true'
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Set up Node
+        if: steps.gate.outputs.ready == 'true'
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.gate.outputs.ready == 'true'
+        run: npm ci
+
+      - name: Generate the source file
+        if: steps.gate.outputs.ready == 'true'
+        run: npm run extract
+
+      - name: Install the Transifex CLI
+        if: steps.gate.outputs.ready == 'true'
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+          mkdir -p "$HOME/bin"
+          install -m 0755 ./tx "$HOME/bin/tx"
+          echo "$HOME/bin" >> "$GITHUB_PATH"
+
+      - name: Configure Transifex credentials
+        if: steps.gate.outputs.ready == 'true'
+        run: |
+          printf '%s\n' \
+            '[https://app.transifex.com]' \
+            'hostname = https://app.transifex.com' \
+            'api_hostname = https://api.transifex.com' \
+            "token = ${TX_TOKEN}" > "$HOME/.transifexrc"
+          chmod 600 "$HOME/.transifexrc"
+
+      - name: Push the source strings
+        if: steps.gate.outputs.ready == 'true'
+        run: tx push -s -r orcid-homepage.home

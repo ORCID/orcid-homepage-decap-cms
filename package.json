@@ -1,0 +1,30 @@
+{
+  "name": "orcid-homepage-decap-cms",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Homepage content for orcid.org: edited with Decap CMS, stored as JSON, published as a static bundle.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "extract": "node scripts/extract.mjs",
+    "build": "node scripts/build.mjs",
+    "test": "node --test scripts/__tests__/*.test.mjs",
+    "serve": "http-server dist -p 8082 --cors -c-1",
+    "validate:deploy": "node scripts/validate-deploy.mjs",
+    "seed": "node scripts/seed-from-live.mjs",
+    "format": "prettier --write \"scripts/**/*.mjs\" \"admin/*.{js,yml}\" \"schema/*.json\" \".github/**/*.yml\" \"*.{json,md}\"",
+    "format:check": "prettier --check \"scripts/**/*.mjs\" \"admin/*.{js,yml}\" \"schema/*.json\" \".github/**/*.yml\" \"*.{json,md}\""
+  },
+  "dependencies": {
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1"
+  },
+  "devDependencies": {
+    "http-server": "14.1.1",
+    "node-html-parser": "6.1.13",
+    "prettier": "3.3.3"
+  }
+}

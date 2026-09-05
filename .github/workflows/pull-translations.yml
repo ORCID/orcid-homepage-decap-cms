@@ -1,0 +1,136 @@
+name: Pull translations from Transifex
+
+# Modelled on orcid-angular's workflow of the same name, so the two behave
+# alike: a long-lived `transifex` branch, rebuilt from main whenever it
+# conflicts, proposed as a single pull request.
+#
+# Dormant until TRANSIFEX_TOKEN and GH_PAT are set on this repository. The
+# translations in i18n/ until then are the machine translations copied from the
+# page that is live today; see README.md.
+
+on:
+  schedule:
+    - cron: '0 0,12 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: transifex-pull
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    env:
+      TX_TOKEN: ${{ secrets.TRANSIFEX_TOKEN }}
+      GH_PAT: ${{ secrets.GH_PAT }}
+    steps:
+      - name: Harden the runner (audit all outbound calls)
+        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
+        with:
+          egress-policy: audit
+
+      - name: Skip when Transifex is not configured yet
+        id: gate
+        run: |
+          if [ -z "${TX_TOKEN:-}" ] || [ -z "${GH_PAT:-}" ]; then
+            echo "TRANSIFEX_TOKEN or GH_PAT is not set; translations are still seeded by hand." >> "$GITHUB_STEP_SUMMARY"
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout repository
+        if: steps.gate.outputs.ready == 'true'
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0
+          # A PAT, so that pushing this branch still triggers CI on the pull
+          # request. Pushes made with GITHUB_TOKEN do not start other workflows.
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Set up Node
+        if: steps.gate.outputs.ready == 'true'
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.gate.outputs.ready == 'true'
+        run: npm ci
+
+      - name: Install the Transifex CLI
+        if: steps.gate.outputs.ready == 'true'
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+          mkdir -p "$HOME/bin"
+          install -m 0755 ./tx "$HOME/bin/tx"
+          echo "$HOME/bin" >> "$GITHUB_PATH"
+
+      - name: Configure Transifex credentials
+        if: steps.gate.outputs.ready == 'true'
+        run: |
+          printf '%s\n' \
+            '[https://app.transifex.com]' \
+            'hostname = https://app.transifex.com' \
+            'api_hostname = https://api.transifex.com' \
+            "token = ${TX_TOKEN}" > "$HOME/.transifexrc"
+          chmod 600 "$HOME/.transifexrc"
+
+      - name: Prepare the transifex branch
+        if: steps.gate.outputs.ready == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git fetch origin main transifex || true
+
+          if git ls-remote --exit-code --heads origin transifex >/dev/null 2>&1; then
+            git checkout -B transifex origin/transifex
+            # Translations are regenerable, so a conflict is resolved by taking
+            # main and pulling again rather than by merging by hand.
+            git merge --no-ff --no-edit origin/main || {
+              git merge --abort || true
+              git reset --hard origin/main
+            }
+          else
+            git checkout -B transifex origin/main
+          fi
+
+      - name: Pull translations
+        if: steps.gate.outputs.ready == 'true'
+        run: |
+          set -euo pipefail
+          # The source file is generated, and tx needs it on disk to know the
+          # resource layout before it can write the translated files.
+          npm run extract
+          tx pull -a -r orcid-homepage.home --force --minimum-perc=0
+
+      - name: Validate what came back
+        if: steps.gate.outputs.ready == 'true'
+        run: npm run validate
+
+      - name: Commit and open a pull request
+        if: steps.gate.outputs.ready == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          set -euo pipefail
+          if git status --porcelain i18n | grep -q .; then
+            git add i18n
+            git commit -m 'Transifex: pull homepage translations'
+            git push -f origin transifex
+          else
+            echo 'No translation changes.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          if [ -z "$(gh pr list --head transifex --state open --json number --jq '.[0].number // empty')" ]; then
+            gh pr create --base main --head transifex \
+              --title 'Transifex: update homepage translations' \
+              --body 'Automated translation pull. Merging republishes the QA bundle.'
+          fi

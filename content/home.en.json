@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "hero": {
+    "title": "ORCID is for…"
+  },
+  "audiences": [
+    {
+      "id": "researchers",
+      "label": "Researchers",
+      "background": "images/kaya_background.png",
+      "intro": "ORCID is a free, unique, persistent identifier (PID) for individuals to use as they engage in research, scholarship, and innovation activities. Learn how ORCID can help you spend more time conducting your research and less time managing it. [Learn more about ORCID for Researchers.](https://info.orcid.org/researchers)",
+      "features": [
+        {
+          "id": "uniquely-yours",
+          "icon": "images/account_circle.png",
+          "title": "Uniquely Yours",
+          "body": "Distinguish yourself and claim credit for your work no matter how many people have your same (or similar) name. [Sign up here.](https://orcid.org/register)"
+        },
+        {
+          "id": "portable-profile-data",
+          "icon": "images/laptop_windows.png",
+          "title": "Portable profile data",
+          "body": "Easily share data between your record and funding, publications, data repositories, and other research workflows."
+        }
+      ]
+    },
+    {
+      "id": "universities-research-institutes",
+      "label": "Universities & Research Institutes",
+      "background": "images/kaya_background.png",
+      "intro": "ORCID allows universities and research institutions to stay up to date with their researchers’ outputs, reduce administrative burden and input errors, and helps their researchers, post-docs, employees, and students improve the discoverability of their work. [Learn more about ORCID for Universities and Research Institutions.](https://info.orcid.org/orcid-for-universities-and-research-institutions/)",
+      "features": [
+        {
+          "id": "support-research-productivity",
+          "icon": "images/biotech.png",
+          "title": "Support research productivity",
+          "body": "Let your researchers spend more time on their research by reducing administrative burden"
+        },
+        {
+          "id": "track-careers",
+          "icon": "images/school.png",
+          "title": "Track Careers",
+          "body": "Track researchers’ and graduates’ careers after they leave your institution as well as collaborators and peers at other institutions."
+        }
+      ]
+    },
+    {
+      "id": "publishers",
+      "label": "Publishers",
+      "background": "images/kaya_background.png",
+      "intro": "Publishers that integrate with ORCID can streamline workflows for authors, editors, and reviewers alike. ORCID improves the overall value of books and journals to the community, helping ensure that publishers have greater retention of authors and readers. [Learn more about ORCID for Publishers.](https://info.orcid.org/orcid-for-publishers/)",
+      "features": [
+        {
+          "id": "know-your-authors",
+          "icon": "images/data_loss_prevention.png",
+          "title": "Know your authors",
+          "body": "Better know who your authors, co-authors, and reviewers are and improve the integrity of your submission, review, and reporting processes."
+        },
+        {
+          "id": "portable-profile-data",
+          "icon": "images/laptop_windows.png",
+          "title": "Portable profile data",
+          "body": "Easily share data between your record and funding, publications, data repositories, and other research workflows."
+        }
+      ]
+    },
+    {
+      "id": "vendors-service-providers",
+      "label": "Vendors & Service Providers",
+      "background": "images/kaya_background.png",
+      "intro": "Vendors and service providers that connect their services to the ORCID Registry join our ecosystem of over 5,000 ORCID-integrated systems. Providing this service increases the value they provide to the scholarly community with authoritative, high-quality profile data. [Learn more about ORCID for Vendors and Service Providers.](https://info.orcid.org/vendors-and-service-providers/)",
+      "features": [
+        {
+          "id": "increase-roi",
+          "icon": "images/query_stats.png",
+          "title": "Increase ROI",
+          "body": "Increase the ROI of your platform and create better insights for the organizations you work with."
+        },
+        {
+          "id": "improve-discoverability",
+          "icon": "images/visibility.png",
+          "title": "Improve discoverability",
+          "body": "Increase the value you provide to the scholarly community with authoritative, high-quality profile data."
+        }
+      ]
+    },
+    {
+      "id": "government-policy-makers",
+      "label": "Government & Policy Makers",
+      "background": "images/kaya_background.png",
+      "intro": "ORCID integrated systems reduce administrative burden for research funding agencies and major facilities that award access to resources. With less time and effort spent administering awards, they can better measure the impact of their awards. [Learn more about ORCID for Government and Policy Makers](https://info.orcid.org/orcid-for-funders-and-facilities/) .",
+      "features": [
+        {
+          "id": "know-your-researchers",
+          "icon": "images/person_check.png",
+          "title": "Know your researchers",
+          "body": "Better know who your researchers are and improve the integrity of your assessment and reporting processes."
+        },
+        {
+          "id": "align-research-strategy",
+          "icon": "images/language.png",
+          "title": "Align research strategy",
+          "body": "Better align your research, PID, or infrastructure strategy with global community standards"
+        }
+      ]
+    },
+    {
+      "id": "funders-facilities",
+      "label": "Funders & Facilities",
+      "background": "images/kaya_background.png",
+      "intro": "ORCID integrated systems reduce administrative burden for research funding agencies and major facilities that award access to resources. With less time and effort spent administering awards, they can better measure the impact of their awards. [Learn more about ORCID for Funders](https://info.orcid.org/orcid-for-funders-and-facilities/).",
+      "features": [
+        {
+          "id": "know-your-researchers",
+          "icon": "images/person_check.png",
+          "title": "Know your researchers",
+          "body": "Better know who your applicants and reviewers are and improve the integrity of your submission, review, and reporting processes"
+        },
+        {
+          "id": "track-your-impact",
+          "icon": "images/query_stats.png",
+          "title": "Track your impact",
+          "body": "Improve your ability to track the impact of your awards and your awardees, even beyond the period of performance."
+        }
+      ]
+    }
+  ],
+  "featuredNews": {
+    "kicker": "FEATURED NEWS",
+    "title": "Researchers: Learn What Your ORCID Record Can Do For You",
+    "body": "Managing your research across different systems, institutions, and stages of your career can be exhausting. ORCID is here for you—across your career, disciplines, and borders—helping researchers maintain a trusted, connected research identity and leaving them with more time for research. Once you make verified connections with institutions you trust and work with, you can allow them to add data about you. You can also use your ID to sign into other systems, autofill forms, and sync your data across platforms. [Watch this short video to learn more about what your ORCID record can do for you](https://www.youtube.com/watch?v=1rZvFGLe7bg).",
+    "vimeoId": "1198760040"
+  },
+  "integrate": {
+    "title": "Integrate with ORCID for a Stronger, more Robust Research Ecosystem",
+    "paragraphs": [
+      {
+        "id": "hub",
+        "body": "From employment affiliations, research outputs, funding, peer review activity, research resources, and more, ORCID connects people with their research activities. [Discover ORCID’s workflows and integrations](https://info.orcid.org/documentation/)."
+      },
+      {
+        "id": "certified-service-providers",
+        "body": "Find ORCID-enabled scholarly service providers, including Grant/Facility Application Management Systems, Manuscript Submission Systems, Repository Systems, Research Information Systems, and Discovery Systems. [View our full list of certified CSPs](https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/)."
+      },
+      {
+        "id": "getting-started",
+        "body": "Getting started with ORCID is easier than it might seem. [Read our ORCID for Researchers page](https://info.orcid.org/researchers/) to learn answers to common questions and [register for an ORCID record today](https://orcid.org/signin)."
+      }
+    ]
+  }
+}

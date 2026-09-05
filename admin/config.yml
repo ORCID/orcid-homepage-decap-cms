@@ -1,0 +1,159 @@
+# Decap CMS configuration for the ORCID homepage.
+#
+# The backend is `test-repo`: the editor runs entirely in the visitor's browser
+# against a seeded copy of content/home.en.json, and nothing is written to this
+# repository by the CMS itself. Publishing hands the change to GitHub as an
+# issue, which a workflow turns into a pull request. That is deliberate. It
+# means the editor needs no login and holds no credentials, while every change
+# still arrives signed in by a GitHub account and reviewed before it is merged.
+#
+# See boot.js for the seeding and the hand-off, and README.md for the flow.
+backend:
+  name: test-repo
+
+site_url: https://orcid.github.io/orcid-homepage-decap-cms/qa/
+display_url: https://orcid.github.io/orcid-homepage-decap-cms/qa/
+logo_url: https://orcid.org/assets/vectors/orcid.logo.icon.svg
+
+media_folder: content/images
+public_folder: images
+
+# The media library is read-only in this demo: images are seeded from the live
+# site and new uploads cannot travel in a proposal.
+media_library:
+  name: default
+
+collections:
+  - name: homepage
+    label: Homepage
+    label_singular: Homepage
+    description: >-
+      The content of orcid.org. Edit the English text here. Translations are
+      handled separately and are matched to each item by its ID, so changing an
+      ID discards that item's translations.
+    format: json
+    files:
+      - name: home
+        label: Homepage content
+        file: content/home.en.json
+        fields:
+          - name: schemaVersion
+            label: Schema version
+            widget: hidden
+            default: 1
+
+          - name: hero
+            label: Hero
+            widget: object
+            fields:
+              - name: title
+                label: Heading
+                widget: string
+                hint: The first line on the page.
+
+          - name: audiences
+            label: Audience tabs
+            label_singular: Audience
+            widget: list
+            min: 1
+            max: 8
+            collapsed: true
+            summary: '{{fields.label}}'
+            fields:
+              - name: id
+                label: ID
+                widget: string
+                pattern:
+                  ['^[a-z0-9-]+$', 'Lowercase letters, digits and hyphens only']
+                hint: >-
+                  Permanent translation key. Changing it discards every
+                  translation of this tab.
+              - name: label
+                label: Tab label
+                widget: string
+              - name: background
+                label: Background image
+                widget: image
+                allow_multiple: false
+                choose_url: false
+              - name: intro
+                label: Introduction
+                widget: text
+                hint: >-
+                  One paragraph. **bold** and [text](https://…) links are
+                  supported; nothing else is.
+              - name: features
+                label: Features
+                label_singular: Feature
+                widget: list
+                min: 2
+                max: 2
+                collapsed: true
+                summary: '{{fields.title}}'
+                fields:
+                  - name: id
+                    label: ID
+                    widget: string
+                    pattern:
+                      [
+                        '^[a-z0-9-]+$',
+                        'Lowercase letters, digits and hyphens only',
+                      ]
+                  - name: icon
+                    label: Icon
+                    widget: image
+                    allow_multiple: false
+                    choose_url: false
+                  - name: title
+                    label: Title
+                    widget: string
+                  - name: body
+                    label: Text
+                    widget: text
+
+          - name: featuredNews
+            label: Featured news
+            widget: object
+            fields:
+              - name: kicker
+                label: Kicker
+                widget: string
+              - name: title
+                label: Heading
+                widget: string
+              - name: body
+                label: Text
+                widget: text
+              - name: vimeoId
+                label: Vimeo video ID
+                widget: string
+                pattern: ['^[0-9]+$', 'Digits only, for example 1198760040']
+                hint: Only the numeric ID from the Vimeo URL.
+
+          - name: integrate
+            label: Closing section
+            widget: object
+            fields:
+              - name: title
+                label: Heading
+                widget: string
+              - name: paragraphs
+                label: Paragraphs
+                label_singular: Paragraph
+                widget: list
+                min: 1
+                max: 5
+                collapsed: true
+                summary: '{{fields.id}}'
+                fields:
+                  - name: id
+                    label: ID
+                    widget: string
+                    pattern:
+                      [
+                        '^[a-z0-9-]+$',
+                        'Lowercase letters, digits and hyphens only',
+                      ]
+                  - name: body
+                    label: Text
+                    widget: text
