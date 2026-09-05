@@ -1,159 +1,294 @@
 {
-  "schemaVersion": 1,
-  "hero": {
-    "title": "ORCID هو ل…"
+  "schemaVersion": 2,
+  "catalogueVersion": 1,
+  "page": {
+    "title": "ORCID هو ل…",
+    "description": "ORCID provides a free, unique, persistent identifier that distinguishes you from every other researcher and connects you with your contributions."
   },
-  "audiences": [
+  "sections": [
     {
-      "id": "researchers",
-      "label": "الباحثين",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "ORCID هو مُعرِّفٌ فريدٌ ودائمٌ ومجانيٌّ يُمكِّنُ الأفرادَ من استخدامه أثناءَ مشاركتهم في أنشطة البحث والمنح الدراسية والابتكار. تَعَلَّم كيف ORCID يمكن أن يساعدك على قضاء المزيد من الوقت في إجراء البحث ووقت أقل في إدارته. [لمعرفة المزيد عن ORCID للباحثين.](https://info.orcid.org/researchers)",
-      "features": [
+      "id": "who-we-serve",
+      "type": "audience-selector",
+      "variant": "tabs-photo",
+      "layout": {
+        "span": "full",
+        "spacing": "normal",
+        "tone": "brand-dark"
+      },
+      "audiences": [
         {
-          "id": "uniquely-yours",
-          "icon": "assets/account_circle-de74c17d9a.png",
-          "title": "فريد لك",
-          "body": "ميز نفسك واحصل على الفضل في عملك بغض النظر عن عدد الأشخاص الذين يحملون نفس اسمك (أو اسمًا مشابهًا). [سجل هنا.](https://orcid.org/register)"
+          "id": "researchers",
+          "label": "الباحثين",
+          "intro": "ORCID هو مُعرِّفٌ فريدٌ ودائمٌ ومجانيٌّ يُمكِّنُ الأفرادَ من استخدامه أثناءَ مشاركتهم في أنشطة البحث والمنح الدراسية والابتكار. تَعَلَّم كيف ORCID يمكن أن يساعدك على قضاء المزيد من الوقت في إجراء البحث ووقت أقل في إدارته. [لمعرفة المزيد عن ORCID للباحثين.](https://info.orcid.org/researchers)",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "uniquely-yours",
+              "title": "فريد لك",
+              "body": "ميز نفسك واحصل على الفضل في عملك بغض النظر عن عدد الأشخاص الذين يحملون نفس اسمك (أو اسمًا مشابهًا). [سجل هنا.](https://orcid.org/register)",
+              "icon": {
+                "src": "assets/account_circle-de74c17d9a.png"
+              }
+            },
+            {
+              "id": "portable-profile-data",
+              "title": "بيانات الملف الشخصي المحمولة",
+              "body": "يمكنك مشاركة البيانات بسهولة بين السجل الخاص بك والتمويل والمنشورات ومستودعات البيانات ومسارات عمل البحث الأخرى.",
+              "icon": {
+                "src": "assets/laptop_windows-a774fe5378.png"
+              }
+            }
+          ]
         },
         {
-          "id": "portable-profile-data",
-          "icon": "assets/laptop_windows-a774fe5378.png",
-          "title": "بيانات الملف الشخصي المحمولة",
-          "body": "يمكنك مشاركة البيانات بسهولة بين السجل الخاص بك والتمويل والمنشورات ومستودعات البيانات ومسارات عمل البحث الأخرى."
+          "id": "universities-research-institutes",
+          "label": "الجامعات والمعاهد البحثية",
+          "intro": "ORCID يتيح للجامعات ومؤسسات البحث البقاء على اطلاع دائم بمخرجات باحثيها، وتقليل العبء الإداري وأخطاء الإدخال، ويساعد باحثيها وطلاب ما بعد الدكتوراه وموظفيها وطلابها على تحسين إمكانية اكتشاف أعمالهم. [لمعرفة المزيد عن ORCID للجامعات ومؤسسات البحث العلمي.](https://info.orcid.org/orcid-for-universities-and-research-institutions/)",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "support-research-productivity",
+              "title": "دعم الإنتاجية البحثية",
+              "body": "اسمح للباحثين بقضاء المزيد من الوقت في أبحاثهم عن طريق تقليل العبء الإداري",
+              "icon": {
+                "src": "assets/biotech-d88f0eca52.png"
+              }
+            },
+            {
+              "id": "track-careers",
+              "title": "تتبع الوظائف",
+              "body": "تتبع الحياة المهنية للباحثين والخريجين بعد مغادرتهم مؤسستك وكذلك المتعاونين والأقران في المؤسسات الأخرى.",
+              "icon": {
+                "src": "assets/school-c6c8b41dec.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "publishers",
+          "label": "الناشرين",
+          "intro": "الناشرون الذين يتكاملون مع ORCID يمكن تبسيط سير العمل للمؤلفين والمحررين والمراجعين على حد سواء. ORCID يعمل على تحسين القيمة الإجمالية للكتب والمجلات بالنسبة للمجتمع، مما يساعد على ضمان حصول الناشرين على قدر أكبر من الاحتفاظ بالمؤلفين والقراء. [لمعرفة المزيد عن ORCID للناشرين.](https://info.orcid.org/orcid-for-publishers/)",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "know-your-authors",
+              "title": "تعرف على مؤلفيك",
+              "body": "تعرف بشكل أفضل على مؤلفيك، والمؤلفين المشاركين، والمراجعين، وقم بتحسين سلامة عمليات التقديم والمراجعة وإعداد التقارير.",
+              "icon": {
+                "src": "assets/data_loss_prevention-38e990a14b.png"
+              }
+            },
+            {
+              "id": "portable-profile-data",
+              "title": "بيانات الملف الشخصي المحمولة",
+              "body": "يمكنك مشاركة البيانات بسهولة بين السجل الخاص بك والتمويل والمنشورات ومستودعات البيانات ومسارات عمل البحث الأخرى.",
+              "icon": {
+                "src": "assets/laptop_windows-a774fe5378.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "vendors-service-providers",
+          "label": "البائعين ومقدمي الخدمات",
+          "intro": "البائعون ومقدمو الخدمات الذين يربطون خدماتهم بـ ORCID سجل للانضمام إلى نظامنا البيئي الذي يضم أكثر من 5,000 ORCIDالأنظمة المتكاملة. يُعزز تقديم هذه الخدمة القيمة التي تقدمها للمجتمع الأكاديمي من خلال بيانات ملف تعريفي موثوقة وعالية الجودة. [لمعرفة المزيد عن ORCID للبائعين ومقدمي الخدمات.](https://info.orcid.org/vendors-and-service-providers/)",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "increase-roi",
+              "title": "زيادة العائد على الاستثمار",
+              "body": "يمكنك زيادة عائد الاستثمار لمنصتك وإنشاء رؤى أفضل للمؤسسات التي تعمل معها.",
+              "icon": {
+                "src": "assets/query_stats-6378deb876.png"
+              }
+            },
+            {
+              "id": "improve-discoverability",
+              "title": "تحسين قابلية الاكتشاف",
+              "body": "قم بزيادة القيمة التي تقدمها للمجتمع العلمي من خلال بيانات الملف الشخصي الموثوقة وعالية الجودة.",
+              "icon": {
+                "src": "assets/visibility-17e367a28a.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "government-policy-makers",
+          "label": "الحكومة وصناع السياسات",
+          "intro": "ORCID تُخفف الأنظمة المتكاملة العبء الإداري على جهات تمويل الأبحاث والمؤسسات البحثية الكبرى التي تُمنح حق الوصول إلى الموارد. ومع تقليل الوقت والجهد المبذولين في إدارة الجوائز، يُمكنها قياس أثرها بشكل أفضل. [لمعرفة المزيد عن ORCID للحكومة وصانعي السياسات](https://info.orcid.org/orcid-for-funders-and-facilities/) .",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "know-your-researchers",
+              "title": "تعرف على الباحثين الخاص بك",
+              "body": "تعرف بشكل أفضل على الباحثين لديك وحسّن نزاهة عمليات التقييم وإعداد التقارير.",
+              "icon": {
+                "src": "assets/person_check-7860cac6f4.png"
+              }
+            },
+            {
+              "id": "align-research-strategy",
+              "title": "مواءمة استراتيجية البحث",
+              "body": "قم بمواءمة بحثك أو PID أو إستراتيجية البنية التحتية بشكل أفضل مع معايير المجتمع العالمية",
+              "icon": {
+                "src": "assets/language-c7d2849081.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "funders-facilities",
+          "label": "الممولين والمرافق",
+          "intro": "ORCID تُخفف الأنظمة المتكاملة العبء الإداري على جهات تمويل الأبحاث والمؤسسات البحثية الكبرى التي تُمنح حق الوصول إلى الموارد. ومع تقليل الوقت والجهد المبذولين في إدارة الجوائز، يُمكنها قياس أثرها بشكل أفضل. [لمعرفة المزيد عن ORCID للممولين](https://info.orcid.org/orcid-for-funders-and-facilities/).",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "know-your-researchers",
+              "title": "تعرف على الباحثين الخاص بك",
+              "body": "تعرف بشكل أفضل على من هم مقدمو الطلبات والمراجعون لديك، وقم بتحسين نزاهة عمليات التقديم والمراجعة وإعداد التقارير",
+              "icon": {
+                "src": "assets/person_check-7860cac6f4.png"
+              }
+            },
+            {
+              "id": "track-your-impact",
+              "title": "تتبع تأثيرك",
+              "body": "قم بتحسين قدرتك على تتبع تأثير الجوائز الخاصة بك والحائزين عليها، حتى بعد فترة الأداء.",
+              "icon": {
+                "src": "assets/query_stats-6378deb876.png"
+              }
+            }
+          ]
         }
       ]
     },
     {
-      "id": "universities-research-institutes",
-      "label": "الجامعات والمعاهد البحثية",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "ORCID يتيح للجامعات ومؤسسات البحث البقاء على اطلاع دائم بمخرجات باحثيها، وتقليل العبء الإداري وأخطاء الإدخال، ويساعد باحثيها وطلاب ما بعد الدكتوراه وموظفيها وطلابها على تحسين إمكانية اكتشاف أعمالهم. [لمعرفة المزيد عن ORCID للجامعات ومؤسسات البحث العلمي.](https://info.orcid.org/orcid-for-universities-and-research-institutions/)",
-      "features": [
+      "id": "quick-links",
+      "type": "quick-links",
+      "variant": "bar",
+      "layout": {
+        "span": "full",
+        "spacing": "compact",
+        "tone": "brand-tint"
+      },
+      "title": "Get started with ORCID",
+      "titleHidden": true,
+      "links": [
         {
-          "id": "support-research-productivity",
-          "icon": "assets/biotech-d88f0eca52.png",
-          "title": "دعم الإنتاجية البحثية",
-          "body": "اسمح للباحثين بقضاء المزيد من الوقت في أبحاثهم عن طريق تقليل العبء الإداري"
+          "id": "get-my-orcid-id",
+          "label": "Get my ORCID iD and record",
+          "href": "https://orcid.org/signin"
         },
         {
-          "id": "track-careers",
-          "icon": "assets/school-c6c8b41dec.png",
-          "title": "تتبع الوظائف",
-          "body": "تتبع الحياة المهنية للباحثين والخريجين بعد مغادرتهم مؤسستك وكذلك المتعاونين والأقران في المؤسسات الأخرى."
+          "id": "troubleshoot",
+          "label": "Troubleshoot my record",
+          "href": "https://support.orcid.org/hc/en-us/"
+        },
+        {
+          "id": "member-benefits",
+          "label": "Discover our member benefits",
+          "href": "https://info.orcid.org/membership/"
+        },
+        {
+          "id": "adopt-orcid",
+          "label": "Adopt ORCID at my institution",
+          "href": "https://info.orcid.org/documentation/api-tutorials/api-tutorial-read-data-on-a-record/"
+        },
+        {
+          "id": "orcid-apis",
+          "label": "Get data from ORCID’s APIs",
+          "href": "https://info.orcid.org/documentation/api-tutorials/api-tutorial-read-data-on-a-record/"
+        },
+        {
+          "id": "certified-service-providers",
+          "label": "Find out about Certified Service Providers",
+          "href": "https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/"
         }
       ]
     },
     {
-      "id": "publishers",
-      "label": "الناشرين",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "الناشرون الذين يتكاملون مع ORCID يمكن تبسيط سير العمل للمؤلفين والمحررين والمراجعين على حد سواء. ORCID يعمل على تحسين القيمة الإجمالية للكتب والمجلات بالنسبة للمجتمع، مما يساعد على ضمان حصول الناشرين على قدر أكبر من الاحتفاظ بالمؤلفين والقراء. [لمعرفة المزيد عن ORCID للناشرين.](https://info.orcid.org/orcid-for-publishers/)",
-      "features": [
+      "id": "featured-news",
+      "type": "media",
+      "variant": "media-end",
+      "layout": {
+        "span": "full",
+        "spacing": "normal",
+        "tone": "default"
+      },
+      "kicker": "أخبار مميزة",
+      "title": "الباحثون: تعرفوا على ما يخصكم ORCID التسجيل يمكن أن يقوم به من أجلك",
+      "body": "قد يكون إدارة بحثك عبر أنظمة ومؤسسات ومراحل مختلفة من حياتك المهنية أمرًا مرهقًا. ORCID نحن هنا لخدمتكم - في جميع مراحل مسيرتكم المهنية، وتخصصاتكم، وعبر مختلف الحدود - لمساعدة الباحثين على الحفاظ على هوية بحثية موثوقة ومتصلة، مما يتيح لهم مزيدًا من الوقت للبحث. بمجرد إنشاء روابط موثقة مع المؤسسات التي تثقون بها وتتعاونون معها، يمكنكم السماح لها بإضافة بيانات عنكم. كما يمكنكم استخدام هويتكم لتسجيل الدخول إلى أنظمة أخرى، وملء النماذج تلقائيًا، ومزامنة بياناتكم عبر مختلف المنصات. [شاهد هذا الفيديو القصير لمعرفة المزيد حول ما يخصك ORCID التسجيل يمكن أن يفعل لك](https://www.youtube.com/watch?v=1rZvFGLe7bg).",
+      "mediaKind": "image",
+      "image": {
+        "src": "assets/video_still-f9f67add45.jpg",
+        "alt": "A researcher sits at a desk beside a monitor showing the ORCID iD logo, with papers, books and plants around her.",
+        "focalPoint": "center"
+      }
+    },
+    {
+      "id": "integrate",
+      "type": "feature-list",
+      "variant": "columns",
+      "layout": {
+        "span": "full",
+        "spacing": "normal",
+        "tone": "surface"
+      },
+      "title": "بالتكامل مع ORCID من أجل بيئة بحثية أقوى وأكثر متانة",
+      "columns": 3,
+      "items": [
         {
-          "id": "know-your-authors",
-          "icon": "assets/data_loss_prevention-38e990a14b.png",
-          "title": "تعرف على مؤلفيك",
-          "body": "تعرف بشكل أفضل على مؤلفيك، والمؤلفين المشاركين، والمراجعين، وقم بتحسين سلامة عمليات التقديم والمراجعة وإعداد التقارير."
+          "id": "hub",
+          "body": "بدءًا من الانتماءات الوظيفية، ومخرجات البحوث، والتمويل، ونشاط مراجعة الأقران، وموارد البحث، وغير ذلك، ORCID يربط الناس بأنشطتهم البحثية. [اكتشف ORCIDسير العمل والتكاملات الخاصة بـ](https://info.orcid.org/documentation/)."
         },
         {
-          "id": "portable-profile-data",
-          "icon": "assets/laptop_windows-a774fe5378.png",
-          "title": "بيانات الملف الشخصي المحمولة",
-          "body": "يمكنك مشاركة البيانات بسهولة بين السجل الخاص بك والتمويل والمنشورات ومستودعات البيانات ومسارات عمل البحث الأخرى."
+          "id": "certified-service-providers",
+          "body": "ORCIDمقدمو الخدمات الأكاديمية الممكّنون، بما في ذلك أنظمة إدارة طلبات المنح/المرافق، وأنظمة تقديم المخطوطات، وأنظمة المستودعات، وأنظمة معلومات البحث، وأنظمة الاكتشاف. [اطلع على قائمتنا الكاملة لمزودي خدمات الاتصالات المعتمدين](https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/)."
+        },
+        {
+          "id": "getting-started",
+          "body": "بدء مع ORCID الأمر أسهل مما قد يبدو. [اقرأ ORCID صفحة الباحثين](https://info.orcid.org/researchers/) لتعلم إجابات الأسئلة الشائعة و [سجل للحصول على ORCID رقم قياسي اليوم](https://orcid.org/signin)."
         }
       ]
     },
     {
-      "id": "vendors-service-providers",
-      "label": "البائعين ومقدمي الخدمات",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "البائعون ومقدمو الخدمات الذين يربطون خدماتهم بـ ORCID سجل للانضمام إلى نظامنا البيئي الذي يضم أكثر من 5,000 ORCIDالأنظمة المتكاملة. يُعزز تقديم هذه الخدمة القيمة التي تقدمها للمجتمع الأكاديمي من خلال بيانات ملف تعريفي موثوقة وعالية الجودة. [لمعرفة المزيد عن ORCID للبائعين ومقدمي الخدمات.](https://info.orcid.org/vendors-and-service-providers/)",
-      "features": [
-        {
-          "id": "increase-roi",
-          "icon": "assets/query_stats-6378deb876.png",
-          "title": "زيادة العائد على الاستثمار",
-          "body": "يمكنك زيادة عائد الاستثمار لمنصتك وإنشاء رؤى أفضل للمؤسسات التي تعمل معها."
-        },
-        {
-          "id": "improve-discoverability",
-          "icon": "assets/visibility-17e367a28a.png",
-          "title": "تحسين قابلية الاكتشاف",
-          "body": "قم بزيادة القيمة التي تقدمها للمجتمع العلمي من خلال بيانات الملف الشخصي الموثوقة وعالية الجودة."
-        }
-      ]
-    },
-    {
-      "id": "government-policy-makers",
-      "label": "الحكومة وصناع السياسات",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "ORCID تُخفف الأنظمة المتكاملة العبء الإداري على جهات تمويل الأبحاث والمؤسسات البحثية الكبرى التي تُمنح حق الوصول إلى الموارد. ومع تقليل الوقت والجهد المبذولين في إدارة الجوائز، يُمكنها قياس أثرها بشكل أفضل. [لمعرفة المزيد عن ORCID للحكومة وصانعي السياسات](https://info.orcid.org/orcid-for-funders-and-facilities/) .",
-      "features": [
-        {
-          "id": "know-your-researchers",
-          "icon": "assets/person_check-7860cac6f4.png",
-          "title": "تعرف على الباحثين الخاص بك",
-          "body": "تعرف بشكل أفضل على الباحثين لديك وحسّن نزاهة عمليات التقييم وإعداد التقارير."
-        },
-        {
-          "id": "align-research-strategy",
-          "icon": "assets/language-c7d2849081.png",
-          "title": "مواءمة استراتيجية البحث",
-          "body": "قم بمواءمة بحثك أو PID أو إستراتيجية البنية التحتية بشكل أفضل مع معايير المجتمع العالمية"
-        }
-      ]
-    },
-    {
-      "id": "funders-facilities",
-      "label": "الممولين والمرافق",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "ORCID تُخفف الأنظمة المتكاملة العبء الإداري على جهات تمويل الأبحاث والمؤسسات البحثية الكبرى التي تُمنح حق الوصول إلى الموارد. ومع تقليل الوقت والجهد المبذولين في إدارة الجوائز، يُمكنها قياس أثرها بشكل أفضل. [لمعرفة المزيد عن ORCID للممولين](https://info.orcid.org/orcid-for-funders-and-facilities/).",
-      "features": [
-        {
-          "id": "know-your-researchers",
-          "icon": "assets/person_check-7860cac6f4.png",
-          "title": "تعرف على الباحثين الخاص بك",
-          "body": "تعرف بشكل أفضل على من هم مقدمو الطلبات والمراجعون لديك، وقم بتحسين نزاهة عمليات التقديم والمراجعة وإعداد التقارير"
-        },
-        {
-          "id": "track-your-impact",
-          "icon": "assets/query_stats-6378deb876.png",
-          "title": "تتبع تأثيرك",
-          "body": "قم بتحسين قدرتك على تتبع تأثير الجوائز الخاصة بك والحائزين عليها، حتى بعد فترة الأداء."
-        }
-      ]
+      "id": "latest-news",
+      "type": "news-feed",
+      "variant": "grid",
+      "layout": {
+        "span": "full",
+        "spacing": "normal",
+        "tone": "default"
+      },
+      "title": "Latest news",
+      "source": "orcid-blog",
+      "maxItems": 3
     }
   ],
-  "featuredNews": {
-    "kicker": "أخبار مميزة",
-    "title": "الباحثون: تعرفوا على ما يخصكم ORCID التسجيل يمكن أن يقوم به من أجلك",
-    "body": "قد يكون إدارة بحثك عبر أنظمة ومؤسسات ومراحل مختلفة من حياتك المهنية أمرًا مرهقًا. ORCID نحن هنا لخدمتكم - في جميع مراحل مسيرتكم المهنية، وتخصصاتكم، وعبر مختلف الحدود - لمساعدة الباحثين على الحفاظ على هوية بحثية موثوقة ومتصلة، مما يتيح لهم مزيدًا من الوقت للبحث. بمجرد إنشاء روابط موثقة مع المؤسسات التي تثقون بها وتتعاونون معها، يمكنكم السماح لها بإضافة بيانات عنكم. كما يمكنكم استخدام هويتكم لتسجيل الدخول إلى أنظمة أخرى، وملء النماذج تلقائيًا، ومزامنة بياناتكم عبر مختلف المنصات. [شاهد هذا الفيديو القصير لمعرفة المزيد حول ما يخصك ORCID التسجيل يمكن أن يفعل لك](https://www.youtube.com/watch?v=1rZvFGLe7bg).",
-    "vimeoId": "1198760040"
-  },
-  "integrate": {
-    "title": "بالتكامل مع ORCID من أجل بيئة بحثية أقوى وأكثر متانة",
-    "paragraphs": [
-      {
-        "id": "hub",
-        "body": "بدءًا من الانتماءات الوظيفية، ومخرجات البحوث، والتمويل، ونشاط مراجعة الأقران، وموارد البحث، وغير ذلك، ORCID يربط الناس بأنشطتهم البحثية. [اكتشف ORCIDسير العمل والتكاملات الخاصة بـ](https://info.orcid.org/documentation/)."
-      },
-      {
-        "id": "certified-service-providers",
-        "body": "ORCIDمقدمو الخدمات الأكاديمية الممكّنون، بما في ذلك أنظمة إدارة طلبات المنح/المرافق، وأنظمة تقديم المخطوطات، وأنظمة المستودعات، وأنظمة معلومات البحث، وأنظمة الاكتشاف. [اطلع على قائمتنا الكاملة لمزودي خدمات الاتصالات المعتمدين](https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/)."
-      },
-      {
-        "id": "getting-started",
-        "body": "بدء مع ORCID الأمر أسهل مما قد يبدو. [اقرأ ORCID صفحة الباحثين](https://info.orcid.org/researchers/) لتعلم إجابات الأسئلة الشائعة و [سجل للحصول على ORCID رقم قياسي اليوم](https://orcid.org/signin)."
-      }
-    ]
-  },
   "meta": {
     "locale": "ar",
-    "version": "qa-99b5f59",
-    "commit": "99b5f59",
-    "generatedAt": "2026-09-05T18:42:34.309Z",
+    "version": "qa-246fede",
+    "commit": "246fede",
+    "generatedAt": "2026-09-05T22:03:31.209Z",
     "translated": 44,
-    "total": 44
+    "total": 54
   }
 }

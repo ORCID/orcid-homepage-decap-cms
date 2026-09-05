@@ -1,159 +1,294 @@
 {
-  "schemaVersion": 1,
-  "hero": {
-    "title": "ORCID 입니다 ..."
+  "schemaVersion": 2,
+  "catalogueVersion": 1,
+  "page": {
+    "title": "ORCID 입니다 ...",
+    "description": "ORCID provides a free, unique, persistent identifier that distinguishes you from every other researcher and connects you with your contributions."
   },
-  "audiences": [
+  "sections": [
     {
-      "id": "researchers",
-      "label": "연구원",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "ORCID 개인이 연구, 장학금 및 혁신 활동에 참여할 때 사용할 수 있는 무료 고유 영구 식별자(PID)입니다. 자세히 알아보세요. ORCID 연구를 수행하는 데 더 많은 시간을 할애하고 연구를 관리하는 데 드는 시간을 줄이는 데 도움이 될 수 있습니다. [전단지에 포함된 링크에 대해 더 알아보기 ORCID 연구자들을 위한 자료입니다.](https://info.orcid.org/researchers)",
-      "features": [
+      "id": "who-we-serve",
+      "type": "audience-selector",
+      "variant": "tabs-photo",
+      "layout": {
+        "span": "full",
+        "spacing": "normal",
+        "tone": "brand-dark"
+      },
+      "audiences": [
         {
-          "id": "uniquely-yours",
-          "icon": "assets/account_circle-de74c17d9a.png",
-          "title": "독특하게 너의 것",
-          "body": "얼마나 많은 사람들이 당신과 같은(또는 유사한) 이름을 가지고 있든 상관없이 자신을 구별하고 작업에 대한 공로를 주장하세요. [여기 가입하십시오.](https://orcid.org/register)"
+          "id": "researchers",
+          "label": "연구원",
+          "intro": "ORCID 개인이 연구, 장학금 및 혁신 활동에 참여할 때 사용할 수 있는 무료 고유 영구 식별자(PID)입니다. 자세히 알아보세요. ORCID 연구를 수행하는 데 더 많은 시간을 할애하고 연구를 관리하는 데 드는 시간을 줄이는 데 도움이 될 수 있습니다. [전단지에 포함된 링크에 대해 더 알아보기 ORCID 연구자들을 위한 자료입니다.](https://info.orcid.org/researchers)",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "uniquely-yours",
+              "title": "독특하게 너의 것",
+              "body": "얼마나 많은 사람들이 당신과 같은(또는 유사한) 이름을 가지고 있든 상관없이 자신을 구별하고 작업에 대한 공로를 주장하세요. [여기 가입하십시오.](https://orcid.org/register)",
+              "icon": {
+                "src": "assets/account_circle-de74c17d9a.png"
+              }
+            },
+            {
+              "id": "portable-profile-data",
+              "title": "휴대용 프로필 데이터",
+              "body": "기록과 자금 지원, 출판물, 데이터 저장소 및 기타 연구 워크플로 간에 데이터를 쉽게 공유할 수 있습니다.",
+              "icon": {
+                "src": "assets/laptop_windows-a774fe5378.png"
+              }
+            }
+          ]
         },
         {
-          "id": "portable-profile-data",
-          "icon": "assets/laptop_windows-a774fe5378.png",
-          "title": "휴대용 프로필 데이터",
-          "body": "기록과 자금 지원, 출판물, 데이터 저장소 및 기타 연구 워크플로 간에 데이터를 쉽게 공유할 수 있습니다."
+          "id": "universities-research-institutes",
+          "label": "대학 및 연구소",
+          "intro": "ORCID 대학과 연구 기관이 연구자들의 결과물에 대한 최신 정보를 얻고, 행정적 부담과 입력 오류를 줄일 수 있으며, 연구자, 박사후 연구원, 직원, 학생이 자신의 연구를 더 쉽게 검색할 수 있도록 돕습니다. [전단지에 포함된 링크에 대해 더 알아보기 ORCID 대학교 및 연구기관용.](https://info.orcid.org/orcid-for-universities-and-research-institutions/)",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "support-research-productivity",
+              "title": "연구 생산성 지원",
+              "body": "관리 부담을 줄여 연구자들이 연구에 더 많은 시간을 할애할 수 있도록 하세요",
+              "icon": {
+                "src": "assets/biotech-d88f0eca52.png"
+              }
+            },
+            {
+              "id": "track-careers",
+              "title": "경력 추적",
+              "body": "연구원과 졸업생이 귀하의 기관을 떠난 후 경력은 물론 다른 기관의 공동 작업자 및 동료를 추적합니다.",
+              "icon": {
+                "src": "assets/school-c6c8b41dec.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "publishers",
+          "label": "퍼블리셔",
+          "intro": "통합하는 게시자 ORCID 저자, 편집자, 검토자 모두의 작업 흐름을 간소화할 수 있습니다. ORCID 지역 사회에서 도서와 저널의 전반적인 가치를 향상시켜, 출판사가 저자와 독자를 더 잘 유지할 수 있도록 돕습니다. [전단지에 포함된 링크에 대해 더 알아보기 ORCID 출판사 여러분께.](https://info.orcid.org/orcid-for-publishers/)",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "know-your-authors",
+              "title": "당신의 저자를 알아라",
+              "body": "저자, 공동 저자 및 검토자가 누구인지 더 잘 파악하고 제출, 검토 및 보고 프로세스의 무결성을 개선하세요.",
+              "icon": {
+                "src": "assets/data_loss_prevention-38e990a14b.png"
+              }
+            },
+            {
+              "id": "portable-profile-data",
+              "title": "휴대용 프로필 데이터",
+              "body": "기록과 자금 지원, 출판물, 데이터 저장소 및 기타 연구 워크플로 간에 데이터를 쉽게 공유할 수 있습니다.",
+              "icon": {
+                "src": "assets/laptop_windows-a774fe5378.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "vendors-service-providers",
+          "label": "공급업체 및 서비스 제공업체",
+          "intro": "자사 서비스를 연결하는 공급업체 및 서비스 제공업체 ORCID 레지스트리는 5,000개 이상의 생태계에 가입합니다. ORCID-통합 시스템. 이 서비스를 제공함으로써 권위 있고 고품질의 프로필 데이터를 통해 학술 커뮤니티에 제공하는 가치가 향상됩니다. [전단지에 포함된 링크에 대해 더 알아보기 ORCID 벤더 및 서비스 제공업체를 위한 정보입니다.](https://info.orcid.org/vendors-and-service-providers/)",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "increase-roi",
+              "title": "ROI 증대",
+              "body": "플랫폼의 ROI를 높이고 함께 일하는 조직에 대한 더 나은 통찰력을 창출하십시오.",
+              "icon": {
+                "src": "assets/query_stats-6378deb876.png"
+              }
+            },
+            {
+              "id": "improve-discoverability",
+              "title": "검색 가능성 향상",
+              "body": "권위 있는 고품질 프로필 데이터를 통해 학술 커뮤니티에 제공하는 가치를 높이세요.",
+              "icon": {
+                "src": "assets/visibility-17e367a28a.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "government-policy-makers",
+          "label": "정부 및 정책 입안자",
+          "intro": "ORCID 통합 시스템은 연구비 지원 기관과 자원 접근 권한을 부여하는 주요 기관의 행정 부담을 줄여줍니다. 지원금 관리에 소요되는 시간과 노력을 절감함으로써 지원금의 효과를 더욱 정확하게 측정할 수 있습니다. [전단지에 포함된 링크에 대해 더 알아보기 ORCID 정부 및 정책 입안자를 위한](https://info.orcid.org/orcid-for-funders-and-facilities/) .",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "know-your-researchers",
+              "title": "연구원을 알아보세요",
+              "body": "연구자가 누구인지 더 잘 파악하고 평가 및 보고 프로세스의 무결성을 개선하세요.",
+              "icon": {
+                "src": "assets/person_check-7860cac6f4.png"
+              }
+            },
+            {
+              "id": "align-research-strategy",
+              "title": "연구 전략 정렬",
+              "body": "연구, PID 또는 인프라 전략을 글로벌 커뮤니티 표준에 맞게 조정하세요.",
+              "icon": {
+                "src": "assets/language-c7d2849081.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "funders-facilities",
+          "label": "자금 제공자 및 시설",
+          "intro": "ORCID 통합 시스템은 연구비 지원 기관과 자원 접근 권한을 부여하는 주요 기관의 행정 부담을 줄여줍니다. 지원금 관리에 소요되는 시간과 노력을 절감함으로써 지원금의 효과를 더욱 정확하게 측정할 수 있습니다. [전단지에 포함된 링크에 대해 더 알아보기 ORCID 자금 제공자를 위한](https://info.orcid.org/orcid-for-funders-and-facilities/).",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "know-your-researchers",
+              "title": "연구원을 알아보세요",
+              "body": "지원자와 검토자가 누구인지 더 잘 파악하고 제출, 검토 및 보고 프로세스의 무결성을 개선하세요.",
+              "icon": {
+                "src": "assets/person_check-7860cac6f4.png"
+              }
+            },
+            {
+              "id": "track-your-impact",
+              "title": "영향을 추적하세요",
+              "body": "성과 기간 이후에도 수상 및 수상자의 영향을 추적하는 능력을 향상시키십시오.",
+              "icon": {
+                "src": "assets/query_stats-6378deb876.png"
+              }
+            }
+          ]
         }
       ]
     },
     {
-      "id": "universities-research-institutes",
-      "label": "대학 및 연구소",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "ORCID 대학과 연구 기관이 연구자들의 결과물에 대한 최신 정보를 얻고, 행정적 부담과 입력 오류를 줄일 수 있으며, 연구자, 박사후 연구원, 직원, 학생이 자신의 연구를 더 쉽게 검색할 수 있도록 돕습니다. [전단지에 포함된 링크에 대해 더 알아보기 ORCID 대학교 및 연구기관용.](https://info.orcid.org/orcid-for-universities-and-research-institutions/)",
-      "features": [
+      "id": "quick-links",
+      "type": "quick-links",
+      "variant": "bar",
+      "layout": {
+        "span": "full",
+        "spacing": "compact",
+        "tone": "brand-tint"
+      },
+      "title": "Get started with ORCID",
+      "titleHidden": true,
+      "links": [
         {
-          "id": "support-research-productivity",
-          "icon": "assets/biotech-d88f0eca52.png",
-          "title": "연구 생산성 지원",
-          "body": "관리 부담을 줄여 연구자들이 연구에 더 많은 시간을 할애할 수 있도록 하세요"
+          "id": "get-my-orcid-id",
+          "label": "Get my ORCID iD and record",
+          "href": "https://orcid.org/signin"
         },
         {
-          "id": "track-careers",
-          "icon": "assets/school-c6c8b41dec.png",
-          "title": "경력 추적",
-          "body": "연구원과 졸업생이 귀하의 기관을 떠난 후 경력은 물론 다른 기관의 공동 작업자 및 동료를 추적합니다."
+          "id": "troubleshoot",
+          "label": "Troubleshoot my record",
+          "href": "https://support.orcid.org/hc/en-us/"
+        },
+        {
+          "id": "member-benefits",
+          "label": "Discover our member benefits",
+          "href": "https://info.orcid.org/membership/"
+        },
+        {
+          "id": "adopt-orcid",
+          "label": "Adopt ORCID at my institution",
+          "href": "https://info.orcid.org/documentation/api-tutorials/api-tutorial-read-data-on-a-record/"
+        },
+        {
+          "id": "orcid-apis",
+          "label": "Get data from ORCID’s APIs",
+          "href": "https://info.orcid.org/documentation/api-tutorials/api-tutorial-read-data-on-a-record/"
+        },
+        {
+          "id": "certified-service-providers",
+          "label": "Find out about Certified Service Providers",
+          "href": "https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/"
         }
       ]
     },
     {
-      "id": "publishers",
-      "label": "퍼블리셔",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "통합하는 게시자 ORCID 저자, 편집자, 검토자 모두의 작업 흐름을 간소화할 수 있습니다. ORCID 지역 사회에서 도서와 저널의 전반적인 가치를 향상시켜, 출판사가 저자와 독자를 더 잘 유지할 수 있도록 돕습니다. [전단지에 포함된 링크에 대해 더 알아보기 ORCID 출판사 여러분께.](https://info.orcid.org/orcid-for-publishers/)",
-      "features": [
+      "id": "featured-news",
+      "type": "media",
+      "variant": "media-end",
+      "layout": {
+        "span": "full",
+        "spacing": "normal",
+        "tone": "default"
+      },
+      "kicker": "주요 뉴스",
+      "title": "연구자 여러분: 여러분이 무엇을 배우고 있는지 알아보세요 ORCID Record Can Do For You",
+      "body": "다양한 시스템, 기관, 그리고 경력 단계에 걸쳐 연구를 관리하는 것은 매우 힘든 일일 수 있습니다. ORCID 는 여러분의 경력, 학문 분야, 그리고 국경을 넘어 연구자들이 신뢰할 수 있고 연결된 연구자 신원을 유지하고 연구에 더 많은 시간을 투자할 수 있도록 지원합니다. 신뢰하고 협력하는 기관과 인증된 연결을 맺으면 해당 기관에서 여러분에 대한 데이터를 추가할 수 있도록 허용할 수 있습니다. 또한, 여러분의 ID를 사용하여 다른 시스템에 로그인하고, 양식을 자동 완성하고, 플랫폼 간에 데이터를 동기화할 수 있습니다. [이 짧은 영상을 시청하여 귀하의 정보에 대해 자세히 알아보세요. ORCID 레코드가 당신을 위해 할 수 있는 일](https://www.youtube.com/watch?v=1rZvFGLe7bg).",
+      "mediaKind": "image",
+      "image": {
+        "src": "assets/video_still-f9f67add45.jpg",
+        "alt": "A researcher sits at a desk beside a monitor showing the ORCID iD logo, with papers, books and plants around her.",
+        "focalPoint": "center"
+      }
+    },
+    {
+      "id": "integrate",
+      "type": "feature-list",
+      "variant": "columns",
+      "layout": {
+        "span": "full",
+        "spacing": "normal",
+        "tone": "surface"
+      },
+      "title": "통합 ORCID 더욱 강력하고 견고한 연구 생태계를 위해",
+      "columns": 3,
+      "items": [
         {
-          "id": "know-your-authors",
-          "icon": "assets/data_loss_prevention-38e990a14b.png",
-          "title": "당신의 저자를 알아라",
-          "body": "저자, 공동 저자 및 검토자가 누구인지 더 잘 파악하고 제출, 검토 및 보고 프로세스의 무결성을 개선하세요."
+          "id": "hub",
+          "body": "고용 관계, 연구 성과, 자금 지원, 동료 평가 활동, 연구 자료 등 다양한 측면에서, ORCID 연구 활동과 사람들을 연결해 줍니다. [발견하다 ORCID워크플로 및 통합](https://info.orcid.org/documentation/)."
         },
         {
-          "id": "portable-profile-data",
-          "icon": "assets/laptop_windows-a774fe5378.png",
-          "title": "휴대용 프로필 데이터",
-          "body": "기록과 자금 지원, 출판물, 데이터 저장소 및 기타 연구 워크플로 간에 데이터를 쉽게 공유할 수 있습니다."
+          "id": "certified-service-providers",
+          "body": "Find ORCID- 연구비/시설 신청 관리 시스템, 원고 제출 시스템, 저장소 시스템, 연구 정보 시스템 및 검색 시스템을 포함한 학술 서비스 제공업체를 지원합니다. [인증된 CSP 전체 목록을 확인하세요.](https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/)."
+        },
+        {
+          "id": "getting-started",
+          "body": "시작하기 ORCID 생각보다 쉽습니다. [우리의 읽기 ORCID 연구자용 페이지](https://info.orcid.org/researchers/) 자주 묻는 질문에 대한 답을 알아보려면 [등록하다 ORCID 오늘 기록](https://orcid.org/signin)."
         }
       ]
     },
     {
-      "id": "vendors-service-providers",
-      "label": "공급업체 및 서비스 제공업체",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "자사 서비스를 연결하는 공급업체 및 서비스 제공업체 ORCID 레지스트리는 5,000개 이상의 생태계에 가입합니다. ORCID-통합 시스템. 이 서비스를 제공함으로써 권위 있고 고품질의 프로필 데이터를 통해 학술 커뮤니티에 제공하는 가치가 향상됩니다. [전단지에 포함된 링크에 대해 더 알아보기 ORCID 벤더 및 서비스 제공업체를 위한 정보입니다.](https://info.orcid.org/vendors-and-service-providers/)",
-      "features": [
-        {
-          "id": "increase-roi",
-          "icon": "assets/query_stats-6378deb876.png",
-          "title": "ROI 증대",
-          "body": "플랫폼의 ROI를 높이고 함께 일하는 조직에 대한 더 나은 통찰력을 창출하십시오."
-        },
-        {
-          "id": "improve-discoverability",
-          "icon": "assets/visibility-17e367a28a.png",
-          "title": "검색 가능성 향상",
-          "body": "권위 있는 고품질 프로필 데이터를 통해 학술 커뮤니티에 제공하는 가치를 높이세요."
-        }
-      ]
-    },
-    {
-      "id": "government-policy-makers",
-      "label": "정부 및 정책 입안자",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "ORCID 통합 시스템은 연구비 지원 기관과 자원 접근 권한을 부여하는 주요 기관의 행정 부담을 줄여줍니다. 지원금 관리에 소요되는 시간과 노력을 절감함으로써 지원금의 효과를 더욱 정확하게 측정할 수 있습니다. [전단지에 포함된 링크에 대해 더 알아보기 ORCID 정부 및 정책 입안자를 위한](https://info.orcid.org/orcid-for-funders-and-facilities/) .",
-      "features": [
-        {
-          "id": "know-your-researchers",
-          "icon": "assets/person_check-7860cac6f4.png",
-          "title": "연구원을 알아보세요",
-          "body": "연구자가 누구인지 더 잘 파악하고 평가 및 보고 프로세스의 무결성을 개선하세요."
-        },
-        {
-          "id": "align-research-strategy",
-          "icon": "assets/language-c7d2849081.png",
-          "title": "연구 전략 정렬",
-          "body": "연구, PID 또는 인프라 전략을 글로벌 커뮤니티 표준에 맞게 조정하세요."
-        }
-      ]
-    },
-    {
-      "id": "funders-facilities",
-      "label": "자금 제공자 및 시설",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "ORCID 통합 시스템은 연구비 지원 기관과 자원 접근 권한을 부여하는 주요 기관의 행정 부담을 줄여줍니다. 지원금 관리에 소요되는 시간과 노력을 절감함으로써 지원금의 효과를 더욱 정확하게 측정할 수 있습니다. [전단지에 포함된 링크에 대해 더 알아보기 ORCID 자금 제공자를 위한](https://info.orcid.org/orcid-for-funders-and-facilities/).",
-      "features": [
-        {
-          "id": "know-your-researchers",
-          "icon": "assets/person_check-7860cac6f4.png",
-          "title": "연구원을 알아보세요",
-          "body": "지원자와 검토자가 누구인지 더 잘 파악하고 제출, 검토 및 보고 프로세스의 무결성을 개선하세요."
-        },
-        {
-          "id": "track-your-impact",
-          "icon": "assets/query_stats-6378deb876.png",
-          "title": "영향을 추적하세요",
-          "body": "성과 기간 이후에도 수상 및 수상자의 영향을 추적하는 능력을 향상시키십시오."
-        }
-      ]
+      "id": "latest-news",
+      "type": "news-feed",
+      "variant": "grid",
+      "layout": {
+        "span": "full",
+        "spacing": "normal",
+        "tone": "default"
+      },
+      "title": "Latest news",
+      "source": "orcid-blog",
+      "maxItems": 3
     }
   ],
-  "featuredNews": {
-    "kicker": "주요 뉴스",
-    "title": "연구자 여러분: 여러분이 무엇을 배우고 있는지 알아보세요 ORCID Record Can Do For You",
-    "body": "다양한 시스템, 기관, 그리고 경력 단계에 걸쳐 연구를 관리하는 것은 매우 힘든 일일 수 있습니다. ORCID 는 여러분의 경력, 학문 분야, 그리고 국경을 넘어 연구자들이 신뢰할 수 있고 연결된 연구자 신원을 유지하고 연구에 더 많은 시간을 투자할 수 있도록 지원합니다. 신뢰하고 협력하는 기관과 인증된 연결을 맺으면 해당 기관에서 여러분에 대한 데이터를 추가할 수 있도록 허용할 수 있습니다. 또한, 여러분의 ID를 사용하여 다른 시스템에 로그인하고, 양식을 자동 완성하고, 플랫폼 간에 데이터를 동기화할 수 있습니다. [이 짧은 영상을 시청하여 귀하의 정보에 대해 자세히 알아보세요. ORCID 레코드가 당신을 위해 할 수 있는 일](https://www.youtube.com/watch?v=1rZvFGLe7bg).",
-    "vimeoId": "1198760040"
-  },
-  "integrate": {
-    "title": "통합 ORCID 더욱 강력하고 견고한 연구 생태계를 위해",
-    "paragraphs": [
-      {
-        "id": "hub",
-        "body": "고용 관계, 연구 성과, 자금 지원, 동료 평가 활동, 연구 자료 등 다양한 측면에서, ORCID 연구 활동과 사람들을 연결해 줍니다. [발견하다 ORCID워크플로 및 통합](https://info.orcid.org/documentation/)."
-      },
-      {
-        "id": "certified-service-providers",
-        "body": "Find ORCID- 연구비/시설 신청 관리 시스템, 원고 제출 시스템, 저장소 시스템, 연구 정보 시스템 및 검색 시스템을 포함한 학술 서비스 제공업체를 지원합니다. [인증된 CSP 전체 목록을 확인하세요.](https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/)."
-      },
-      {
-        "id": "getting-started",
-        "body": "시작하기 ORCID 생각보다 쉽습니다. [우리의 읽기 ORCID 연구자용 페이지](https://info.orcid.org/researchers/) 자주 묻는 질문에 대한 답을 알아보려면 [등록하다 ORCID 오늘 기록](https://orcid.org/signin)."
-      }
-    ]
-  },
   "meta": {
     "locale": "ko",
-    "version": "qa-99b5f59",
-    "commit": "99b5f59",
-    "generatedAt": "2026-09-05T18:42:34.309Z",
+    "version": "qa-246fede",
+    "commit": "246fede",
+    "generatedAt": "2026-09-05T22:03:31.209Z",
     "translated": 44,
-    "total": 44
+    "total": 54
   }
 }

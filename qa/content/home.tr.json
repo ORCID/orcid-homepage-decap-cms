@@ -1,159 +1,294 @@
 {
-  "schemaVersion": 1,
-  "hero": {
-    "title": "ORCID için…"
+  "schemaVersion": 2,
+  "catalogueVersion": 1,
+  "page": {
+    "title": "ORCID için…",
+    "description": "ORCID provides a free, unique, persistent identifier that distinguishes you from every other researcher and connects you with your contributions."
   },
-  "audiences": [
+  "sections": [
     {
-      "id": "researchers",
-      "label": "Araştırmacılar",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "ORCID bireylerin araştırma, akademik çalışma ve inovasyon faaliyetlerine katılırken kullanabilecekleri ücretsiz, benzersiz ve kalıcı bir tanımlayıcıdır (PID). Nasıl olduğunu öğrenin ORCID araştırmanızı yürütmek için daha fazla ve onu yönetmek için daha az zaman harcamanıza yardımcı olabilir. [Hakkında daha fazla bilgi alın ORCID Araştırmacılar için.](https://info.orcid.org/researchers)",
-      "features": [
+      "id": "who-we-serve",
+      "type": "audience-selector",
+      "variant": "tabs-photo",
+      "layout": {
+        "span": "full",
+        "spacing": "normal",
+        "tone": "brand-dark"
+      },
+      "audiences": [
         {
-          "id": "uniquely-yours",
-          "icon": "assets/account_circle-de74c17d9a.png",
-          "title": "Eşsiz Sizin",
-          "body": "Sizinle aynı (veya benzer) ada sahip kaç kişi olursa olsun, kendinizi öne çıkarın ve çalışmanız için itibar talep edin. [Buradan kayıt olun.](https://orcid.org/register)"
+          "id": "researchers",
+          "label": "Araştırmacılar",
+          "intro": "ORCID bireylerin araştırma, akademik çalışma ve inovasyon faaliyetlerine katılırken kullanabilecekleri ücretsiz, benzersiz ve kalıcı bir tanımlayıcıdır (PID). Nasıl olduğunu öğrenin ORCID araştırmanızı yürütmek için daha fazla ve onu yönetmek için daha az zaman harcamanıza yardımcı olabilir. [Hakkında daha fazla bilgi alın ORCID Araştırmacılar için.](https://info.orcid.org/researchers)",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "uniquely-yours",
+              "title": "Eşsiz Sizin",
+              "body": "Sizinle aynı (veya benzer) ada sahip kaç kişi olursa olsun, kendinizi öne çıkarın ve çalışmanız için itibar talep edin. [Buradan kayıt olun.](https://orcid.org/register)",
+              "icon": {
+                "src": "assets/account_circle-de74c17d9a.png"
+              }
+            },
+            {
+              "id": "portable-profile-data",
+              "title": "Taşınabilir profil verileri",
+              "body": "Kaydınız ve finansmanınız, yayınlarınız, veri havuzlarınız ve diğer araştırma iş akışlarınız arasında verileri kolayca paylaşın.",
+              "icon": {
+                "src": "assets/laptop_windows-a774fe5378.png"
+              }
+            }
+          ]
         },
         {
-          "id": "portable-profile-data",
-          "icon": "assets/laptop_windows-a774fe5378.png",
-          "title": "Taşınabilir profil verileri",
-          "body": "Kaydınız ve finansmanınız, yayınlarınız, veri havuzlarınız ve diğer araştırma iş akışlarınız arasında verileri kolayca paylaşın."
+          "id": "universities-research-institutes",
+          "label": "Üniversiteler ve Araştırma Enstitüleri",
+          "intro": "ORCID Üniversitelerin ve araştırma kurumlarının araştırmacılarının çıktılarını güncel tutmalarına, idari yükü ve girdi hatalarını azaltmalarına ve araştırmacılarının, doktora sonrası araştırmacılarının, çalışanlarının ve öğrencilerinin çalışmalarının keşfedilebilirliğini artırmalarına yardımcı olur. [Hakkında daha fazla bilgi alın ORCID Üniversiteler ve Araştırma Kurumları için.](https://info.orcid.org/orcid-for-universities-and-research-institutions/)",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "support-research-productivity",
+              "title": "Araştırma üretkenliğini destekleyin",
+              "body": "İdari yükü azaltarak araştırmacılarınızın araştırmalarına daha fazla zaman ayırmasını sağlayın",
+              "icon": {
+                "src": "assets/biotech-d88f0eca52.png"
+              }
+            },
+            {
+              "id": "track-careers",
+              "title": "Kariyerleri Takip Edin",
+              "body": "Araştırmacıların ve mezunların, kurumunuzdan ayrıldıktan sonra, diğer kurumlardaki işbirlikçileri ve akranlarının kariyerlerini takip edin.",
+              "icon": {
+                "src": "assets/school-c6c8b41dec.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "publishers",
+          "label": "Yayıncılar",
+          "intro": "Entegre yayıncılar ORCID yazarlar, editörler ve hakemler için iş akışlarını kolaylaştırabilir. ORCID Kitapların ve dergilerin toplum için genel değerini artırır, yayıncıların yazarları ve okuyucuları daha iyi elde etmelerine yardımcı olur. [Hakkında daha fazla bilgi alın ORCID Yayıncılar için.](https://info.orcid.org/orcid-for-publishers/)",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "know-your-authors",
+              "title": "Yazarlarınızı tanıyın",
+              "body": "Yazarlarınızın, ortak yazarlarınızın ve hakemlerinizin kim olduğunu daha iyi öğrenin ve gönderim, inceleme ve raporlama süreçlerinizin bütünlüğünü geliştirin.",
+              "icon": {
+                "src": "assets/data_loss_prevention-38e990a14b.png"
+              }
+            },
+            {
+              "id": "portable-profile-data",
+              "title": "Taşınabilir profil verileri",
+              "body": "Kaydınız ve finansmanınız, yayınlarınız, veri havuzlarınız ve diğer araştırma iş akışlarınız arasında verileri kolayca paylaşın.",
+              "icon": {
+                "src": "assets/laptop_windows-a774fe5378.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "vendors-service-providers",
+          "label": "Satıcılar ve Hizmet Sağlayıcılar",
+          "intro": "Hizmetlerini internete bağlayan satıcılar ve hizmet sağlayıcılar ORCID Kayıt olun, 5,000'den fazla üyemizin bulunduğu ekosistemimize katılın ORCID-Entegre sistemler. Bu hizmetin sağlanması, güvenilir ve yüksek kaliteli profil verileriyle akademik camiaya sağladıkları değeri artırır. [Hakkında daha fazla bilgi alın ORCID Satıcılar ve Hizmet Sağlayıcılar için.](https://info.orcid.org/vendors-and-service-providers/)",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "increase-roi",
+              "title": "Yatırım Getirisini Artırın",
+              "body": "Platformunuzun yatırım getirisini artırın ve birlikte çalıştığınız kuruluşlar için daha iyi öngörüler oluşturun.",
+              "icon": {
+                "src": "assets/query_stats-6378deb876.png"
+              }
+            },
+            {
+              "id": "improve-discoverability",
+              "title": "Keşfedilebilirliği iyileştirin",
+              "body": "Güvenilir, yüksek kaliteli profil verileriyle akademik topluluğa sağladığınız değeri artırın.",
+              "icon": {
+                "src": "assets/visibility-17e367a28a.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "government-policy-makers",
+          "label": "Hükümet ve Politika Yapıcılar",
+          "intro": "ORCID Entegre sistemler, araştırma fonu kuruluşları ve kaynaklara erişim sağlayan büyük kuruluşlar için idari yükü azaltır. Ödüllerin yönetimine daha az zaman ve emek harcandığından, ödüllerin etkisini daha iyi ölçebilirler. [Hakkında daha fazla bilgi alın ORCID Hükümet ve Politika Yapıcılar için](https://info.orcid.org/orcid-for-funders-and-facilities/) .",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "know-your-researchers",
+              "title": "Araştırmacılarınızı tanıyın",
+              "body": "Araştırmacılarınızın kim olduğunu daha iyi tanıyın ve değerlendirme ve raporlama süreçlerinizin bütünlüğünü iyileştirin.",
+              "icon": {
+                "src": "assets/person_check-7860cac6f4.png"
+              }
+            },
+            {
+              "id": "align-research-strategy",
+              "title": "Araştırma stratejisini uyumlu hale getirin",
+              "body": "Araştırmanızı, PID'nizi veya altyapı stratejinizi küresel topluluk standartlarıyla daha iyi hizalayın",
+              "icon": {
+                "src": "assets/language-c7d2849081.png"
+              }
+            }
+          ]
+        },
+        {
+          "id": "funders-facilities",
+          "label": "Fon Sağlayıcılar ve Tesisler",
+          "intro": "ORCID Entegre sistemler, araştırma fonu kuruluşları ve kaynaklara erişim sağlayan büyük kuruluşlar için idari yükü azaltır. Ödüllerin yönetimine daha az zaman ve emek harcandığından, ödüllerin etkisini daha iyi ölçebilirler. [Hakkında daha fazla bilgi alın ORCID Fon Sağlayıcılar için](https://info.orcid.org/orcid-for-funders-and-facilities/).",
+          "background": {
+            "src": "assets/kaya_background-8976686500.png",
+            "focalPoint": "center"
+          },
+          "features": [
+            {
+              "id": "know-your-researchers",
+              "title": "Araştırmacılarınızı tanıyın",
+              "body": "Başvuranlarınızın ve hakemlerinizin kim olduğunu daha iyi öğrenin ve gönderim, inceleme ve raporlama süreçlerinizin bütünlüğünü iyileştirin",
+              "icon": {
+                "src": "assets/person_check-7860cac6f4.png"
+              }
+            },
+            {
+              "id": "track-your-impact",
+              "title": "Etkinizi takip edin",
+              "body": "Performans döneminin ötesinde bile ödüllerinizin ve ödül alanların etkisini takip etme yeteneğinizi geliştirin.",
+              "icon": {
+                "src": "assets/query_stats-6378deb876.png"
+              }
+            }
+          ]
         }
       ]
     },
     {
-      "id": "universities-research-institutes",
-      "label": "Üniversiteler ve Araştırma Enstitüleri",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "ORCID Üniversitelerin ve araştırma kurumlarının araştırmacılarının çıktılarını güncel tutmalarına, idari yükü ve girdi hatalarını azaltmalarına ve araştırmacılarının, doktora sonrası araştırmacılarının, çalışanlarının ve öğrencilerinin çalışmalarının keşfedilebilirliğini artırmalarına yardımcı olur. [Hakkında daha fazla bilgi alın ORCID Üniversiteler ve Araştırma Kurumları için.](https://info.orcid.org/orcid-for-universities-and-research-institutions/)",
-      "features": [
+      "id": "quick-links",
+      "type": "quick-links",
+      "variant": "bar",
+      "layout": {
+        "span": "full",
+        "spacing": "compact",
+        "tone": "brand-tint"
+      },
+      "title": "Get started with ORCID",
+      "titleHidden": true,
+      "links": [
         {
-          "id": "support-research-productivity",
-          "icon": "assets/biotech-d88f0eca52.png",
-          "title": "Araştırma üretkenliğini destekleyin",
-          "body": "İdari yükü azaltarak araştırmacılarınızın araştırmalarına daha fazla zaman ayırmasını sağlayın"
+          "id": "get-my-orcid-id",
+          "label": "Get my ORCID iD and record",
+          "href": "https://orcid.org/signin"
         },
         {
-          "id": "track-careers",
-          "icon": "assets/school-c6c8b41dec.png",
-          "title": "Kariyerleri Takip Edin",
-          "body": "Araştırmacıların ve mezunların, kurumunuzdan ayrıldıktan sonra, diğer kurumlardaki işbirlikçileri ve akranlarının kariyerlerini takip edin."
+          "id": "troubleshoot",
+          "label": "Troubleshoot my record",
+          "href": "https://support.orcid.org/hc/en-us/"
+        },
+        {
+          "id": "member-benefits",
+          "label": "Discover our member benefits",
+          "href": "https://info.orcid.org/membership/"
+        },
+        {
+          "id": "adopt-orcid",
+          "label": "Adopt ORCID at my institution",
+          "href": "https://info.orcid.org/documentation/api-tutorials/api-tutorial-read-data-on-a-record/"
+        },
+        {
+          "id": "orcid-apis",
+          "label": "Get data from ORCID’s APIs",
+          "href": "https://info.orcid.org/documentation/api-tutorials/api-tutorial-read-data-on-a-record/"
+        },
+        {
+          "id": "certified-service-providers",
+          "label": "Find out about Certified Service Providers",
+          "href": "https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/"
         }
       ]
     },
     {
-      "id": "publishers",
-      "label": "Yayıncılar",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "Entegre yayıncılar ORCID yazarlar, editörler ve hakemler için iş akışlarını kolaylaştırabilir. ORCID Kitapların ve dergilerin toplum için genel değerini artırır, yayıncıların yazarları ve okuyucuları daha iyi elde etmelerine yardımcı olur. [Hakkında daha fazla bilgi alın ORCID Yayıncılar için.](https://info.orcid.org/orcid-for-publishers/)",
-      "features": [
+      "id": "featured-news",
+      "type": "media",
+      "variant": "media-end",
+      "layout": {
+        "span": "full",
+        "spacing": "normal",
+        "tone": "default"
+      },
+      "kicker": "ÖNE ÇIKAN HABERLER",
+      "title": "Araştırmacılar: Ne tür çalışmalarınız olduğunu öğrenin. ORCID Record Sizin İçin Neler Yapabilir?",
+      "body": "Araştırmalarınızı farklı sistemler, kurumlar ve kariyer aşamaları genelinde yönetmek yorucu olabilir. ORCID Kariyeriniz, disiplinleriniz ve sınırlarınız boyunca size destek olmak için buradayız; araştırmacıların güvenilir ve bağlantılı bir araştırma kimliği sürdürmelerine ve araştırmaya daha fazla zaman ayırmalarına yardımcı oluyoruz. Güvendiğiniz ve birlikte çalıştığınız kurumlarla doğrulanmış bağlantılar kurduktan sonra, sizin hakkınızda veri eklemelerine izin verebilirsiniz. Ayrıca kimliğinizi diğer sistemlere giriş yapmak, formları otomatik doldurmak ve verilerinizi platformlar arasında senkronize etmek için de kullanabilirsiniz. [Bu kısa videoyu izleyerek, çocuğunuz hakkında daha fazla bilgi edinebilirsiniz. ORCID Kayıt sizin için şunları yapabilir](https://www.youtube.com/watch?v=1rZvFGLe7bg).",
+      "mediaKind": "image",
+      "image": {
+        "src": "assets/video_still-f9f67add45.jpg",
+        "alt": "A researcher sits at a desk beside a monitor showing the ORCID iD logo, with papers, books and plants around her.",
+        "focalPoint": "center"
+      }
+    },
+    {
+      "id": "integrate",
+      "type": "feature-list",
+      "variant": "columns",
+      "layout": {
+        "span": "full",
+        "spacing": "normal",
+        "tone": "surface"
+      },
+      "title": "İle bütünleşmek ORCID Daha güçlü ve sağlam bir araştırma ekosistemi için",
+      "columns": 3,
+      "items": [
         {
-          "id": "know-your-authors",
-          "icon": "assets/data_loss_prevention-38e990a14b.png",
-          "title": "Yazarlarınızı tanıyın",
-          "body": "Yazarlarınızın, ortak yazarlarınızın ve hakemlerinizin kim olduğunu daha iyi öğrenin ve gönderim, inceleme ve raporlama süreçlerinizin bütünlüğünü geliştirin."
+          "id": "hub",
+          "body": "İş bağlantıları, araştırma çıktıları, fonlama, hakem değerlendirme faaliyetleri, araştırma kaynakları ve daha fazlası dahil olmak üzere, ORCID İnsanları araştırma faaliyetleriyle buluşturur. [Keşfet ORCID'nin iş akışları ve entegrasyonları](https://info.orcid.org/documentation/)."
         },
         {
-          "id": "portable-profile-data",
-          "icon": "assets/laptop_windows-a774fe5378.png",
-          "title": "Taşınabilir profil verileri",
-          "body": "Kaydınız ve finansmanınız, yayınlarınız, veri havuzlarınız ve diğer araştırma iş akışlarınız arasında verileri kolayca paylaşın."
+          "id": "certified-service-providers",
+          "body": "bulmak ORCID-Burs/Tesis Başvuru Yönetim Sistemleri, Makale Gönderim Sistemleri, Depo Sistemleri, Araştırma Bilgi Sistemleri ve Keşif Sistemleri de dahil olmak üzere, bilimsel hizmet sağlayıcılarını destekler. [Sertifikalı CSP'lerimizin tam listesini görüntüleyin.](https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/)."
+        },
+        {
+          "id": "getting-started",
+          "body": "Birlikte başlamak ORCID Göründüğünden daha kolaydır. [Bizim okuyun ORCID Araştırmacılar için sayfa](https://info.orcid.org/researchers/) Sık sorulan soruların cevaplarını öğrenmek için ve [kayıt olmak ORCID bugün rekor](https://orcid.org/signin)."
         }
       ]
     },
     {
-      "id": "vendors-service-providers",
-      "label": "Satıcılar ve Hizmet Sağlayıcılar",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "Hizmetlerini internete bağlayan satıcılar ve hizmet sağlayıcılar ORCID Kayıt olun, 5,000'den fazla üyemizin bulunduğu ekosistemimize katılın ORCID-Entegre sistemler. Bu hizmetin sağlanması, güvenilir ve yüksek kaliteli profil verileriyle akademik camiaya sağladıkları değeri artırır. [Hakkında daha fazla bilgi alın ORCID Satıcılar ve Hizmet Sağlayıcılar için.](https://info.orcid.org/vendors-and-service-providers/)",
-      "features": [
-        {
-          "id": "increase-roi",
-          "icon": "assets/query_stats-6378deb876.png",
-          "title": "Yatırım Getirisini Artırın",
-          "body": "Platformunuzun yatırım getirisini artırın ve birlikte çalıştığınız kuruluşlar için daha iyi öngörüler oluşturun."
-        },
-        {
-          "id": "improve-discoverability",
-          "icon": "assets/visibility-17e367a28a.png",
-          "title": "Keşfedilebilirliği iyileştirin",
-          "body": "Güvenilir, yüksek kaliteli profil verileriyle akademik topluluğa sağladığınız değeri artırın."
-        }
-      ]
-    },
-    {
-      "id": "government-policy-makers",
-      "label": "Hükümet ve Politika Yapıcılar",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "ORCID Entegre sistemler, araştırma fonu kuruluşları ve kaynaklara erişim sağlayan büyük kuruluşlar için idari yükü azaltır. Ödüllerin yönetimine daha az zaman ve emek harcandığından, ödüllerin etkisini daha iyi ölçebilirler. [Hakkında daha fazla bilgi alın ORCID Hükümet ve Politika Yapıcılar için](https://info.orcid.org/orcid-for-funders-and-facilities/) .",
-      "features": [
-        {
-          "id": "know-your-researchers",
-          "icon": "assets/person_check-7860cac6f4.png",
-          "title": "Araştırmacılarınızı tanıyın",
-          "body": "Araştırmacılarınızın kim olduğunu daha iyi tanıyın ve değerlendirme ve raporlama süreçlerinizin bütünlüğünü iyileştirin."
-        },
-        {
-          "id": "align-research-strategy",
-          "icon": "assets/language-c7d2849081.png",
-          "title": "Araştırma stratejisini uyumlu hale getirin",
-          "body": "Araştırmanızı, PID'nizi veya altyapı stratejinizi küresel topluluk standartlarıyla daha iyi hizalayın"
-        }
-      ]
-    },
-    {
-      "id": "funders-facilities",
-      "label": "Fon Sağlayıcılar ve Tesisler",
-      "background": "assets/kaya_background-8976686500.png",
-      "intro": "ORCID Entegre sistemler, araştırma fonu kuruluşları ve kaynaklara erişim sağlayan büyük kuruluşlar için idari yükü azaltır. Ödüllerin yönetimine daha az zaman ve emek harcandığından, ödüllerin etkisini daha iyi ölçebilirler. [Hakkında daha fazla bilgi alın ORCID Fon Sağlayıcılar için](https://info.orcid.org/orcid-for-funders-and-facilities/).",
-      "features": [
-        {
-          "id": "know-your-researchers",
-          "icon": "assets/person_check-7860cac6f4.png",
-          "title": "Araştırmacılarınızı tanıyın",
-          "body": "Başvuranlarınızın ve hakemlerinizin kim olduğunu daha iyi öğrenin ve gönderim, inceleme ve raporlama süreçlerinizin bütünlüğünü iyileştirin"
-        },
-        {
-          "id": "track-your-impact",
-          "icon": "assets/query_stats-6378deb876.png",
-          "title": "Etkinizi takip edin",
-          "body": "Performans döneminin ötesinde bile ödüllerinizin ve ödül alanların etkisini takip etme yeteneğinizi geliştirin."
-        }
-      ]
+      "id": "latest-news",
+      "type": "news-feed",
+      "variant": "grid",
+      "layout": {
+        "span": "full",
+        "spacing": "normal",
+        "tone": "default"
+      },
+      "title": "Latest news",
+      "source": "orcid-blog",
+      "maxItems": 3
     }
   ],
-  "featuredNews": {
-    "kicker": "ÖNE ÇIKAN HABERLER",
-    "title": "Araştırmacılar: Ne tür çalışmalarınız olduğunu öğrenin. ORCID Record Sizin İçin Neler Yapabilir?",
-    "body": "Araştırmalarınızı farklı sistemler, kurumlar ve kariyer aşamaları genelinde yönetmek yorucu olabilir. ORCID Kariyeriniz, disiplinleriniz ve sınırlarınız boyunca size destek olmak için buradayız; araştırmacıların güvenilir ve bağlantılı bir araştırma kimliği sürdürmelerine ve araştırmaya daha fazla zaman ayırmalarına yardımcı oluyoruz. Güvendiğiniz ve birlikte çalıştığınız kurumlarla doğrulanmış bağlantılar kurduktan sonra, sizin hakkınızda veri eklemelerine izin verebilirsiniz. Ayrıca kimliğinizi diğer sistemlere giriş yapmak, formları otomatik doldurmak ve verilerinizi platformlar arasında senkronize etmek için de kullanabilirsiniz. [Bu kısa videoyu izleyerek, çocuğunuz hakkında daha fazla bilgi edinebilirsiniz. ORCID Kayıt sizin için şunları yapabilir](https://www.youtube.com/watch?v=1rZvFGLe7bg).",
-    "vimeoId": "1198760040"
-  },
-  "integrate": {
-    "title": "İle bütünleşmek ORCID Daha güçlü ve sağlam bir araştırma ekosistemi için",
-    "paragraphs": [
-      {
-        "id": "hub",
-        "body": "İş bağlantıları, araştırma çıktıları, fonlama, hakem değerlendirme faaliyetleri, araştırma kaynakları ve daha fazlası dahil olmak üzere, ORCID İnsanları araştırma faaliyetleriyle buluşturur. [Keşfet ORCID'nin iş akışları ve entegrasyonları](https://info.orcid.org/documentation/)."
-      },
-      {
-        "id": "certified-service-providers",
-        "body": "bulmak ORCID-Burs/Tesis Başvuru Yönetim Sistemleri, Makale Gönderim Sistemleri, Depo Sistemleri, Araştırma Bilgi Sistemleri ve Keşif Sistemleri de dahil olmak üzere, bilimsel hizmet sağlayıcılarını destekler. [Sertifikalı CSP'lerimizin tam listesini görüntüleyin.](https://info.orcid.org/vendors-and-service-providers/orcid-certified-service-providers-list/)."
-      },
-      {
-        "id": "getting-started",
-        "body": "Birlikte başlamak ORCID Göründüğünden daha kolaydır. [Bizim okuyun ORCID Araştırmacılar için sayfa](https://info.orcid.org/researchers/) Sık sorulan soruların cevaplarını öğrenmek için ve [kayıt olmak ORCID bugün rekor](https://orcid.org/signin)."
-      }
-    ]
-  },
   "meta": {
     "locale": "tr",
-    "version": "qa-99b5f59",
-    "commit": "99b5f59",
-    "generatedAt": "2026-09-05T18:42:34.309Z",
+    "version": "qa-246fede",
+    "commit": "246fede",
+    "generatedAt": "2026-09-05T22:03:31.209Z",
     "translated": 44,
-    "total": 44
+    "total": 54
   }
 }
