@@ -181,7 +181,10 @@ async function versionAdminScripts(adminOut, version) {
     await writeFile(full, text)
   }
 
-  await rewrite('index.html', [['./boot.js', `./boot.js?v=${stamp}`]])
+  await rewrite('index.html', [
+    ['./boot.js', `./boot.js?v=${stamp}`],
+    ['./config.yml', `./config.yml?v=${stamp}`],
+  ])
   await rewrite('boot.js', [
     ["'./merge-patch.js'", `'./merge-patch.js?v=${stamp}'`],
     ["'./preview.js'", `'./preview.js?v=${stamp}'`],
