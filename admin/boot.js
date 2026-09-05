@@ -16,6 +16,7 @@
  * and this page stays a plain static file with nothing to leak.
  */
 import { apply, diff } from './merge-patch.js'
+import { registerPreview } from './preview.js'
 
 const REPOSITORY = 'ORCID/orcid-homepage-decap-cms'
 const CONTENT_PATH = 'content/home.en.json'
@@ -56,6 +57,8 @@ async function seedImage(tree, name, assetUrl) {
   })
 }
 
+let publishedAssets = {}
+
 async function loadSeed() {
   const [content, assets] = await Promise.all([
     fetch('./seed/home.en.json').then((r) => r.json()),
@@ -79,6 +82,7 @@ async function loadSeed() {
   )
 
   window.repoFiles = tree
+  publishedAssets = assets
   return content
 }
 
@@ -172,6 +176,10 @@ async function main() {
   }
 
   seed = await loadSeed()
+
+  // Registered before init so the pane is in place for the first render.
+  registerPreview(publishedAssets)
+
   window.CMS.init()
 
   // Publishing offers the hand-off straight away; the button covers the case

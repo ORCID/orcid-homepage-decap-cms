@@ -32,6 +32,26 @@ not require a release of the registry.
 If your change cannot be applied, a comment on the issue says why. Edit the
 issue to fix it and the check runs again.
 
+### Seeing your change before you send it
+
+The preview beside the form is the homepage itself: the same registry front end
+that draws orcid.org, rendering your draft as you type. Nothing about the page
+is reimplemented here, so the preview cannot drift from the real thing.
+
+It needs to know where that front end is running, which is a query on the
+editor's own address:
+
+    …/admin/?renderer=http://localhost:4230/homepage-preview
+
+Without it the pane says so rather than showing something misleading. A browser
+will not embed an insecure page inside a secure one, so a front end on
+`http://localhost` needs the editor served over http too:
+
+```bash
+npm run build && npm run serve
+# then open http://localhost:8082/admin/?renderer=http://localhost:4230/homepage-preview
+```
+
 ### Why it works this way
 
 Decap CMS normally writes to GitHub directly, which needs a server holding an
@@ -91,7 +111,9 @@ npm run serve                  # serves dist/ on http://localhost:8082
 
 To point the registry front end at a local bundle, set `HOMEPAGE_CONTENT_URL` to
 `http://localhost:8082/content` in the orcid-angular environment file you are
-running, regenerate the runtime environment, and start it.
+running, regenerate the runtime environment, and start it. Its
+`/homepage-preview` route is what the editor's preview pane embeds; it renders a
+draft posted to it and fetches nothing itself.
 
 ### Layout
 

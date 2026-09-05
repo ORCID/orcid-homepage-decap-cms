@@ -11,7 +11,7 @@
  *   node scripts/build.mjs [--version v0.1.0] [--out dist] [--strict]
  */
 import { execFileSync } from 'node:child_process'
-import { cp, mkdir, readdir, rm, writeFile } from 'node:fs/promises'
+import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -138,6 +138,7 @@ async function main() {
   // published image URLs.
   const adminOut = path.join(outDir, 'admin')
   await cp(path.join(repoRoot, 'admin'), adminOut, { recursive: true })
+  await versionAdminScripts(adminOut, version)
   await mkdir(path.join(adminOut, 'seed'), { recursive: true })
   await writeFile(
     path.join(adminOut, 'seed/home.en.json'),
@@ -161,6 +162,33 @@ async function main() {
       `${rewrites.size} images fingerprinted into \`content/assets/\`.`,
     ].join('\n')
   )
+}
+
+/**
+ * Stamp the editor's own scripts with the build version.
+ *
+ * They are ES modules, and a browser caches those by URL for as long as the
+ * host says. GitHub Pages says ten minutes, so without this an editor can load
+ * a new page against last version's code, or worse, a mix of the two. A version
+ * in the query gives each build its own URLs.
+ */
+async function versionAdminScripts(adminOut, version) {
+  const stamp = encodeURIComponent(version)
+  const rewrite = async (file, replacements) => {
+    const full = path.join(adminOut, file)
+    let text = await readFile(full, 'utf8')
+    for (const [from, to] of replacements) text = text.split(from).join(to)
+    await writeFile(full, text)
+  }
+
+  await rewrite('index.html', [['./boot.js', `./boot.js?v=${stamp}`]])
+  await rewrite('boot.js', [
+    ["'./merge-patch.js'", `'./merge-patch.js?v=${stamp}'`],
+    ["'./preview.js'", `'./preview.js?v=${stamp}'`],
+  ])
+  await rewrite('preview.js', [
+    ["'./merge-patch.js'", `'./merge-patch.js?v=${stamp}'`],
+  ])
 }
 
 function indexPage(version, rows) {
